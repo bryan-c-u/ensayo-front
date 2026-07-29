@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn -q -o -DskipTests compile)",
+      "Bash(mvn -q -o -DskipTests test-compile)",
+      "Bash(tasklist //FI \"PID eq 19352\")",
+      "Bash(tasklist //FI \"PID eq 21220\")",
+      "Bash(tasklist //FI \"PID eq 18540\")",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe\" -uroot -pbryan06uran -e \"USE user_ms; SHOW TABLES; SELECT COUNT\\(*\\) as total_users FROM user_profile;\")",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe\" -uroot -pbryan06uran -e \"USE user_ms; SHOW CREATE TABLE user_role\\\\G SHOW CREATE TABLE user_profile\\\\G\")",
+      "Bash(taskkill //F //PID 19352)",
+      "Bash(taskkill //F //PID 21220)",
+      "Bash(tasklist //FI \"PID eq 2472\")",
+      "Bash(taskkill //F //PID 2472)",
+      "Bash(tasklist //FI \"PID eq 20528\")",
+      "Bash(curl -s -o /dev/null -w \"frontend /register: %{http_code}\\\\n\" http://localhost:4300/register)",
+      "Bash(curl -s -o /dev/null -w \"gateway /api/auth/register \\(debe dar 400/405, no 404\\): %{http_code}\\\\n\" -X OPTIONS http://localhost:8080/api/auth/register)",
+      "Bash(curl -s -w '\\\\nHTTP_CODE:%{http_code}\\\\n' -X POST http://localhost:8080/api/auth/register -H 'Content-Type: application/json' -d '{\"nombre\":\"Juan Perez Test\",\"email\":\"juan.test.e2e@example.com\",\"password\":\"pass123456\"}')",
+      "Bash(curl -s -v -X OPTIONS http://localhost:8080/api/auth/register -H 'Origin: http://localhost:4300' -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: Content-Type')",
+      "Bash(curl -s -v -X POST http://localhost:8080/api/auth/register -H 'Origin: http://localhost:4300' -H 'Content-Type: application/json' -d '{\"nombre\":\"Test2\",\"email\":\"juan.test.e2e.2@example.com\",\"password\":\"pass123456\"}')",
+      "Bash(taskkill //F //PID 6320)",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe\" -uroot -pbryan06uran -e \"SELECT id, email, is_active, created_at FROM auth_ms.auth_user WHERE email='maria.e2e@example.com';\")",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe\" -uroot -pbryan06uran -e \"SELECT id, email, full_name, phone, disability, is_active FROM user_ms.user_profile WHERE email='maria.e2e@example.com';\")",
+      "Bash(curl -s -o /dev/null -w \"Frontend /register: %{http_code}\\\\n\" http://localhost:4300/register)",
+      "Bash(taskkill //F //PID 5872)",
+      "Bash(curl -s -v -X POST http://localhost:8080/api/auth/register -H 'Origin: http://localhost:4300' -H 'Content-Type: application/json' -d '{\"nombre\":\"Carlos Ruiz E2E\",\"email\":\"carlos.e2e2@example.com\",\"password\":\"pass123456\"}')",
+      "Bash(curl -s -o /dev/null -w \"\\\\nfrontend /register: %{http_code}\\\\n\" http://localhost:4300/register)",
+      "Bash(npx ng *)",
+      "Bash(netstat -ano)",
+      "Bash(timeout 3 bash -c \"cat < /dev/null > /dev/tcp/127.0.0.1/3306\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"/register: %{http_code}\\\\n\" http://localhost:4300/register)",
+      "Bash(curl -s -o /dev/null -w \"/login: %{http_code}\\\\n\" http://localhost:4300/login)"
+    ]
+  }
+}

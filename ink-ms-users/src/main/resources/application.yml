@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: ink-ms-users
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_ms?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: bryan06uran
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 3003
+  error:
+    include-message: always
+    include-stacktrace: always
+    include-binding-errors: always
+
+jwt:
+  secret: inklusport2024superSecretKeyForJWTtokenGenerationWith512bitsAlgorithmHS512
+  expiration: 86400000
+
+auth:
+  service:
+    url: http://localhost:3001
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+mail:
+  host: smtp.gmail.com
+  port: 465
+  username: samularagran1408@gmail.com
+  password: brbs bgir vbrc ymlc
+  protocol: smtps
+  properties:
+    mail:
+      smtp:
+        auth: true
+        ssl:
+          enable: true
+        starttls:
+          enable: false
+        socketFactory:
+          port: 465
+          class: javax.net.ssl.SSLSocketFactory
+
+logging:
+  level:
+    com.inklusport.users: DEBUG

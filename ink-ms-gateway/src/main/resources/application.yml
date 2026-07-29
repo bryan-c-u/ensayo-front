@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: ink-ms-gateway
+
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+              - "http://localhost:4300"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # 1. Auth MS (unico microservicio activo por ahora, junto con este gateway)
+        - id: auth-ms
+          uri: http://localhost:3001
+          predicates:
+            - Path=/api/auth/**
+
+        # Rutas comentadas: sus microservicios no estan corriendo en este entorno reducido.
+        # Descomentar cada bloque cuando el MS correspondiente vuelva a estar disponible.
+
+        # 2. Users MS
+        - id: users-ms
+          uri: http://localhost:3003
+          predicates:
+             - Path=/api/users/**, /api/admin/**
+
+        # # 3. Sports MS
+        # - id: sports-ms
+        #   uri: http://localhost:3003
+        #   predicates:
+        #     - Path=/api/sports/**, /api/events/**, /api/disabilities/**, /api/sport-disabilities/**, /api/registrations/**, /api/calendar/**, /api/scheduler/**, /api/attendance/**
+
+        # # 4. Accessibility MS
+        # - id: accessibility-ms
+        #   uri: http://localhost:3004
+        #   predicates:
+        #     - Path=/api/preferences/**, /api/notifications/**
+
+        # # 5. Reports MS
+        # - id: reports-ms
+        #   uri: http://localhost:3006
+        #   predicates:
+        #     - Path=/api/analytics/**, /api/dashboard/**, /api/reports/**
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
