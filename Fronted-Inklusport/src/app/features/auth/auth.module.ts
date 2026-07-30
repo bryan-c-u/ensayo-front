@@ -7,13 +7,19 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { StartInterfaceComponent } from './pages/start-interface/start-interface.component';
+import { UserInterfaceComponent } from './pages/user-interface/user-interface.component';
+import { GuestHomeComponent } from './pages/guest-home/guest-home.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    StartInterfaceComponent
+    StartInterfaceComponent,
+    UserInterfaceComponent,
+    GuestHomeComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

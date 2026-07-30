@@ -1,9 +1,7 @@
 <div
   class="start-wrapper"
 >
-  <!-- 1. RETÍCULA DE FONDO -->
   <div class="gridOverlay"></div>
-  <!-- 3. TOP HEADER -->
   <header class="top-header">
     <div class="brand-logo-container" (click)="goBack()">
       <button class="back-arrow-btn" aria-label="Volver">
@@ -24,7 +22,7 @@
     </div>
   </header>
 
-  <!-- 4. TARJETA PRINCIPAL SPLIT -->
+  
   <main class="auth-card">
     <div class="hero-panel">
       <div class="hero-content">
@@ -38,7 +36,6 @@
       </div>
     </div>
 
-    <!-- PANEL DERECHO ACCIONES -->
     <div class="form-panel">
       <div class="card-header">
         <h2 class="card-title">Bienvenido</h2>
@@ -60,6 +57,10 @@
           <span class="register-content">
             <span>Registrarse</span>
             </span>
+        </button>
+
+        <button type="button" class="guest-button" (click)="goToGuest()">
+          Iniciar como invitado
         </button>
       </div>
 

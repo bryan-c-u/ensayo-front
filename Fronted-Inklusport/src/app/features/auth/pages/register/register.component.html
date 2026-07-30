@@ -21,7 +21,7 @@
   </header>
 
   <!-- 2. CARD PRINCIPAL DE REGISTRO -->
-  <div class="auth-card">
+  <div class="auth-card" *ngIf="!registrationComplete">
     <!-- PANEL IZQUIERDO HERO -->
     <div class="hero-panel">
       <div class="hero-overlay"></div>
@@ -257,6 +257,45 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- 2b. TARJETA DE ÉXITO TRAS REGISTRO -->
+  <div class="success-card" *ngIf="registrationComplete">
+    <div class="success-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    </div>
+
+    <h2 class="success-title">Credenciales aceptadas</h2>
+    <p class="success-desc">
+      Tu cuenta se creó correctamente. Te enviamos un correo de bienvenida; ya puedes comenzar a explorar INKLUSPORT.
+    </p>
+
+    <div class="success-email-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+      <span>Correo enviado a {{ registeredEmail }}</span>
+    </div>
+
+    <p class="success-resend">
+      ¿No encuentras el correo?
+      <a href="javascript:void(0)" class="success-link" (click)="onResendEmail()">Reenviar correo</a>
+    </p>
+
+    <a href="javascript:void(0)" class="success-help" (click)="onNeedHelp()">¿Necesitas ayuda?</a>
+
+    <div class="success-divider"></div>
+
+    <button type="button" class="continue-btn" (click)="continueToDashboard()">
+      Ir a mi panel
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
   </div>
 
   <!-- 3. WIDGET DE ACCESIBILIDAD (compartido) -->

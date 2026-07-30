@@ -21,7 +21,7 @@
   </header>
 
   <!-- 2. CARD PRINCIPAL -->
-  <div class="auth-card">
+  <div class="auth-card" *ngIf="!loginFailed">
     <!-- PANEL IZQUIERDO HERO -->
     <div class="hero-panel">
       <div class="hero-overlay"></div>
@@ -68,7 +68,11 @@
         <div class="input-group">
           <div class="input-header-row">
             <label class="input-label">CONTRASEÑA</label>
-            <a href="#forgot" class="forgot-link">¿Olvidaste tu contraseña?</a>
+            <a
+              routerLink="/forgot-password"
+              [queryParams]="{ email: loginForm.get('email')?.value || null }"
+              class="forgot-link"
+            >¿Olvidaste tu contraseña?</a>
           </div>
           <div class="input-box" [class.input-box--invalid]="fieldInvalid('password')">
             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -147,6 +151,52 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- 2b. TARJETA DE CREDENCIALES DENEGADAS -->
+  <div class="error-card" *ngIf="loginFailed">
+    <div class="error-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="15" y1="9" x2="9" y2="15" />
+        <line x1="9" y1="9" x2="15" y2="15" />
+      </svg>
+    </div>
+
+    <h2 class="error-title">Credenciales Denegadas</h2>
+    <div class="error-title-line"></div>
+
+    <p class="error-desc">
+      El correo o la contraseña proporcionados no coinciden con nuestros registros. Revisa tu información.
+    </p>
+
+    <div class="error-email-box">
+      <span class="error-email-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+      </span>
+      <span>{{ attemptedEmail }} (intentado)</span>
+    </div>
+
+    <p class="error-recover-label">¿Has olvidado tu contraseña?</p>
+    <a
+      routerLink="/forgot-password"
+      [queryParams]="{ email: attemptedEmail || null }"
+      class="error-recover-link"
+    >Recuperar contraseña</a>
+
+    <div class="error-divider">
+      <span (click)="onNeedHelp()">¿Necesitas ayuda?</span>
+    </div>
+
+    <button type="button" class="retry-btn" (click)="retry()">
+      Reintentar
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
   </div>
 
   <!-- 3. WIDGET DE ACCESIBILIDAD (compartido) -->

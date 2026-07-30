@@ -27,4 +27,8 @@ export class StartInterfaceComponent {
   goToRegister(): void {
     this.router.navigate(['/register']);
   }
+
+  goToGuest(): void {
+    this.router.navigate(['/guest']);
+  }
 }

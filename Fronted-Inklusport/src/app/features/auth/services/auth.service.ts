@@ -3,6 +3,8 @@ import { RegisterRequest } from '../models/register-request';
 import { AuthResponse } from '../models/auth-response';
 import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
+import { ForgotPasswordRequest } from '../models/forgot-password-request';
+import { ForgotPasswordResponse } from '../models/forgot-password-response';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
@@ -44,5 +46,9 @@ export class AuthService {
 
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrlAuth}/login`, data);
+  }
+
+  forgotPassword(data: ForgotPasswordRequest): Observable<ForgotPasswordResponse> {
+    return this.http.post<ForgotPasswordResponse>(`${this.apiUrlAuth}/forgot-password`, data);
   }
 }

@@ -20,6 +20,8 @@ export class RegisterComponent {
   showConfirmPassword = false;
   errorMessage: string | null = null;
   isSubmitting = false;
+  registrationComplete = false;
+  registeredEmail = '';
 
   readonly disabilityOptions: { value: DisabilityType; label: string }[] = [
     { value: 'visual', label: 'Discapacidad Visual' },
@@ -86,14 +88,28 @@ export class RegisterComponent {
     this.isSubmitting = true;
 
     this.authService.register(this.registerForm.value as RegisterRequest).subscribe({
-      next: () => {
+      next: (response) => {
         this.isSubmitting = false;
-        this.router.navigate(['/login']);
+        localStorage.setItem('auth_token', response.token);
+        this.registeredEmail = response.email;
+        this.registrationComplete = true;
       },
       error: (error) => {
         this.isSubmitting = false;
         this.errorMessage = error?.error?.message || 'Ocurrió un error al registrar. Intenta de nuevo.';
       }
     });
+  }
+
+  continueToDashboard(): void {
+    this.router.navigate(['/home']);
+  }
+
+  onResendEmail(): void {
+    alert(`Hemos reenviado el correo de bienvenida a ${this.registeredEmail}.`);
+  }
+
+  onNeedHelp(): void {
+    alert('Contáctanos en soporte@inklusport.com');
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { LoginRequest } from '../../models/login-request';
@@ -18,11 +19,14 @@ export class LoginComponent {
   errorMessage: string | null = null;
   isSubmitting = false;
   loginSuccess = false;
+  loginFailed = false;
+  attemptedEmail = '';
 
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private authService: AuthService,
+    private router: Router,
     public accessibilityService: AccessibilityService
   ) {
     this.loginForm = this.fb.group({
@@ -47,6 +51,7 @@ export class LoginComponent {
   onSubmit(): void {
     this.errorMessage = null;
     this.loginSuccess = false;
+    this.loginFailed = false;
 
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -60,12 +65,27 @@ export class LoginComponent {
         this.isSubmitting = false;
         this.loginSuccess = true;
         localStorage.setItem('auth_token', response.token);
-        // TODO: redirigir a la vista de inicio/dashboard cuando exista esa ruta.
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         this.isSubmitting = false;
-        this.errorMessage = error?.error?.message || 'Credenciales inválidas. Intenta de nuevo.';
+
+        if (error?.status === 401) {
+          this.attemptedEmail = this.loginForm.value.email;
+          this.loginFailed = true;
+        } else {
+          this.errorMessage = error?.error?.message || 'Credenciales inválidas. Intenta de nuevo.';
+        }
       }
     });
+  }
+
+  retry(): void {
+    this.loginFailed = false;
+    this.loginForm.get('password')?.reset();
+  }
+
+  onNeedHelp(): void {
+    alert('Contáctanos en soporte@inklusport.com');
   }
 }

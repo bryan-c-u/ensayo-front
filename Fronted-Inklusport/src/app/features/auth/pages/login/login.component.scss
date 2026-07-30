@@ -520,6 +520,157 @@ $inklu-border: #E2E8F0;
 }
 
 /* ==========================================================================
+   TARJETA DE CREDENCIALES DENEGADAS
+   ========================================================================== */
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 460px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  border: 1px solid $inklu-border;
+  padding: 48px 40px;
+  margin: auto;
+  z-index: 5;
+
+  .error-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: #FEF2F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .error-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: $inklu-text;
+    margin-bottom: 12px;
+  }
+
+  .error-title-line {
+    width: 36px;
+    height: 3px;
+    background-color: $inklu-red;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .error-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: $inklu-gray;
+    margin-bottom: 24px;
+  }
+
+  .error-email-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: #F8FAFC;
+    border: 1px solid $inklu-border;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 20px;
+
+    .error-email-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: #FEE2E2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+
+  .error-recover-label {
+    font-size: 13px;
+    color: $inklu-gray;
+    margin-bottom: 4px;
+  }
+
+  .error-recover-link {
+    display: block;
+    font-size: 13px;
+    color: $inklu-red;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 24px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .error-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    font-size: 13px;
+    color: #64748B;
+    cursor: pointer;
+    margin-bottom: 24px;
+
+    span:hover {
+      color: $inklu-text;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: $inklu-border;
+    }
+  }
+
+  .retry-btn {
+    width: 100%;
+    height: 44px;
+    background-color: $inklu-red;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(163, 13, 17, 0.2);
+
+    &:hover {
+      background-color: $inklu-red-dark;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
 @media (max-width: 860px) {
