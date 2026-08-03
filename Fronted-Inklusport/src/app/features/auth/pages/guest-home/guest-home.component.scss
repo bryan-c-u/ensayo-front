@@ -17,7 +17,7 @@
 }
 
 .guest-home-wrapper {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--negro);
   background: var(--blanco);
   line-height: 1.6;
@@ -98,9 +98,8 @@
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 900;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
   font-size: 64px;
   line-height: 1.05;
   margin-bottom: 20px;
@@ -206,8 +205,7 @@
 }
 
 .hero-badge-value {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Oswald', sans-serif;
   font-size: 24px;
   font-weight: 700;
 }
@@ -302,9 +300,8 @@
 }
 
 .disciplinas-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 900;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
   font-size: 28px;
   text-transform: uppercase;
 }
@@ -406,9 +403,8 @@
 }
 
 .eventos-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 900;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
   font-size: 22px;
   text-transform: uppercase;
   margin-bottom: 32px;
@@ -495,9 +491,8 @@
 }
 
 .form-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 900;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
   font-size: 22px;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -529,7 +524,7 @@
   border: 1.5px solid #e5e7eb;
   border-radius: 10px;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--negro);
   background: var(--blanco);
   transition: border-color 0.2s;
