@@ -1,0 +1,252 @@
+<div class="profile-container">
+  <!-- Barra de Navegación -->
+  <header class="profile-navbar">
+    <nav class="profile-nav-content">
+      <div class="profile-nav-left">
+        <!-- Botón Volver a Home -->
+        <button
+          class="back-home-btn"
+          type="button"
+          (click)="handleGoHome()"
+          title="Volver a Inicio"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <div class="profile-logo">INKLUSPORT</div>
+      </div>
+
+      <div class="profile-nav-right">
+        <span class="profile-nav-tag">ADAPTIVE ATHLETE</span>
+        <div class="profile-nav-divider"></div>
+        <div class="profile-nav-user">
+          <img
+            [src]="profileData.profilePicUrl"
+            alt="User"
+            class="profile-nav-avatar"
+          />
+          <span class="profile-nav-username">{{ profileData.fullName }}</span>
+        </div>
+        <button
+          class="profile-icon-btn"
+          type="button"
+          (click)="handleLogout()"
+          title="Cerrar sesión"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M16 17l5-5-5-5"></path>
+            <path d="M21 12H9"></path>
+            <path d="M9 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="profile-main">
+    <!-- Encabezado del Perfil -->
+    <div class="profile-header-section">
+      <div class="profile-avatar-container">
+        <img
+          [src]="profileData.profilePicUrl"
+          [alt]="profileData.fullName"
+          class="profile-main-avatar"
+        />
+        <button class="profile-camera-btn" title="Cambiar foto">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+            ></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+        </button>
+      </div>
+      <div class="profile-title-area">
+        <h1 class="profile-title">Mi Perfil</h1>
+        <p class="profile-subtitle">
+          Adaptive Athlete ID: {{ profileData.athleteId }}
+        </p>
+      </div>
+
+      <button class="profile-top-notifications-btn">NOTIFICATIONS</button>
+    </div>
+
+    <!-- Tarjeta de Información Personal -->
+    <section class="profile-card">
+      <div class="profile-card-header">
+        <div class="profile-card-icon-box">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h2 class="profile-card-title">Información Personal</h2>
+      </div>
+
+      <form class="profile-form-grid" (ngSubmit)="handleSubmit()">
+        <!-- Campo: Nombre Completo -->
+        <div class="profile-form-group">
+          <label for="fullName" class="profile-form-label">NOMBRE COMPLETO</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            [(ngModel)]="profileData.fullName"
+            class="profile-input"
+          />
+        </div>
+
+        <!-- Campo: Correo Electrónico -->
+        <div class="profile-form-group">
+          <label for="email" class="profile-form-label">CORREO ELECTRÓNICO</label>
+          <div class="profile-input-wrapper">
+            <svg
+              class="profile-input-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              ></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="profileData.email"
+              class="profile-input with-icon"
+            />
+          </div>
+        </div>
+
+        <!-- Campo: Teléfono -->
+        <div class="profile-form-group">
+          <label for="phone" class="profile-form-label">TELÉFONO</label>
+          <div class="profile-input-wrapper">
+            <svg
+              class="profile-input-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              ></path>
+            </svg>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              [(ngModel)]="profileData.phone"
+              class="profile-input with-icon"
+            />
+          </div>
+        </div>
+
+        <!-- Campo: Tipo de Discapacidad -->
+        <div class="profile-form-group">
+          <label for="disabilityType" class="profile-form-label">TIPO DE DISCAPACIDAD</label>
+          <div class="profile-input-wrapper">
+            <svg
+              class="profile-input-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="7" r="4"></circle>
+              <path d="M5.5 21l3.5-7h6l3.5 7"></path>
+            </svg>
+            <select
+              id="disabilityType"
+              name="disabilityType"
+              [(ngModel)]="profileData.disabilityType"
+              class="profile-select with-icon"
+            >
+              <option value="Motriz">Motriz</option>
+              <option value="Visual">Visual</option>
+              <option value="Auditiva">Auditiva</option>
+              <option value="Intelectual">Intelectual</option>
+              <option value="Otra/ninguna">Otra/ninguna</option>
+            </select>
+            <svg
+              class="profile-select-arrow"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Mensaje de Estado -->
+        <div
+          *ngIf="statusMessage"
+          class="status-message"
+          [ngClass]="{ 'success': isSuccess, 'error': !isSuccess }"
+        >
+          {{ statusMessage }}
+        </div>
+
+        <div class="profile-submit-wrapper">
+          <button type="submit" class="profile-submit-btn">
+            ACTUALIZAR PERFIL
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>

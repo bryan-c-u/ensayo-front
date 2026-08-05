@@ -5,11 +5,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
 import { EventsCalendarComponent } from './pages/events-calendar/events-calendar.component';
 import { EventRegistrationComponent } from './pages/event-registration/event-registration.component';
+import { ProfileManagementComponent } from './pages/profile-management/profile-management.component';
 
 @NgModule({
   declarations: [
     EventsCalendarComponent,
-    EventRegistrationComponent
+    EventRegistrationComponent,
+    ProfileManagementComponent
   ],
   imports: [
     CommonModule,
