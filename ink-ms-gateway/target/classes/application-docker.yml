@@ -24,6 +24,13 @@ spring:
         #   filters:
         #     - StripPrefix=0
 
+        - id: suscripciones-ms
+          uri: http://suscripciones-service:3005
+          predicates:
+            - Path=/api/planes/**, /api/suscripciones/**, /api/eventos-pago/**, /api/pagos/**, /api/reportes/**
+          filters:
+            - StripPrefix=0
+
         # # 3. Sports Service
         # - id: sports-ms
         #   uri: http://sports-service:3003

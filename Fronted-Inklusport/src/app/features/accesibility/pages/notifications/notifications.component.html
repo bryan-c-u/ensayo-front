@@ -1,0 +1,89 @@
+<div class="contenedor">
+  <div class="wrapper">
+    
+    <!-- Tarjeta Principal / Banner -->
+    <div class="tarjeta-principal">
+      <div class="contenido-principal">
+        <h1 class="titulo-banner">Notificaciones Auditivas Recientes</h1>
+        <p class="desc-banner">
+          Manténgase al tanto de cada pulso de actividad con alertas auditivas inteligentes y transcripciones en tiempo real.
+        </p>
+      </div>
+      <div class="icono-grande">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-banner">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros y Configuración -->
+    <div class="barra-filtros">
+      <div class="contenedor-filtros">
+        @for (filtro of opcionesFiltro; track filtro) {
+          <button 
+            class="boton-filtro" 
+            [class.activo]="filtroActivo() === filtro"
+            (click)="setFiltro(filtro)">
+            {{ filtro }}
+          </button>
+        }
+      </div>
+      <button class="boton-config">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A30D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+          <path d="M19 10v1a7 7 0 0 1-14 0v-1"></path>
+          <line x1="12" y1="19" x2="12" y2="23"></line>
+          <line x1="8" y1="23" x2="16" y2="23"></line>
+        </svg>
+        Configurar Voz
+      </button>
+    </div>
+
+    <!-- Lista de Notificaciones -->
+    @for (notif of notificacionesFiltradas(); track notif.id) {
+      <div class="tarjeta-notificacion" [class.destacada]="notif.destacada">
+        <div class="header-notificacion">
+          <div class="info-notificacion">
+            <div class="icono-item" [class.destacado]="notif.destacada">
+              @if (notif.destacada) {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A30D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+              } @else {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              }
+            </div>
+            <div>
+              <h3 class="titulo-notif">{{ notif.titulo }}</h3>
+              <p class="mensaje-notif">"{{ notif.mensaje }}"</p>
+            </div>
+          </div>
+          <span class="tiempo-notif">{{ notif.tiempo }}</span>
+        </div>
+
+        <div class="acciones-notificacion">
+          <button 
+            class="boton-reproducir" 
+            [class.deshabilitado]="!notifSonoras()"
+            [disabled]="!notifSonoras()"
+            (click)="reproducirAudioTexto(notif.mensaje)">
+            <span class="icono-play">▶</span> 
+            {{ notifSonoras() ? 'Reproducir Audio' : 'Audio desactivado' }}
+          </button>
+          <button class="boton-marcar-leida" (click)="marcarComoLeida(notif.id)">
+            Marcar como leída
+          </button>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

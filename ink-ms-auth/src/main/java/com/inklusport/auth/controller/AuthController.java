@@ -56,12 +56,8 @@ public class AuthController {
    */
   @PostMapping("/login")
   public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest) {
-    try {
-      AuthResponse response = authService.login(request, getClientIp(httpRequest));
-      return ResponseEntity.ok(response);
-    } catch (Exception e) {
-      return buildErrorResponse(e, "/api/auth/login");
-    }
+    AuthResponse response = authService.login(request, getClientIp(httpRequest));
+    return ResponseEntity.ok(response);
   }
 
   /**

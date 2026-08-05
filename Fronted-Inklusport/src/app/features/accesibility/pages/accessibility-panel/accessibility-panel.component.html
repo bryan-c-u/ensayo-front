@@ -1,0 +1,160 @@
+<div class="contenedor" [style.background-color]="currentTheme().bgGeneral" [style.color]="currentTheme().textoPrincipal">
+  <div class="wrapper">
+    
+    <!-- Header -->
+    <div class="header">
+      <p class="subtitulo-header">PERSONALIZACIÓN TÉCNICA</p>
+      <h1 class="titulo-header" [style.color]="currentTheme().textoPrincipal">Configuración de Accesibilidad</h1>
+      <p class="desc-header" [style.color]="currentTheme().textoSecundario">
+        Optimiza tu experiencia digital. Cada ajuste está diseñado para garantizar que el rendimiento deportivo y la tecnología sean accesibles para todos.
+      </p>
+    </div>
+
+    <!-- Sección Contraste -->
+    <div class="tarjeta" 
+         [style.background-color]="currentTheme().bgTarjeta" 
+         [style.box-shadow]="currentTheme().boxShadow" 
+         [style.border]="currentTheme().bordeTarjeta">
+      
+      <div class="titulo-seccion" [style.color]="currentTheme().textoPrincipal">
+        <span class="icono-contraste">◐</span>
+        <span>Selector de contraste</span>
+      </div>
+
+      <div class="opciones-contraste-container">
+        
+        <!-- Opción Bajo -->
+        <div class="tarjeta-opcion-contraste"
+             [class.activa]="contraste() === 'BAJO'"
+             [style.background-color]="currentTheme().bgTarjetaOpcion"
+             (click)="setContraste('BAJO')">
+          <div class="preview-box-bajo">
+            <div class="preview-inner-bajo"></div>
+          </div>
+          <span class="etiqueta-opcion" [style.color]="contraste() === 'BAJO' ? '#A30D11' : currentTheme().textoSecundario">
+            BAJO
+          </span>
+        </div>
+
+        <!-- Opción Medio -->
+        <div class="tarjeta-opcion-contraste"
+             [class.activa]="contraste() === 'MEDIO'"
+             [style.background-color]="currentTheme().bgTarjetaOpcion"
+             (click)="setContraste('MEDIO')">
+          <div class="preview-box-medio">
+            <div class="preview-circulo-medio"></div>
+            <div class="preview-inner-medio"></div>
+          </div>
+          <span class="etiqueta-opcion" [style.color]="contraste() === 'MEDIO' ? '#A30D11' : currentTheme().textoSecundario">
+            MEDIO
+          </span>
+        </div>
+
+        <!-- Opción Alto -->
+        <div class="tarjeta-opcion-contraste"
+             [class.activa]="contraste() === 'ALTO'"
+             [style.background-color]="currentTheme().bgTarjetaOpcion"
+             (click)="setContraste('ALTO')">
+          <div class="preview-box-alto">
+            <div class="preview-circulo-alto"></div>
+          </div>
+          <span class="etiqueta-opcion" [style.color]="contraste() === 'ALTO' ? '#A30D11' : currentTheme().textoSecundario">
+            ALTO
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Toggle Notificaciones Sonoras -->
+    <div class="tarjeta" 
+         [style.background-color]="currentTheme().bgTarjeta" 
+         [style.box-shadow]="currentTheme().boxShadow" 
+         [style.border]="currentTheme().bordeTarjeta">
+      <div class="fila-toggle">
+        <div class="toggle-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A30D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span [style.color]="currentTheme().textoPrincipal">Notificaciones sonoras</span>
+        </div>
+        <div class="switch" [class.activo]="notifSonoras()" (click)="toggleNotifSonoras()">
+          <div class="switch-handle" [class.activo]="notifSonoras()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle Feedback Háptico -->
+    <div class="tarjeta" 
+         [style.background-color]="currentTheme().bgTarjeta" 
+         [style.box-shadow]="currentTheme().boxShadow" 
+         [style.border]="currentTheme().bordeTarjeta">
+      <div class="fila-toggle">
+        <div class="toggle-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A30D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          <span [style.color]="currentTheme().textoPrincipal">Feedback háptico</span>
+        </div>
+        <div class="switch" [class.activo]="feedbackHaptico()" (click)="handleToggleHaptico()">
+          <div class="switch-handle" [class.activo]="feedbackHaptico()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tamaño de fuente -->
+    <div class="tarjeta" 
+         [style.background-color]="currentTheme().bgTarjeta" 
+         [style.box-shadow]="currentTheme().boxShadow" 
+         [style.border]="currentTheme().bordeTarjeta">
+      
+      <div class="titulo-seccion" [style.color]="currentTheme().textoPrincipal">
+        <span class="icono-fuente">Tt</span>
+        <span>Tamaño de fuente</span>
+      </div>
+
+      <input 
+        type="range" 
+        min="0" 
+        max="100" 
+        [value]="tamanoFuente()" 
+        (input)="onTamanoFuenteChange($event)"
+        class="slider" 
+      />
+
+      <div class="etiquetas-slider" [style.color]="currentTheme().textoSecundario">
+        <span>PEQUEÑO</span>
+        <span>MEDIANO</span>
+        <span>GRANDE</span>
+        <span>MUY GRANDE</span>
+      </div>
+
+      <p class="instruccion-slider" [style.color]="currentTheme().textoSecundario">
+        Ajuste el control para previsualizar el tamaño del texto técnico.
+      </p>
+
+      <div class="vista-previa-box" [style.background-color]="currentTheme().bgPreviewBox">
+        <span class="etiqueta-vista-previa">Vista previa</span>
+        <p class="preview-texto-principal" 
+           [style.font-size.px]="13 + (tamanoFuente() / 25)"
+           [style.color]="currentTheme().colorTextoPreviewMain">
+          "La excelencia deportiva no tiene límites, la tecnología debe ser el puente que los elimine."
+        </p>
+        <p class="preview-texto-secundario" 
+           [style.font-size.px]="11 + (tamanoFuente() / 35)"
+           [style.color]="currentTheme().colorTextoPreviewSub">
+          El rendimiento adaptativo requiere precisión en cada detalle visual y funcional.
+        </p>
+      </div>
+    </div>
+
+    <!-- Botón Guardar -->
+    <button class="boton-guardar" (click)="handleGuardarCambios()">
+      GUARDAR CAMBIOS
+    </button>
+
+  </div>
+</div>

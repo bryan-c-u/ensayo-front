@@ -2,6 +2,7 @@ package com.inklusport.auth.service;
 
 import com.inklusport.auth.client.UserServiceClient;
 import com.inklusport.auth.config.EmailAlreadyRegisteredException;
+import com.inklusport.auth.config.InvalidCredentialsException;
 import com.inklusport.auth.dto.AuthResponse;
 import com.inklusport.auth.dto.LoginRequest;
 import com.inklusport.auth.dto.RegisterRequest;
@@ -81,11 +82,11 @@ public class AuthService {
 
       // 1. Validar credenciales
       AuthUser user = authUserRepository.findByEmail(request.getEmail())
-              .orElseThrow(() -> new RuntimeException("Credenciales inválidas"));
+              .orElseThrow(() -> new InvalidCredentialsException("Credenciales inválidas"));
 
       if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
           logLoginAttempt(request.getEmail(), ipAddress, false);
-          throw new RuntimeException("Credenciales inválidas");
+          throw new InvalidCredentialsException("Credenciales inválidas");
       }
 
       if (!Boolean.TRUE.equals(user.getIsActive())) {

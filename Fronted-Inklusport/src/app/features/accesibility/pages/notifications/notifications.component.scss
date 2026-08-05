@@ -1,0 +1,218 @@
+.contenedor {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--app-bg-color, #F9FAFB);
+  color: var(--app-text-color, #111827);
+  font-size: var(--app-font-size, 16px);
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Banner Principal */
+.tarjeta-principal {
+  background-color: #A30D11;
+  border-radius: 24px;
+  padding: 36px 40px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 25px rgba(227, 27, 35, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  .contenido-principal {
+    max-width: 500px;
+
+    .titulo-banner {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0 0 12px 0;
+      line-height: 1.2;
+    }
+
+    .desc-banner {
+      font-size: 15px;
+      margin: 0;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+  }
+
+  .icono-grande {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+
+    .svg-banner {
+      color: #FFFFFF;
+    }
+  }
+}
+
+/* Barra Filtros */
+.barra-filtros {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .contenedor-filtros {
+    display: flex;
+    gap: 10px;
+
+    .boton-filtro {
+      background-color: #E5E7EB;
+      color: #4B5563;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+
+      &.activo {
+        background-color: #A30D11;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  .boton-config {
+    background: none;
+    border: none;
+    color: #A30D11;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+  }
+}
+
+/* Tarjeta Notificación */
+.tarjeta-notificacion {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-left: 5px solid transparent;
+  position: relative;
+
+  &.destacada {
+    border-left-color: #A30D11;
+  }
+
+  .header-notificacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+
+    .info-notificacion {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+
+      .icono-item {
+        background-color: #F3F4F6;
+        color: #4B5563;
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.destacado {
+          background-color: #FEE2E2;
+          color: #A30D11;
+        }
+      }
+
+      .titulo-notif {
+        font-size: 15px;
+        font-weight: bold;
+        color: #1F2937;
+        margin: 0 0 4px 0;
+      }
+
+      .mensaje-notif {
+        font-size: 14px;
+        color: #4B5563;
+        margin: 0;
+        line-height: 1.4;
+      }
+    }
+
+    .tiempo-notif {
+      font-size: 11px;
+      color: #9CA3AF;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  }
+
+  .acciones-notificacion {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 12px;
+    padding-left: 46px;
+
+    .boton-reproducir {
+      background-color: #F3F4F6;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1F2937;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+
+      .icono-play {
+        color: #A30D11;
+      }
+
+      &.deshabilitado {
+        background-color: #E5E7EB;
+        color: #9CA3AF;
+        cursor: not-allowed;
+      }
+    }
+
+    .boton-marcar-leida {
+      background: none;
+      border: none;
+      color: #6B7280;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
