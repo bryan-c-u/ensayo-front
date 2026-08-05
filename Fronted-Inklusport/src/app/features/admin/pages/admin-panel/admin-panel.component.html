@@ -1,0 +1,267 @@
+<div class="page-container">
+
+  <!-- OVERLAY MÓVIL -->
+  <div 
+    *ngIf="sidebarOpen" 
+    class="sidebar-overlay" 
+    (click)="setSidebarOpen(false)">
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" [class.open]="sidebarOpen">
+    <div>
+      <div class="brand-section">
+        <div class="brand-icon">
+          <span>♿</span>
+        </div>
+        <div>
+          <div class="brand-title">INKLUSPORT ADMIN</div>
+        </div>
+      </div>
+
+      <div class="admin-profile-card">
+        <div class="admin-avatar">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
+            alt="Admin" 
+          />
+        </div>
+        <div>
+          <div class="admin-name">Admin Central</div>
+          <div class="admin-role">Inklusport Management</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="sidebar-nav-item active">
+        <span class="nav-icon">🔲</span> Dashboard
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">👥</span> Users
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">📅</span> Events
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">🏃</span> Sports
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">♿</span> Disabilities
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">🛡️</span> Roles
+      </button>
+      <button class="sidebar-nav-item">
+        <span class="nav-icon">📊</span> Audit Logs
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ÁREA DE CONTENIDO -->
+  <div class="content-area">
+    <!-- NAVBAR SUPERIOR -->
+    <div class="top-navbar">
+      <div class="top-nav-left">
+        <button 
+          class="menu-toggle-btn" 
+          (click)="toggleSidebar()"
+          aria-label="Abrir menú">
+          ☰
+        </button>
+        <div class="top-nav-title">Panel administrativo de Inklusport</div>
+      </div>
+      <div class="top-nav-actions">
+        <button class="icon-button">🔍</button>
+        <button class="icon-button">🔔</button>
+        <button class="logout-button" (click)="handleLogout()">Cerrar sesión</button>
+        <div class="top-avatar">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
+            alt="Usuario" 
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ENCABEZADO -->
+    <header class="header-bar fade-in-up delay-1">
+      <div>
+        <div class="header-label">Inteligencia administrativa</div>
+        <div class="header-subtitle">
+          Monitoreo de rendimiento en tiempo real y análisis de inclusión para sistemas deportivos adaptativos.<br />
+          Supervisión de los módulos HU25, HU33 y HU46.
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary">CREAR EVENTO</button>
+        <button class="btn-secondary">GESTIONAR USUARIOS</button>
+        <button class="btn-secondary">GENERAR REPORTE</button>
+      </div>
+    </header>
+
+    <!-- TARJETAS DE ESTADÍSTICAS -->
+    <section class="stats-grid fade-in-up delay-2">
+      <div *ngFor="let item of stats" class="stat-card">
+        <div class="stat-card-top">
+          <div class="stat-icon-wrapper">
+            <div 
+              class="stat-icon-box" 
+              [style.backgroundColor]="item.iconBg" 
+              [style.color]="item.iconColor">
+              {{ item.icon }}
+            </div>
+            <span class="stat-label">{{ item.label }}</span>
+          </div>
+          <span class="stat-note">{{ item.note }}</span>
+        </div>
+        <div class="stat-value">{{ item.value }}</div>
+      </div>
+    </section>
+
+    <!-- GRID PRINCIPAL -->
+    <section class="main-grid">
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="left-column">
+        <!-- TABLA DE USUARIOS -->
+        <div class="table-card fade-in-up delay-3 card-hover">
+          <div class="table-header-row">
+            <div class="card-title">Activaciones recientes de usuarios</div>
+            <button class="view-all-btn">VER TODO</button>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="th">ID</th>
+                  <th class="th">NOMBRE</th>
+                  <th class="th">CORREO</th>
+                  <th class="th">ESTADO</th>
+                  <th class="th text-right">ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let userItem of recentUsers" class="tr">
+                  <td class="td-id">{{ userItem.id }}</td>
+                  <td class="td-name">{{ userItem.name }}</td>
+                  <td class="td-email">{{ userItem.email }}</td>
+                  <td class="td-status">
+                    <span 
+                      class="status-badge"
+                      [class.status-active]="userItem.status === 'Activo'"
+                      [class.status-pending]="userItem.status === 'Pendiente'"
+                      [class.status-blocked]="userItem.status === 'Bloqueado'">
+                      <span class="status-dot"></span>
+                      {{ userItem.status }}
+                    </span>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button class="table-action-btn">⋮</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TARJETAS DE EVENTOS -->
+        <div class="card-row">
+          <div class="event-card">
+            <div class="event-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&auto=format&fit=crop&q=80" 
+                alt="Baloncesto en silla de ruedas" 
+                class="event-img"
+              />
+            </div>
+            <div class="event-content">
+              <div class="event-top-info">
+                <span class="badge badge-basketball">BALONCESTO</span>
+                <span class="event-date">Oct 24, 2024</span>
+              </div>
+              <div class="event-card-header">Open Nacional en Silla de Ruedas</div>
+              <p class="event-card-text">Fase final de coordinación para equipos de campeonato regional.</p>
+              <div class="event-card-footer">
+                <div class="avatar-group">
+                  <div class="avatar-group-item">👤</div>
+                  <div class="avatar-group-item overlap">👤</div>
+                  <span class="avatar-count">+24</span>
+                </div>
+                <button class="event-manage-btn">GESTIONAR</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&auto=format&fit=crop&q=80" 
+                alt="Natación adaptativa" 
+                class="event-img"
+              />
+            </div>
+            <div class="event-content">
+              <div class="event-top-info">
+                <span class="badge badge-swimming">NATACIÓN</span>
+                <span class="event-date">Nov 02, 2024</span>
+              </div>
+              <div class="event-card-header">Finales Acuáticas Adaptativas</div>
+              <p class="event-card-text">Clasificación regional para los próximos paralímpicos internacionales.</p>
+              <div class="event-card-footer">
+                <div class="avatar-group">
+                  <div class="avatar-group-item">👤</div>
+                  <div class="avatar-group-item overlap">👤</div>
+                  <span class="avatar-count">+18</span>
+                </div>
+                <button class="event-manage-btn">GESTIONAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA -->
+      <aside class="right-column">
+        <!-- PARTICIPACIÓN POR DISCAPACIDAD -->
+        <div class="participation-card">
+          <div class="card-title">Participación por discapacidad</div>
+          <div class="participation-list">
+            <div *ngFor="let item of participation" class="participation-row">
+              <div class="participation-label-row">
+                <span class="participation-label">{{ item.label }}</span>
+                <span class="participation-value">{{ item.value }}%</span>
+              </div>
+              <div class="participation-bar">
+                <div 
+                  class="participation-fill" 
+                  [style.width.%]="item.value" 
+                  [style.backgroundColor]="item.color">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="participation-footer">
+            ℹ️ Cumplimiento verificado de los estándares HU33 y HU46 a las 09:00 UTC.
+          </div>
+        </div>
+
+        <!-- FLUJO DE ACTIVIDAD DE IA -->
+        <div class="activity-card fade-in-up delay-4 card-hover">
+          <div class="card-title">Flujo de actividad de IA</div>
+          <div class="activity-list">
+            <div *ngFor="let activity of activities" class="activity-item">
+              <div class="activity-dot" [style.backgroundColor]="activity.dotColor"></div>
+              <div class="activity-body">
+                <div class="activity-type">{{ activity.type }}</div>
+                <div class="activity-title">{{ activity.title }}</div>
+                <div class="activity-detail">{{ activity.detail }}</div>
+              </div>
+            </div>
+          </div>
+          <button class="expand-btn">AMPLIAR TODO</button>
+        </div>
+      </aside>
+    </section>
+  </div>
+</div>
