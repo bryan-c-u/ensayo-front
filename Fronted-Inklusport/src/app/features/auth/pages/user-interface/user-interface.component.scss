@@ -468,6 +468,39 @@
   }
 }
 
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    flex-direction: column;
+  }
+
+  .event-image {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .dashboard-content {
+    padding: 28px 24px;
+  }
+
+  .welcome-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .notifications-btn {
+    width: 100%;
+  }
+}
+
 @media (max-width: 600px) {
   .dashboard-content {
     padding-left: 20px;
@@ -480,5 +513,13 @@
 
   .welcome-banner {
     flex-direction: column;
+  }
+
+  .event-card {
+    gap: 0;
+  }
+
+  .event-card-body {
+    padding: 18px 18px 16px;
   }
 }
