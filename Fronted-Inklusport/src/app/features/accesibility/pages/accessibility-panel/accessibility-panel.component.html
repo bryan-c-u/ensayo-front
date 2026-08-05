@@ -1,6 +1,11 @@
-<div class="contenedor" [style.background-color]="currentTheme().bgGeneral" [style.color]="currentTheme().textoPrincipal">
+<div class="dashboard-wrapper">
+
+  <app-sidebar-nav></app-sidebar-nav>
+
+  <main class="dashboard-content">
+  <div class="contenedor" [style.background-color]="currentTheme().bgGeneral" [style.color]="currentTheme().textoPrincipal">
   <div class="wrapper">
-    
+
     <!-- Header -->
     <div class="header">
       <p class="subtitulo-header">PERSONALIZACIÓN TÉCNICA</p>
@@ -157,4 +162,6 @@
     </button>
 
   </div>
+  </div>
+  </main>
 </div>

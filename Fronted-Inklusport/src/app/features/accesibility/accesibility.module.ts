@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { SharedModule } from '../../shared/shared.module';
+import { AccesibilityRoutingModule } from './accesibility-routing.module';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { AccessibilityPanelComponent } from './pages/accessibility-panel/accessibility-panel.component';
-
-
 
 @NgModule({
   declarations: [
@@ -11,7 +12,9 @@ import { AccessibilityPanelComponent } from './pages/accessibility-panel/accessi
     AccessibilityPanelComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    AccesibilityRoutingModule
   ]
 })
 export class AccesibilityModule { }

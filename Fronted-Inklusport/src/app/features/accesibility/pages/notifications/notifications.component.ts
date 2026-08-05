@@ -11,7 +11,6 @@ export interface Notificacion {
 
 @Component({
   selector: 'app-notifications',
-  standalone: true,
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })

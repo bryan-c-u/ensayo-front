@@ -4,7 +4,6 @@ export type ContrasteType = 'BAJO' | 'MEDIO' | 'ALTO';
 
 @Component({
   selector: 'app-accessibility-panel',
-  standalone: true,
   templateUrl: './accessibility-panel.component.html',
   styleUrls: ['./accessibility-panel.component.scss']
 })

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-interface',
@@ -6,8 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './user-interface.component.scss'
 })
 export class UserInterfaceComponent {
+  constructor(private router: Router) {}
+
   onNotifications(): void {
-    alert('Sin notificaciones nuevas');
+    this.router.navigate(['/accessibility/notifications']);
   }
 
   onSeeAllEvents(): void {
