@@ -20,4 +20,5 @@ public class UserProfileResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<String> roles;
+    private RoleRequestResponse pendingRoleRequest;
 }

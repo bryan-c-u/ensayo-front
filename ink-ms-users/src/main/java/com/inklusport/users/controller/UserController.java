@@ -42,7 +42,7 @@ public class UserController {
                                               @Valid @RequestBody UpdateProfileRequest request,
                                               HttpServletRequest httpRequest) {
         try {
-            UserProfileResponse response = userService.createUserProfile(email, request.getFullName());
+            UserProfileResponse response = userService.createUserProfile(email, request.getFullName(), request.getRequestedRole());
             
             // Actualiza campos opcionales si fueron enviados en el request.
             if (request.getPhone() != null || 

@@ -1,6 +1,7 @@
 package com.inklusport.sports.service;
 
 import com.inklusport.sports.client.NotificationServiceClient;
+import com.inklusport.sports.dto.InternalRegistrationResponse;
 import com.inklusport.sports.dto.RegistrationRequest;
 import com.inklusport.sports.dto.RegistrationResponse;
 import com.inklusport.sports.dto.NotificationRequest;
@@ -192,6 +193,28 @@ public class RegistrationService {
             registrationRepository.save(reg);
             currentPosition++;
         }
+    }
+
+    /**
+     * Lista todas las inscripciones (confirmadas y en lista de espera) de un
+     * evento especifico. Usado por ink-ms-search para RF37 (filtrar
+     * inscritos por evento). Devuelve una vista minima sin el qrCode: este
+     * endpoint es permitAll a nivel de red interna y el codigo QR es la
+     * credencial de check-in del evento, no debe quedar expuesto ahi.
+     */
+    public List<InternalRegistrationResponse> getRegistrationsForEvent(String eventId) {
+        String eventName = getEventName(eventId);
+        return registrationRepository.findByEventId(eventId).stream()
+                .map(reg -> InternalRegistrationResponse.builder()
+                        .id(reg.getId())
+                        .userId(reg.getUserId())
+                        .eventId(reg.getEventId())
+                        .eventName(eventName)
+                        .registrationDate(reg.getRegistrationDate())
+                        .attended(reg.getAttended())
+                        .waitlistPosition(reg.getWaitlistPosition())
+                        .build())
+                .toList();
     }
 
     public List<RegistrationResponse> getWaitlistForEvent(String eventId) {

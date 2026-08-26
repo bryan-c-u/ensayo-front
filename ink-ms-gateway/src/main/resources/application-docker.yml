@@ -31,6 +31,14 @@ spring:
           filters:
             - StripPrefix=0
 
+        # 2.2 Search MS (Modulo de Filtros y Busquedas Administrativas, M07)
+        - id: search-ms
+          uri: http://search-service:3007
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - StripPrefix=0
+
         # # 3. Sports Service
         # - id: sports-ms
         #   uri: http://sports-service:3003

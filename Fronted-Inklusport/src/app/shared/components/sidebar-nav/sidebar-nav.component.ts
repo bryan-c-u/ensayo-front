@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthStateService } from '../../../core/services/auth-state.service';
+
+const ROLE_LABELS: Record<string, string> = {
+  ADMIN: 'Administrador',
+  ENTRENADOR: 'Entrenador',
+  ORGANIZADOR: 'Organizador',
+  USUARIO: 'Atleta Adaptado'
+};
 
 @Component({
   selector: 'app-sidebar-nav',
@@ -10,11 +18,15 @@ export class SidebarNavComponent {
   sidebarOpen = false;
 
   readonly usuarioActivo = {
-    nombre: 'User Name',
-    rol: 'Adaptive Athlete'
+    nombre: 'User Name'
   };
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authState: AuthStateService) {}
+
+  get rolActivo(): string {
+    const role = this.authState.primaryRole();
+    return role ? (ROLE_LABELS[role] ?? role) : 'Atleta Adaptado';
+  }
 
   openSidebar(): void {
     this.sidebarOpen = true;
@@ -30,7 +42,7 @@ export class SidebarNavComponent {
   }
 
   handleLogout(): void {
-    localStorage.removeItem('auth_token');
+    this.authState.clearToken();
     this.router.navigate(['/']);
   }
 }

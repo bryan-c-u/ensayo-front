@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../domain/services/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
+
 export interface ProfileData {
   fullName: string;
   email: string;
@@ -12,21 +11,22 @@ export interface ProfileData {
   profilePicUrl: string;
 }
 
+const DEFAULT_PROFILE_PIC =
+  'https://images.unsplash.com/photo-1581343432368-17c864c29e01?q=80&w=300&auto=format&fit=crop';
+
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  templateUrl: './profile-management.component.html',
+  styleUrls: ['./profile-management.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileManagementComponent implements OnInit {
   profileData: ProfileData = {
     fullName: '',
     email: '',
     phone: '',
     disabilityType: 'Motriz',
     athleteId: '#0000',
-    profilePicUrl: ''
+    profilePicUrl: DEFAULT_PROFILE_PIC
   };
 
   statusMessage: string = '';
@@ -38,49 +38,52 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user = this.authService.getCurrentUser();
-
-    if (!user) {
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.profileData = {
-      fullName: user.fullName || '',
-      email: user.email || '',
-      phone: user.phone || '',
-      disabilityType: user.disabilityType || 'Motriz',
-      athleteId: user.athleteId || '#0000',
-      profilePicUrl:
-        user.profilePicUrl ||
-        'https://images.unsplash.com/photo-1581343432368-17c864c29e01?q=80&w=300&auto=format&fit=crop'
-    };
+    this.authService.getMyProfile().subscribe({
+      next: (user) => {
+        this.profileData = {
+          fullName: user.fullName || '',
+          email: user.email || '',
+          phone: user.phone || '',
+          disabilityType: user.disability || 'Motriz',
+          athleteId: user.id ? `#${user.id.slice(-4)}` : '#0000',
+          profilePicUrl: user.profilePicture || DEFAULT_PROFILE_PIC
+        };
+      },
+      error: () => {
+        this.statusMessage = 'No se pudo cargar tu perfil. Intenta de nuevo más tarde.';
+        this.isSuccess = false;
+      }
+    });
   }
 
-  async handleSubmit(): Promise<void> {
+  handleSubmit(): void {
     if (!this.profileData.fullName || !this.profileData.email) {
       this.statusMessage = 'Completa el nombre y el correo antes de actualizar.';
       this.isSuccess = false;
       return;
     }
 
-    const result = await this.authService.updateProfile(this.profileData);
-    
-    if (result.success) {
-      this.statusMessage = 'Perfil actualizado correctamente.';
-      this.isSuccess = true;
-    } else {
-      this.statusMessage = result.error || 'Ocurrió un error al actualizar.';
-      this.isSuccess = false;
-    }
+    this.authService.updateMyProfile({
+      fullName: this.profileData.fullName,
+      phone: this.profileData.phone,
+      profilePicture: this.profileData.profilePicUrl,
+      bio: '',
+      disability: this.profileData.disabilityType
+    }).subscribe({
+      next: () => {
+        this.statusMessage = 'Perfil actualizado correctamente.';
+        this.isSuccess = true;
+      },
+      error: (error) => {
+        this.statusMessage = error?.error?.message || 'Ocurrió un error al actualizar.';
+        this.isSuccess = false;
+      }
+    });
   }
 
-  handleLogout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
-  handleGoHome(): void {
-    this.router.navigate(['/home']);
-  }
 }

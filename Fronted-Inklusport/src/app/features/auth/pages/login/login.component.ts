@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LoginRequest } from '../../models/login-request';
 import { AccessibilityService } from '../../../../core/services/accessibility.service';
+import { AuthStateService } from '../../../../core/services/auth-state.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
     private location: Location,
     private authService: AuthService,
     private router: Router,
+    private authState: AuthStateService,
     public accessibilityService: AccessibilityService
   ) {
     this.loginForm = this.fb.group({
@@ -64,8 +66,8 @@ export class LoginComponent {
       next: (response) => {
         this.isSubmitting = false;
         this.loginSuccess = true;
-        localStorage.setItem('auth_token', response.token);
-        this.router.navigate(['/home']);
+        this.authState.setToken(response.token);
+        this.router.navigate([this.authState.hasRole('ADMIN') ? '/admin' : '/home']);
       },
       error: (error) => {
         this.isSubmitting = false;

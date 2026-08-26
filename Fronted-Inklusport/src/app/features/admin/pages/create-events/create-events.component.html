@@ -1,0 +1,171 @@
+<div class="page-container">
+
+  <app-admin-sidebar
+    [(isOpen)]="sidebarOpen"
+    activeItem="events">
+  </app-admin-sidebar>
+
+  <div class="content-area">
+    <div class="event-form">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="top-header-left">
+          <button
+            class="menu-toggle-btn"
+            (click)="toggleSidebar()"
+            aria-label="Abrir menú">
+            ☰
+          </button>
+          <div class="brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            INKLUSPORT
+          </div>
+        </div>
+        <div class="header-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+      </header>
+
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="section-label">Gestión de Competición</div>
+        <h1 class="page-title">Nuevo Evento<br><span>Inclusivo</span></h1>
+      </section>
+
+      <!-- Form Layout -->
+      <div class="form-layout">
+        <!-- Form Card -->
+        <div class="form-card">
+          <!-- Detalles Generales -->
+          <div class="form-section">
+            <h2 class="section-title">Detalles Generales</h2>
+            <div class="field-group">
+              <label class="field-label">Nombre del Evento</label>
+              <input type="text" class="field-input" placeholder="Ej: Maratón Adaptada Madrid 2024">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Descripción</label>
+              <textarea class="field-input" placeholder="Describe el propósito y las actividades del evento..."></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Fecha</label>
+                <input type="text" class="field-input" placeholder="dd/mm/aaaa">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Hora</label>
+                <input type="text" class="field-input" placeholder="--:-- --">
+              </div>
+            </div>
+          </div>
+
+          <!-- Logística y Capacidad -->
+          <div class="form-section">
+            <h2 class="section-title">Logística y Capacidad</h2>
+            <div class="field-group">
+              <label class="field-label">Ubicación</label>
+              <select class="field-input">
+                <option>Seleccionar sede...</option>
+                <option>Centro Olímpico</option>
+                <option>Arena de la Ciudad</option>
+                <option>Centro Acuático</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Capacidad Máxima</label>
+                <input type="number" class="field-input" placeholder="0">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Nivel de Intensidad</label>
+                <select class="field-input">
+                  <option>Principiante</option>
+                  <option>Intermedio</option>
+                  <option>Avanzado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal y Accesibilidad -->
+          <div class="form-section">
+            <h2 class="section-title">Personal y Accesibilidad</h2>
+            <div class="field-group">
+              <label class="field-label">Entrenador Asignado</label>
+              <div class="coach-select-wrap">
+                <svg class="coach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <select class="field-input">
+                  <option>Seleccionar entrenador...</option>
+                  <option>Marco Jensen</option>
+                  <option>Elena Rodriguez</option>
+                  <option>Sarah Chen</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Discapacidades Objetivo</label>
+              <div class="checkbox-grid">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="visual" name="discapacidad">
+                  <label for="visual">Visual</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="auditiva" name="discapacidad">
+                  <label for="auditiva">Auditiva</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="motriz" name="discapacidad">
+                  <label for="motriz">Motriz</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="intelectual" name="discapacidad">
+                  <label for="intelectual">Intelectual</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="organica" name="discapacidad">
+                  <label for="organica">Orgánica</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Card -->
+        <div class="summary-card">
+          <h3 class="summary-title">Resumen del Evento</h3>
+          <p class="summary-desc">Asegúrate de que todos los campos técnicos estén validados para cumplir con los estándares de seguridad deportiva HU18.1.</p>
+          <div class="summary-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Normativa HU18.3 Activa</span>
+          </div>
+          <div class="summary-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span>Protocolo de Emergencia Requerido</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="form-footer">
+        <button type="button" class="btn-cancel" (click)="cancel()">Cancelar</button>
+        <button type="button" class="btn-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+</div>

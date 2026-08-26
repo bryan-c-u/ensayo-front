@@ -1,67 +1,5 @@
 <div class="profile-container">
-  <!-- Barra de Navegación -->
-  <header class="profile-navbar">
-    <nav class="profile-nav-content">
-      <div class="profile-nav-left">
-        <!-- Botón Volver a Home -->
-        <button
-          class="back-home-btn"
-          type="button"
-          (click)="handleGoHome()"
-          title="Volver a Inicio"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-        </button>
-        <div class="profile-logo">INKLUSPORT</div>
-      </div>
-
-      <div class="profile-nav-right">
-        <span class="profile-nav-tag">ADAPTIVE ATHLETE</span>
-        <div class="profile-nav-divider"></div>
-        <div class="profile-nav-user">
-          <img
-            [src]="profileData.profilePicUrl"
-            alt="User"
-            class="profile-nav-avatar"
-          />
-          <span class="profile-nav-username">{{ profileData.fullName }}</span>
-        </div>
-        <button
-          class="profile-icon-btn"
-          type="button"
-          (click)="handleLogout()"
-          title="Cerrar sesión"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M16 17l5-5-5-5"></path>
-            <path d="M21 12H9"></path>
-            <path d="M9 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"></path>
-          </svg>
-        </button>
-      </div>
-    </nav>
-  </header>
+  <app-sidebar-nav></app-sidebar-nav>
 
   <!-- Contenido Principal -->
   <main class="profile-main">
@@ -94,11 +32,11 @@
       <div class="profile-title-area">
         <h1 class="profile-title">Mi Perfil</h1>
         <p class="profile-subtitle">
-          Adaptive Athlete ID: {{ profileData.athleteId }}
+          ID de Atleta Adaptado: {{ profileData.athleteId }}
         </p>
       </div>
 
-      <button class="profile-top-notifications-btn">NOTIFICATIONS</button>
+      <button class="profile-top-notifications-btn">NOTIFICACIONES</button>
     </div>
 
     <!-- Tarjeta de Información Personal -->

@@ -1,0 +1,126 @@
+<div class="page-container">
+
+  <app-admin-sidebar
+    [(isOpen)]="sidebarOpen"
+    activeItem="disabilities">
+  </app-admin-sidebar>
+
+  <div class="content-area">
+    <div class="create-disability">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="top-header-left">
+          <button
+            class="menu-toggle-btn"
+            (click)="toggleSidebar()"
+            aria-label="Abrir menú">
+            ☰
+          </button>
+          <div class="brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            INKLUSPORT
+          </div>
+        </div>
+        <div class="header-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+      </header>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">Admin &rsaquo; <span>Gestión de Discapacidades</span></div>
+
+      <!-- Page Header -->
+      <section class="page-header">
+        <h1 class="page-title">Crear Nuevo <span>Tipo de Discapacidad</span></h1>
+        <p class="page-desc">Define una nueva categoría para la inclusión deportiva. Las clasificaciones precisas nos ayudan a emparejar atletas con los eventos y el equipamiento adecuados.</p>
+      </section>
+
+      <!-- Form Layout -->
+      <div class="form-layout">
+        <!-- Form Card -->
+        <div class="form-card">
+          <div class="field-group">
+            <label class="field-label">Nombre del Tipo</label>
+            <input type="text" class="field-input" placeholder="Ej: Discapacidad Visual">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Descripción Detallada</label>
+            <textarea class="field-input" placeholder="Define el alcance y los requisitos técnicos de este tipo de discapacidad..."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Estado Operativo</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active">
+                Activo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </button>
+              <button class="toggle-btn">
+                Inactivo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-save">Guardar</button>
+            <button type="button" class="btn-cancel" (click)="cancel()">Cancelar</button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Tip Card -->
+          <div class="tip-card">
+            <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6"></path>
+              <path d="M10 22h4"></path>
+              <path d="M12 2v1"></path>
+              <path d="M12 7a5 5 0 0 1 5 5c0 2.5-2 4-5 5.5C9 16 7 14.5 7 12a5 5 0 0 1 5-5z"></path>
+            </svg>
+            <h3 class="tip-title">Consejo de Registro</h3>
+            <p class="tip-text">Asegúrate de que la descripción incluya las clasificaciones estándar del IPC (Comité Paralímpico Internacional) para una mejor sincronización global.</p>
+          </div>
+
+          <!-- Activity Card -->
+          <div class="activity-card">
+            <div class="activity-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              Actividad Reciente
+            </div>
+            <div class="activity-item">
+              <div class="activity-bar bar-blue"></div>
+              <div class="activity-content">
+                <div class="activity-time">Hace 2 Horas</div>
+                <div class="activity-text">Se actualizó el tipo "Amputación" por Carlos M.</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-bar bar-red"></div>
+              <div class="activity-content">
+                <div class="activity-time">Ayer</div>
+                <div class="activity-text">Se agregó el nuevo deporte "Voleibol Sentado".</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

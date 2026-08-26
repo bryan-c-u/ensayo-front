@@ -1,0 +1,282 @@
+<div class="page-container">
+
+  <app-admin-sidebar
+    [(isOpen)]="sidebarOpen"
+    activeItem="users">
+  </app-admin-sidebar>
+
+  <div class="content-area">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="top-header-left">
+        <button
+          class="menu-toggle-btn"
+          (click)="toggleSidebar()"
+          aria-label="Abrir menú">
+          ☰
+        </button>
+        <div class="brand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <span>Inklusport Admin</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="global-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Búsqueda global...">
+        </div>
+        <div class="admin-profile">
+          <span>Admin Central</span>
+          <div class="admin-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="page-title-section">
+          <div class="section-label">Consola de gestión</div>
+          <h1 class="page-title">Directorio de usuarios</h1>
+          <p class="page-desc">Gestiona perfiles de accesibilidad, roles de atletas y permisos del sistema para el ecosistema deportivo inclusivo.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Exportar CSV
+          </button>
+          <button class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Exportar PDF
+          </button>
+          <button class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Nuevo usuario
+          </button>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section class="filters-bar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Buscar por nombre, correo o ID...">
+        </div>
+        <button class="btn-search">Buscar</button>
+        <div class="filter-pills">
+          <button class="pill active">Todos</button>
+          <button class="pill">Activos</button>
+          <button class="pill">Por rol</button>
+        </div>
+        <button class="advanced-filters">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+          Filtros avanzados
+        </button>
+      </section>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Rol</th>
+              <th>Discapacidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="user-id">#INK-8821</span></td>
+              <td>
+                <div class="user-cell">
+                  <div class="user-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <span class="user-name">Elena Rodriguez</span>
+                </div>
+              </td>
+              <td><span class="email">elena.rod&#64;example.com</span></td>
+              <td><span class="phone">+34<br>612 345 678</span></td>
+              <td><span class="role-badge role-athlete">Atleta</span></td>
+              <td><span class="disability">Discapacidad Visual</span></td>
+              <td><span class="status status-active"><span class="status-dot"></span> Activo</span></td>
+              <td class="actions">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="19" cy="12" r="1"></circle>
+                  <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="user-id">#INK-7742</span></td>
+              <td>
+                <div class="user-cell">
+                  <div class="user-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <span class="user-name">Marco Jensen</span>
+                </div>
+              </td>
+              <td><span class="email">m.jensen&#64;sportlink.org</span></td>
+              <td><span class="phone">+45<br>88 12 34 56</span></td>
+              <td><span class="role-badge role-coach">Entrenador</span></td>
+              <td><span class="disability">Ninguna</span></td>
+              <td><span class="status status-active"><span class="status-dot"></span> Activo</span></td>
+              <td class="actions">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="19" cy="12" r="1"></circle>
+                  <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="user-id">#INK-5529</span></td>
+              <td>
+                <div class="user-cell">
+                  <div class="user-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <span class="user-name">Sarah Chen</span>
+                </div>
+              </td>
+              <td><span class="email">chen.s&#64;inklu.com</span></td>
+              <td><span class="phone">+1<br>555 0123 456</span></td>
+              <td><span class="role-badge role-admin">Administrador</span></td>
+              <td><span class="disability">Movilidad (Silla de ruedas)</span></td>
+              <td><span class="status status-blocked"><span class="status-dot"></span> Bloqueado</span></td>
+              <td class="actions">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="19" cy="12" r="1"></circle>
+                  <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-bar">
+        <span>Mostrando 1 - 10 de 2.480 usuarios</span>
+        <div class="pagination-controls">
+          <button class="page-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn" style="cursor: default;">...</button>
+          <button class="page-btn">248</button>
+          <button class="page-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="bottom-section">
+        <div class="compliance-mapping">
+          <h3 class="compliance-title">Mapeo de cumplimiento del sistema</h3>
+          <div class="compliance-grid">
+            <div class="compliance-item">
+              <span class="compliance-ref">HU07 y HU08</span>
+              <span class="compliance-text">Creación de perfil de usuario y lógica de autorización multirol</span>
+            </div>
+            <div class="compliance-item">
+              <span class="compliance-ref">HU27 y HU28</span>
+              <span class="compliance-text">Protección de privacidad de datos y registros de integridad de exportación masiva</span>
+            </div>
+          </div>
+          <div class="compliance-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <div class="ai-insights">
+          <div>
+            <div class="ai-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+              <h4 class="ai-title">Perspectivas de IA: Retención de usuarios</h4>
+            </div>
+            <p class="ai-desc">La retención de atletas activos ha aumentado un 14% desde que se implementaron los nuevos filtros de accesibilidad.</p>
+          </div>
+          <button class="ai-btn">Ver análisis</button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="compliance-footer">
+        <span class="footer-label">Referencias de cumplimiento</span>
+        <div class="footer-pills">
+          <span class="footer-pill">HU07</span>
+          <span class="footer-pill">HU08</span>
+          <span class="footer-pill">HU27</span>
+          <span class="footer-pill">HU28</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>

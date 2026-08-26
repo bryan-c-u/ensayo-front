@@ -4,9 +4,11 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { RegisterRequest } from '../../models/register-request';
+import { RegisterRequest, RequestedRole } from '../../models/register-request';
 import { DisabilityType } from '../../models/disability-type';
+import { PendingRoleRequest } from '../../models/pending-role-request';
 import { AccessibilityService } from '../../../../core/services/accessibility.service';
+import { AuthStateService } from '../../../../core/services/auth-state.service';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +24,7 @@ export class RegisterComponent {
   isSubmitting = false;
   registrationComplete = false;
   registeredEmail = '';
+  pendingRoleRequest: PendingRoleRequest | null = null;
 
   readonly disabilityOptions: { value: DisabilityType; label: string }[] = [
     { value: 'visual', label: 'Discapacidad Visual' },
@@ -31,11 +34,18 @@ export class RegisterComponent {
     { value: 'otra', label: 'Otra / Ninguna' },
   ];
 
+  readonly roleOptions: { value: RequestedRole; label: string; hint: string }[] = [
+    { value: 'USUARIO', label: 'Usuario', hint: 'Participa y se inscribe en eventos.' },
+    { value: 'ENTRENADOR', label: 'Entrenador', hint: 'Requiere aprobación de un administrador.' },
+    { value: 'ORGANIZADOR', label: 'Organizador', hint: 'Requiere aprobación de un administrador.' },
+  ];
+
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private authService: AuthService,
     private router: Router,
+    private authState: AuthStateService,
     public accessibilityService: AccessibilityService
   ) {
     this.registerForm = this.fb.group({
@@ -43,6 +53,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(20)]],
       disabilityType: ['', Validators.required],
+      requestedRole: ['USUARIO' as RequestedRole, Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       acceptTerms: [false, Validators.requiredTrue],
@@ -90,8 +101,9 @@ export class RegisterComponent {
     this.authService.register(this.registerForm.value as RegisterRequest).subscribe({
       next: (response) => {
         this.isSubmitting = false;
-        localStorage.setItem('auth_token', response.token);
+        this.authState.setToken(response.token);
         this.registeredEmail = response.email;
+        this.pendingRoleRequest = response.pendingRoleRequest;
         this.registrationComplete = true;
       },
       error: (error) => {
@@ -103,6 +115,10 @@ export class RegisterComponent {
 
   continueToDashboard(): void {
     this.router.navigate(['/home']);
+  }
+
+  roleLabel(value: string): string {
+    return this.roleOptions.find((opt) => opt.value === value)?.label ?? value;
   }
 
   onResendEmail(): void {

@@ -1,62 +1,9 @@
 <div class="page-container">
 
-  <!-- OVERLAY MÓVIL -->
-  <div 
-    *ngIf="sidebarOpen" 
-    class="sidebar-overlay" 
-    (click)="setSidebarOpen(false)">
-  </div>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" [class.open]="sidebarOpen">
-    <div>
-      <div class="brand-section">
-        <div class="brand-icon">
-          <span>♿</span>
-        </div>
-        <div>
-          <div class="brand-title">INKLUSPORT ADMIN</div>
-        </div>
-      </div>
-
-      <div class="admin-profile-card">
-        <div class="admin-avatar">
-          <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
-            alt="Admin" 
-          />
-        </div>
-        <div>
-          <div class="admin-name">Admin Central</div>
-          <div class="admin-role">Inklusport Management</div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <button class="sidebar-nav-item active">
-        <span class="nav-icon">🔲</span> Dashboard
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">👥</span> Users
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">📅</span> Events
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">🏃</span> Sports
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">♿</span> Disabilities
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">🛡️</span> Roles
-      </button>
-      <button class="sidebar-nav-item">
-        <span class="nav-icon">📊</span> Audit Logs
-      </button>
-    </nav>
-  </aside>
+  <app-admin-sidebar
+    [(isOpen)]="sidebarOpen"
+    activeItem="dashboard">
+  </app-admin-sidebar>
 
   <!-- ÁREA DE CONTENIDO -->
   <div class="content-area">
@@ -94,8 +41,8 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-primary">CREAR EVENTO</button>
-        <button class="btn-secondary">GESTIONAR USUARIOS</button>
+        <button class="btn-primary" routerLink="/admin/events/create">CREAR EVENTO</button>
+        <button class="btn-secondary" routerLink="/admin/users">GESTIONAR USUARIOS</button>
         <button class="btn-secondary">GENERAR REPORTE</button>
       </div>
     </header>
@@ -188,7 +135,7 @@
                   <div class="avatar-group-item overlap">👤</div>
                   <span class="avatar-count">+24</span>
                 </div>
-                <button class="event-manage-btn">GESTIONAR</button>
+                <button class="event-manage-btn" routerLink="/admin/events">GESTIONAR</button>
               </div>
             </div>
           </div>
@@ -214,7 +161,7 @@
                   <div class="avatar-group-item overlap">👤</div>
                   <span class="avatar-count">+18</span>
                 </div>
-                <button class="event-manage-btn">GESTIONAR</button>
+                <button class="event-manage-btn" routerLink="/admin/events">GESTIONAR</button>
               </div>
             </div>
           </div>

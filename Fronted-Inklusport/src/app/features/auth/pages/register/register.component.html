@@ -128,6 +128,20 @@
           </div>
         </div>
 
+        <!-- Tipo de cuenta -->
+        <div class="form-row">
+          <div class="input-group input-group--full">
+            <label class="input-label">TIPO DE CUENTA</label>
+            <div class="role-options">
+              <label class="role-option" *ngFor="let opt of roleOptions" [class.role-option--active]="registerForm.get('requestedRole')?.value === opt.value">
+                <input type="radio" formControlName="requestedRole" [value]="opt.value" class="role-option-input" />
+                <span class="role-option-label">{{ opt.label }}</span>
+                <span class="role-option-hint">{{ opt.hint }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- Contraseñas -->
         <div class="form-row">
           <div class="input-group">
@@ -279,6 +293,11 @@
         <polyline points="22,6 12,13 2,6" />
       </svg>
       <span>Correo enviado a {{ registeredEmail }}</span>
+    </div>
+
+    <div class="pending-role-notice" *ngIf="pendingRoleRequest">
+      Tu cuenta quedó activa como <strong>Usuario</strong>. Tu solicitud para ser
+      <strong>{{ roleLabel(pendingRoleRequest.requestedRole) }}</strong> está pendiente de aprobación por un administrador.
     </div>
 
     <p class="success-resend">

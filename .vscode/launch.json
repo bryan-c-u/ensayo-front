@@ -31,6 +31,26 @@
             "projectName": "ink-ms-users",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SportsApplication<ink-ms-sports>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.inklusport.sports.SportsApplication",
+            "projectName": "ink-ms-sports",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SuscripcionesApplication<ink-ms-suscripciones>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.inklusport.suscripciones.SuscripcionesApplication",
+            "projectName": "ink-ms-suscripciones",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

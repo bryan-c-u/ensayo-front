@@ -1,0 +1,199 @@
+<div class="page-container">
+
+  <app-admin-sidebar
+    [(isOpen)]="sidebarOpen"
+    activeItem="roles">
+  </app-admin-sidebar>
+
+  <div class="content-area">
+    <div class="role-admin">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button
+            class="menu-toggle-btn"
+            (click)="toggleSidebar()"
+            aria-label="Abrir menú">
+            ☰
+          </button>
+          <span class="brand-label">Gestión Inklusport</span>
+          <div class="admin-mini">
+            <div class="admin-mini-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="admin-mini-text">
+              <span class="admin-mini-name">Admin Central</span>
+              <span class="admin-mini-role">Gestión Inklusport</span>
+            </div>
+          </div>
+        </div>
+        <div class="header-center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span>Inklusport Admin</span>
+        </div>
+        <div class="header-right">
+          <div class="global-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Búsqueda global...</span>
+          </div>
+          <div class="ap-avatar">AP</div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+          <div class="page-label">Seguridad y Gobernanza</div>
+          <h1 class="page-title">Gestión de Roles y Permisos</h1>
+          <p class="page-desc">Configura los niveles de acceso organizacional y delega responsabilidades operativas para el nodo HU26. Se han definido 4 roles base en total.</p>
+        </section>
+
+        <!-- Quick Assign -->
+        <div class="quick-assign">
+          <div class="quick-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Asignación Rápida
+          </div>
+          <div class="field-group">
+            <label class="field-label">Seleccionar Usuario</label>
+            <div class="search-wrap">
+              <input type="text" class="field-input" placeholder="Buscar por nombre o correo">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Asignar Rol</label>
+            <select class="field-input">
+              <option>Administrador</option>
+              <option>Entrenador</option>
+              <option>Organizador</option>
+              <option>Usuario</option>
+            </select>
+          </div>
+          <button class="btn-update">Actualizar Rol del Usuario</button>
+          <div class="alert-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Los cambios de rol se registran de inmediato en el Flujo de Auditoría HU26 para cumplimiento.
+          </div>
+        </div>
+
+        <!-- Existing Roles -->
+        <section class="roles-section">
+          <div class="roles-header">
+            <h2 class="roles-title">Roles Existentes del Ecosistema</h2>
+            <span class="node-badge">NODO: HU26</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Identidad del Rol</th>
+                  <th>Estado</th>
+                  <th>Usuarios</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="role-cell">
+                      <div class="role-avatar avatar-red">AD</div>
+                      <div>
+                        <div class="role-name">Administrador</div>
+                        <div class="role-desc">Control total del sistema</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="status-badge">Activo</span></td>
+                  <td><span class="user-count">12</span></td>
+                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="role-cell">
+                      <div class="role-avatar avatar-blue">EN</div>
+                      <div>
+                        <div class="role-name">Entrenador</div>
+                        <div class="role-desc">Gestión de atletas</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="status-badge">Activo</span></td>
+                  <td><span class="user-count">48</span></td>
+                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="role-cell">
+                      <div class="role-avatar avatar-teal">OR</div>
+                      <div>
+                        <div class="role-name">Organizador</div>
+                        <div class="role-desc">Coordinación de eventos</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="status-badge">Activo</span></td>
+                  <td><span class="user-count">24</span></td>
+                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="role-cell">
+                      <div class="role-avatar avatar-gray">US</div>
+                      <div>
+                        <div class="role-name">Usuario</div>
+                        <div class="role-desc">Acceso estándar de atleta</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="status-badge">Activo</span></td>
+                  <td><span class="user-count">1.204</span></td>
+                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="activity-section">
+          <div class="activity-header">
+            <h2 class="activity-title">Actividad Reciente de Roles</h2>
+            <span class="view-history">Ver Historial</span>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot dot-red"></div>
+              <div class="timeline-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                  <div class="timeline-label label-red">Actualización de Permisos</div>
+                  <span class="timeline-time">Hace 2 min</span>
+                </div>
+                <div class="timeline-text">El administrador <strong>HU26_Central</strong> ascendió al usuario <strong>M. Rivera</strong> al rol de <em>Entrenador</em>.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot dot-teal"></div>
+              <div class="timeline-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                  <div class="timeline-label label-teal">Modificación de Esquema</div>
+                  <span class="timeline-time">Hace 45 min</span>
+                </div>
+                <div class="timeline-text">El sistema agregó la capacidad 'Audit_Write' al perfil de <strong>Organizador</strong>.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- System Status -->
+        <div class="system-status-bar">
+          <span class="status-label">Estado del Sistema</span>
+          <span class="status-dot-green"></span>
+          <span class="status-text">Servicio HU26 Activo</span>
+        </div>
+      </main>
+    </div>
+  </div>
+
+</div>

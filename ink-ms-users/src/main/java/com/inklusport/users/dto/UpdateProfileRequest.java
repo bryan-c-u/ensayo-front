@@ -17,4 +17,10 @@ public class UpdateProfileRequest {
     private String bio;
 
     private String disability;
+
+    /**
+     * Rol solicitado al crear el perfil: USUARIO, ENTRENADOR u ORGANIZADOR.
+     * ADMIN nunca se acepta aqui. Si se omite, se asume USUARIO.
+     */
+    private String requestedRole;
 }

@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: ink-ms-search
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/search_db
+      auto-index-creation: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 3007
+
+jwt:
+  secret: inklusport2024superSecretKeyForJWTtokenGenerationWith512bitsAlgorithmHS512
+  expiration: 86400000
+
+auth:
+  service:
+    url: http://localhost:3001
+
+# NOTA: en este entorno de desarrollo ink-ms-users e ink-ms-sports comparten
+# el puerto 3003 en sus propios application.yml, por lo que solo uno de los
+# dos puede correr localmente a la vez. Ajusta estas URLs si cambias alguno
+# de esos puertos.
+users:
+  service:
+    url: http://localhost:3003
+
+sports:
+  service:
+    url: http://localhost:3003
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+# Intervalo de resincronizacion automatica del indice (ms). 5 minutos por defecto.
+search:
+  sync:
+    interval-ms: 300000
+
+logging:
+  level:
+    com.inklusport.search: DEBUG
+    org.mongodb.driver: WARN

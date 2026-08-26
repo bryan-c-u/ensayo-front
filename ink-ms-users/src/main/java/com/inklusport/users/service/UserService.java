@@ -1,16 +1,21 @@
 package com.inklusport.users.service;
 
+import com.inklusport.users.dto.AssignRoleRequest;
 import com.inklusport.users.dto.UpdateProfileRequest;
 import com.inklusport.users.dto.UserProfileResponse;
+import com.inklusport.users.entity.Role;
 import com.inklusport.users.entity.User;
+import com.inklusport.users.repository.RoleRepository;
 import com.inklusport.users.repository.UserRepository;
 import com.inklusport.users.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -22,19 +27,35 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserService {
 
+    private static final String ROLE_USUARIO = "USUARIO";
+    private static final Set<String> SELF_REQUESTABLE_ROLES = Set.of("USUARIO", "ENTRENADOR", "ORGANIZADOR");
+
     /**
      * Se inyectan dependencias importadas de los repositorios
      */
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final RoleRepository roleRepository;
+    private final RoleService roleService;
+    private final RoleRequestService roleRequestService;
 
     /**
-     * Crea perfil base del usuario autenticado.
+     * Crea perfil base del usuario autenticado y resuelve el rol solicitado:
+     * USUARIO se asigna de inmediato; ENTRENADOR/ORGANIZADOR quedan como
+     * USUARIO mientras un administrador aprueba la solicitud de rol.
      */
     @Transactional
-    public UserProfileResponse createUserProfile(String email, String fullName) {
+    public UserProfileResponse createUserProfile(String email, String fullName, String requestedRole) {
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("El usuario ya existe");
+        }
+
+        String normalizedRole = StringUtils.hasText(requestedRole)
+                ? requestedRole.trim().toUpperCase()
+                : ROLE_USUARIO;
+
+        if (!SELF_REQUESTABLE_ROLES.contains(normalizedRole)) {
+            throw new RuntimeException("Rol solicitado no valido: " + requestedRole);
         }
 
         User user = new User();
@@ -43,7 +64,18 @@ public class UserService {
         user.setActive(true);
 
         User savedUser = userRepository.save(user);
-        log.info("Perfil de usuario creado: {}", email);
+
+        Role usuarioRole = roleRepository.findByName(ROLE_USUARIO)
+                .orElseThrow(() -> new RuntimeException("Rol base USUARIO no encontrado"));
+        AssignRoleRequest baseRoleRequest = new AssignRoleRequest();
+        baseRoleRequest.setRoleId(usuarioRole.getId());
+        roleService.assignRoleToUser(email, baseRoleRequest, "SYSTEM");
+
+        if (!normalizedRole.equals(ROLE_USUARIO)) {
+            roleRequestService.createRoleRequest(savedUser, normalizedRole);
+        }
+
+        log.info("Perfil de usuario creado: {} (rol solicitado: {})", email, normalizedRole);
 
         return convertToResponse(savedUser);
     }
@@ -166,6 +198,7 @@ public class UserService {
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .roles(roles)
+                .pendingRoleRequest(roleRequestService.getLatestPendingRequestForUser(user.getId()))
                 .build();
     }
 }

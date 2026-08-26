@@ -1,0 +1,305 @@
+/* ==========================================================================
+   LAYOUT PRINCIPAL (compartido con el resto del módulo admin)
+   ========================================================================== */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F3F4F6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+* { box-sizing: border-box; }
+
+.create-disability {
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+/* ===== Top Header ===== */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+.top-header-left {
+  display: flex;
+  align-items: center;
+}
+.menu-toggle-btn {
+  display: none;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #111827;
+  margin-right: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #c8102e;
+}
+.brand svg { width: 18px; height: 18px; }
+.header-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #e5e5e5;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.header-avatar svg { width: 18px; height: 18px; color: #666; }
+
+/* ===== Breadcrumb ===== */
+.breadcrumb {
+  padding: 24px 24px 0;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #666;
+}
+.breadcrumb span { color: #c8102e; }
+
+/* ===== Page Header ===== */
+.page-header { padding: 0 24px; margin-bottom: 24px; }
+.page-title {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 10px 0;
+}
+.page-title span { color: #c8102e; }
+.page-desc {
+  color: #666;
+  font-size: 14px;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+/* ===== Layout ===== */
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 28px;
+  padding: 0 24px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ===== Form Card ===== */
+.form-card {
+  background: #fdf6f6;
+  border-radius: 16px;
+  padding: 32px;
+}
+.field-group { margin-bottom: 24px; }
+.field-group:last-child { margin-bottom: 0; }
+.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 10px;
+}
+.field-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+.field-input:focus {
+  outline: none;
+  border-color: #c8102e;
+}
+.field-input::placeholder { color: #bbb; }
+textarea.field-input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Botones de alternancia */
+.toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.toggle-btn.active {
+  background: #c8102e;
+  color: white;
+  border-color: #c8102e;
+}
+.toggle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Acciones del formulario */
+.form-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.btn-save {
+  flex: 1;
+  padding: 14px 24px;
+  background: #c8102e;
+  color: white;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.btn-save:hover { opacity: 0.9; }
+.btn-cancel {
+  flex: 1;
+  padding: 14px 24px;
+  background: transparent;
+  color: #666;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.btn-cancel:hover { color: #1a1a1a; }
+
+/* ===== Sidebar ===== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Tip Card */
+.tip-card {
+  background: #c8102e;
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.tip-card::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+.tip-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+.tip-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+.tip-text {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Activity Card */
+.activity-card {
+  background: #fdf6f6;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+}
+.activity-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.activity-header svg { width: 16px; height: 16px; color: #2563eb; }
+
+.activity-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.activity-item:last-child { margin-bottom: 0; }
+.activity-bar {
+  width: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.bar-blue { background: #2563eb; }
+.bar-red { background: #c8102e; }
+.activity-content { flex: 1; }
+.activity-time {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 2px;
+}
+.activity-text {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .form-layout { grid-template-columns: 1fr; }
+  .page-title { font-size: 28px; }
+  .toggle-group { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column; }
+}

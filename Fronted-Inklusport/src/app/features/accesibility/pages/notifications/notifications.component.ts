@@ -33,7 +33,7 @@ export class NotificationsComponent {
     {
       id: 2,
       titulo: 'Recordatorio de Calentamiento',
-      mensaje: 'Recordatorio: Sesión de entrenamiento con el Coach Javier a las 16:30. No olvides tu hidratación.',
+      mensaje: 'Recordatorio: Sesión de entrenamiento con el Entrenador Javier a las 16:30. No olvides tu hidratación.',
       tiempo: 'HACE 45 MIN',
       categoria: 'Urgentes',
       destacada: false

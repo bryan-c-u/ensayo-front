@@ -1,14 +1,20 @@
 package com.inklusport.users.controller;
 
 import com.inklusport.users.dto.AssignRoleRequest;
+import com.inklusport.users.dto.ReviewRoleRequest;
+import com.inklusport.users.dto.RoleRequestResponse;
 import com.inklusport.users.dto.RoleResponse;
 import com.inklusport.users.dto.UserProfileResponse;
 import com.inklusport.users.dto.response.ErrorResponse;
+import com.inklusport.users.enums.RoleRequestStatus;
 import com.inklusport.users.service.UserService;
 import com.inklusport.users.service.RoleService;
+import com.inklusport.users.service.RoleRequestService;
 import com.inklusport.users.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +41,7 @@ public class AdminUserController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final RoleRequestService roleRequestService;
     private final UserRepository userRepository;
 
     // ===== Bloque 1: Consulta y estado de usuarios =====
@@ -135,6 +142,45 @@ public class AdminUserController {
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return buildErrorResponse(e, "/api/admin/users/" + email + "/roles/" + roleId);
+        }
+    }
+
+    // ===== Bloque 3: Solicitudes de rol (ENTRENADOR/ORGANIZADOR pendientes) =====
+    /**
+     * Lista las solicitudes de rol por estado (por defecto, pendientes).
+     */
+    @GetMapping("/role-requests")
+    public ResponseEntity<Page<RoleRequestResponse>> getRoleRequests(
+            @RequestParam(defaultValue = "PENDING") RoleRequestStatus status,
+            Pageable pageable) {
+        return ResponseEntity.ok(roleRequestService.getRequestsByStatus(status, pageable));
+    }
+
+    /**
+     * Aprueba una solicitud de rol: asigna el rol solicitado al usuario.
+     */
+    @PostMapping("/role-requests/{id}/approve")
+    public ResponseEntity<?> approveRoleRequest(@PathVariable String id,
+                                                 @RequestBody(required = false) ReviewRoleRequest body,
+                                                 @AuthenticationPrincipal String adminEmail) {
+        try {
+            return ResponseEntity.ok(roleRequestService.approve(id, adminEmail, body));
+        } catch (Exception e) {
+            return buildErrorResponse(e, "/api/admin/users/role-requests/" + id + "/approve");
+        }
+    }
+
+    /**
+     * Rechaza una solicitud de rol: el usuario conserva unicamente USUARIO.
+     */
+    @PostMapping("/role-requests/{id}/reject")
+    public ResponseEntity<?> rejectRoleRequest(@PathVariable String id,
+                                                @RequestBody(required = false) ReviewRoleRequest body,
+                                                @AuthenticationPrincipal String adminEmail) {
+        try {
+            return ResponseEntity.ok(roleRequestService.reject(id, adminEmail, body));
+        } catch (Exception e) {
+            return buildErrorResponse(e, "/api/admin/users/role-requests/" + id + "/reject");
         }
     }
 
