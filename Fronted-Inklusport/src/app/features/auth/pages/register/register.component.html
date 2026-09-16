@@ -134,9 +134,17 @@
             <label class="input-label">TIPO DE CUENTA</label>
             <div class="role-options">
               <label class="role-option" *ngFor="let opt of roleOptions" [class.role-option--active]="registerForm.get('requestedRole')?.value === opt.value">
-                <input type="radio" formControlName="requestedRole" [value]="opt.value" class="role-option-input" />
-                <span class="role-option-label">{{ opt.label }}</span>
-                <span class="role-option-hint">{{ opt.hint }}</span>
+                <input
+                  type="checkbox"
+                  class="role-option-checkbox"
+                  [checked]="registerForm.get('requestedRole')?.value === opt.value"
+                  (change)="selectRole(opt.value)"
+                  [attr.aria-label]="opt.label"
+                />
+                <span class="role-option-text">
+                  <span class="role-option-label">{{ opt.label }}</span>
+                  <span class="role-option-hint">{{ opt.hint }}</span>
+                </span>
               </label>
             </div>
           </div>

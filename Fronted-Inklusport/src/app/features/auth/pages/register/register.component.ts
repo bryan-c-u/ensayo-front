@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { RegisterRequest, RequestedRole } from '../../models/register-request';
-import { DisabilityType } from '../../models/disability-type';
+import { DisabilityType } from '../../../sports-and-events/models/disability-type';
 import { PendingRoleRequest } from '../../models/pending-role-request';
 import { AccessibilityService } from '../../../../core/services/accessibility.service';
 import { AuthStateService } from '../../../../core/services/auth-state.service';
@@ -73,6 +73,11 @@ export class RegisterComponent {
   fieldInvalid(fieldName: string): boolean {
     const control = this.registerForm.get(fieldName);
     return !!control && control.invalid && (control.touched || control.dirty);
+  }
+
+  selectRole(role: RequestedRole): void {
+    this.registerForm.get('requestedRole')?.setValue(role);
+    this.registerForm.get('requestedRole')?.markAsTouched();
   }
 
   passwordsMismatch(): boolean {

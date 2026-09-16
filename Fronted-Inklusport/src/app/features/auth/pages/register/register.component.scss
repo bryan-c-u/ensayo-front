@@ -295,8 +295,9 @@
   position: relative;
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
   padding: 10px 14px;
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
@@ -314,11 +315,19 @@
   border-color: #A30D11;
 }
 
-.role-option-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+.role-option-checkbox {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: #A30D11;
+  cursor: pointer;
+}
+
+.role-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .role-option-label {
