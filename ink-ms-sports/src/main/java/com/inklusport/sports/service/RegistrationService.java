@@ -39,35 +39,59 @@ public class RegistrationService {
         }
 
         String userEmail = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return crearInscripcion(event, userEmail);
+    }
 
+    /**
+     * Crea la inscripcion de un evento de pago una vez ink-ms-subscriptions confirma
+     * que el cobro fue aprobado (ver {@code /api/internal/registrations/eventos/{eventoId}/usuarios/{email}/pago-confirmado}).
+     * A diferencia de {@link #registerToEvent}, no valida que el evento sea gratuito:
+     * quien la invoca ya verifico el pago. Es idempotente porque el webhook de
+     * Mercado Pago puede reintentar la notificacion del mismo pago.
+     */
+    @Transactional
+    public RegistrationResponse confirmarInscripcionPagada(String eventoId, String userEmail) {
+        Event event = eventRepository.findById(eventoId)
+                .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+
+        Optional<EventRegistration> existente = registrationRepository.findByUserIdAndEventId(userEmail, eventoId);
+        if (existente.isPresent()) {
+            log.info("Inscripcion pagada de {} en evento {} ya existia, se ignora duplicado", userEmail, eventoId);
+            return convertToResponse(existente.get(), "El pago ya estaba confirmado.", event.getName());
+        }
+
+        return crearInscripcion(event, userEmail);
+    }
+
+    private RegistrationResponse crearInscripcion(Event event, String userEmail) {
         EventRegistration registration = new EventRegistration();
         registration.setId(UUID.randomUUID().toString());
-        registration.setEventId(request.getEventId());
+        registration.setEventId(event.getId());
         registration.setUserId(userEmail);
         registration.setRegistrationDate(LocalDateTime.now());
         registration.setAttended(false);
         registration.setQrCode("QR_" + UUID.randomUUID().toString());
 
-        String statusMessage; 
+        String statusMessage;
         String notificationType;
         String notificationTitle;
         String notificationBody;
 
         if (event.getAvailableCapacity() > 0) {
-            registration.setWaitlistPosition(null); 
-            
+            registration.setWaitlistPosition(null);
+
             event.setAvailableCapacity(event.getAvailableCapacity() - 1);
             eventRepository.save(event);
-            
+
             statusMessage = "Inscripción confirmada exitosamente. ¡Cupo asegurado!";
             notificationType = "event_registration";
             notificationTitle = "¡Inscripción confirmada!";
             notificationBody = "Te has inscrito correctamente al evento: " + event.getName();
         } else {
-            long personasEnEspera = registrationRepository.countByEventIdAndWaitlistPositionIsNotNull(request.getEventId());
+            long personasEnEspera = registrationRepository.countByEventIdAndWaitlistPositionIsNotNull(event.getId());
             int nuevaPosicion = (int) personasEnEspera + 1;
             registration.setWaitlistPosition(nuevaPosicion);
-            
+
             statusMessage = "El evento está lleno. Has sido agregado a la lista de espera en la posición: " + nuevaPosicion;
             notificationType = "waitlist_added";
             notificationTitle = "Lista de espera";
@@ -77,11 +101,11 @@ public class RegistrationService {
         EventRegistration saved = registrationRepository.save(registration);
 
         if (registration.getWaitlistPosition() != null && registration.getWaitlistPosition() == 1) {
-            notifyNewWaitlistFirstPosition(request.getEventId(), saved);
+            notifyNewWaitlistFirstPosition(event.getId(), saved);
         } else {
-            sendNotification(userEmail, notificationType, notificationTitle, notificationBody, request.getEventId());
+            sendNotification(userEmail, notificationType, notificationTitle, notificationBody, event.getId());
         }
-        
+
         return convertToResponse(saved, statusMessage, event.getName());
     }
 

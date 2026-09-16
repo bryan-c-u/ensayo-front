@@ -1,6 +1,7 @@
 package com.inklusport.sports.controller;
 
 import com.inklusport.sports.dto.InternalRegistrationResponse;
+import com.inklusport.sports.dto.RegistrationResponse;
 import com.inklusport.sports.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,17 @@ public class InternalController {
     @GetMapping("/event/{eventId}")
     public ResponseEntity<List<InternalRegistrationResponse>> getRegistrationsByEvent(@PathVariable String eventId) {
         return ResponseEntity.ok(registrationService.getRegistrationsForEvent(eventId));
+    }
+
+    /**
+     * Invocado por ink-ms-subscriptions (RF57) cuando un pago de inscripcion a
+     * evento queda APROBADO, para crear recien ahi la inscripcion real. Idempotente:
+     * si ya existe (p. ej. el webhook de Mercado Pago reintento la notificacion), no
+     * duplica.
+     */
+    @PostMapping("/eventos/{eventoId}/usuarios/{email}/pago-confirmado")
+    public ResponseEntity<RegistrationResponse> confirmarInscripcionPagada(@PathVariable String eventoId,
+                                                                            @PathVariable String email) {
+        return ResponseEntity.ok(registrationService.confirmarInscripcionPagada(eventoId, email));
     }
 }
