@@ -1,0 +1,21 @@
+.filter-pills {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .pill {
+    padding: 6px 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 999px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+
+    &.active {
+      background: #c8102e;
+      border-color: #c8102e;
+      color: #fff;
+    }
+  }
+}

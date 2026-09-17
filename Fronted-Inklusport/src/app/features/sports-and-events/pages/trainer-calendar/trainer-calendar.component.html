@@ -1,0 +1,30 @@
+<div class="page-container">
+
+  <app-trainer-sidebar activeItem="calendar"></app-trainer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+      <section class="page-header">
+        <div>
+          <div class="page-label">Deportes y Eventos · Entrenador</div>
+          <h1 class="page-title">Calendario</h1>
+        </div>
+      </section>
+
+      <div class="week-grid">
+        <div class="day-column" *ngFor="let d of weekDays">
+          <div class="day-name">{{ d }}</div>
+          <div class="day-entries">
+            <article class="entry" *ngFor="let e of entriesFor(d)">
+              <div class="entry-time">{{ e.time }}</div>
+              <div class="entry-title">{{ e.title }}</div>
+              <div class="entry-meta">{{ e.discipline }} · {{ e.place }}</div>
+            </article>
+            <p class="empty" *ngIf="!entriesFor(d).length">—</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>

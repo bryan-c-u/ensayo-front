@@ -1,0 +1,58 @@
+<div class="advanced-filters">
+  <button type="button" class="toggle-btn" (click)="toggle()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+    </svg>
+    Filtros avanzados
+  </button>
+
+  <div class="filters-panel" *ngIf="open">
+    <div class="filters-grid">
+      <label *ngIf="showDateRange">
+        <span>Desde</span>
+        <input type="date" [(ngModel)]="criteria.dateFrom" />
+      </label>
+      <label *ngIf="showDateRange">
+        <span>Hasta</span>
+        <input type="date" [(ngModel)]="criteria.dateTo" />
+      </label>
+
+      <label *ngIf="showDisability">
+        <span>Tipo de discapacidad</span>
+        <select [(ngModel)]="criteria.disabilityType">
+          <option [ngValue]="undefined">Todas</option>
+          <option *ngFor="let d of disabilityTypes" [ngValue]="d">{{ d }}</option>
+        </select>
+      </label>
+
+      <label *ngIf="showSport">
+        <span>Deporte</span>
+        <select [(ngModel)]="criteria.sport">
+          <option [ngValue]="undefined">Todos</option>
+          <option *ngFor="let s of sports" [ngValue]="s">{{ s }}</option>
+        </select>
+      </label>
+
+      <label *ngIf="showCity">
+        <span>Ciudad</span>
+        <select [(ngModel)]="criteria.city">
+          <option [ngValue]="undefined">Todas</option>
+          <option *ngFor="let c of cities" [ngValue]="c">{{ c }}</option>
+        </select>
+      </label>
+
+      <label *ngIf="showInscriptionStatus">
+        <span>Estado de inscripción</span>
+        <select [(ngModel)]="criteria.inscriptionStatus">
+          <option [ngValue]="undefined">Todos</option>
+          <option *ngFor="let st of inscriptionStatuses" [ngValue]="st">{{ st }}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="filters-actions">
+      <button type="button" class="btn-clear" (click)="onClear()">Limpiar</button>
+      <button type="button" class="btn-apply" (click)="onApply()">Aplicar</button>
+    </div>
+  </div>
+</div>

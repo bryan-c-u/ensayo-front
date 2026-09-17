@@ -1,0 +1,66 @@
+<!-- M09 · Planes de suscripción (organizador) — menú: organizer-sidebar lateral -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="subscription"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+
+      <div class="page-header">
+        <div class="welcome">
+          <h1>Planes de suscripción</h1>
+          <p>Elige el plan que se ajusta a tu organización. El pago se procesa con Mercado Pago.</p>
+        </div>
+        <a class="btn-link" routerLink="/subscriptions/estado">Ver mi suscripción</a>
+      </div>
+
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+      <p *ngIf="cargando" class="state-msg">Cargando planes…</p>
+
+      <div class="planes-grid" *ngIf="!cargando && planes.length">
+        <article
+          class="plan-card"
+          *ngFor="let plan of planes"
+          [class.plan-card--current]="esPlanActual(plan)"
+        >
+          <span class="plan-card__badge" *ngIf="esPlanActual(plan)">Plan actual</span>
+          <h2 class="plan-card__name">{{ plan.nombre }}</h2>
+
+          <p class="plan-card__price">
+            <ng-container *ngIf="plan.precio > 0; else gratis">
+              <span class="plan-card__amount">${{ plan.precio | number: '1.0-0' }}</span>
+              <span class="plan-card__cycle">/ {{ plan.duracionDias }} días</span>
+            </ng-container>
+            <ng-template #gratis><span class="plan-card__amount">Gratis</span></ng-template>
+          </p>
+
+          <p class="plan-card__desc" *ngIf="plan.descripcion">{{ plan.descripcion }}</p>
+
+          <ul class="plan-card__features">
+            <li *ngIf="plan.limiteEventosMes != null">Hasta {{ plan.limiteEventosMes }} eventos/mes</li>
+            <li *ngIf="plan.limiteEventosMes == null">Eventos ilimitados</li>
+            <li *ngIf="plan.porcentajeComision != null">{{ plan.porcentajeComision | number: '1.0-2' }}% de comisión</li>
+            <li *ngFor="let beneficio of plan.beneficios">{{ beneficio }}</li>
+          </ul>
+
+          <button
+            type="button"
+            class="plan-card__btn"
+            [disabled]="esPlanActual(plan) || procesandoPlanId !== null"
+            (click)="suscribirse(plan)"
+          >
+            <ng-container *ngIf="procesandoPlanId === plan.id">Redirigiendo…</ng-container>
+            <ng-container *ngIf="procesandoPlanId !== plan.id">
+              {{ esPlanActual(plan) ? 'Plan actual' : (plan.precio > 0 ? 'Elegir plan' : 'Activar gratis') }}
+            </ng-container>
+          </button>
+        </article>
+      </div>
+
+      <p *ngIf="!cargando && !planes.length && !error" class="state-msg">
+        No hay planes disponibles por ahora.
+      </p>
+
+    </main>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<!-- M02 · Atletas de mis eventos — datos reales de ink-ms-sports -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="athletes"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+      <section class="page-header">
+        <div>
+          <div class="page-label">Usuarios · Organizador</div>
+          <h1 class="page-title">Atletas de mis eventos</h1>
+        </div>
+        <div class="header-stats">
+          <span class="count-badge">{{ athletes.length }} inscritos</span>
+          <span class="count-badge count-badge--ok">{{ confirmed }} confirmados</span>
+          <span class="count-badge count-badge--ok">{{ asistieron }} asistieron</span>
+        </div>
+      </section>
+
+      <p *ngIf="cargando" class="state-msg">Cargando atletas…</p>
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+
+      <div class="table-wrap" *ngIf="!cargando && !error && athletes.length">
+        <table>
+          <thead>
+            <tr>
+              <th>Atleta</th>
+              <th>Evento</th>
+              <th>Fecha de inscripción</th>
+              <th>Inscripción</th>
+              <th>Asistencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of athletes">
+              <td>{{ a.userId }}</td>
+              <td>{{ a.eventName }}</td>
+              <td>{{ a.registrationDate | date: 'short' }}</td>
+              <td>
+                <span class="status" [ngClass]="{
+                  'status-confirmada': a.estado === 'Confirmada',
+                  'status-espera': a.estado === 'Lista de espera'
+                }">{{ a.estado }}</span>
+              </td>
+              <td>{{ a.asistio ? 'Sí' : '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p *ngIf="!cargando && !error && !athletes.length" class="state-msg">
+        Aún no hay atletas inscritos en tus eventos.
+      </p>
+    </main>
+  </div>
+</div>

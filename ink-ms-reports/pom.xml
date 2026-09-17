@@ -5,23 +5,42 @@
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
+    <!-- Modulo sacado del reactor multi-modulo "inklusport-microservicios" (no resoluble
+         sin los demas modulos). Se reemplaza el parent original por spring-boot-starter-parent,
+         igual que en ink-ms-auth / ink-ms-gateway. -->
     <parent>
-        <groupId>com.inklusport</groupId>
-        <artifactId>inklusport-microservicios</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
     </parent>
 
+    <groupId>com.inklusport</groupId>
     <artifactId>ink-ms-reports</artifactId>
+    <version>1.0.0</version>
     <name>ink-ms-reports</name>
     <description>Microservicio de Reportes y Analítica para InkluSport</description>
 
+    <properties>
+        <java.version>21</java.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- Common -->
-        <dependency>
-            <groupId>com.inklusport</groupId>
-            <artifactId>ink-ms-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!-- ink-ms-common: modulo compartido no disponible en este repo independiente.
+             Ninguna clase de reports lo importa, asi que se elimina la dependencia. -->
 
         <!-- Spring Boot Starters erda-->
         <dependency>

@@ -1,0 +1,222 @@
+<div class="page-container">
+
+  <app-admin-sidebar activeItem="sports"></app-admin-sidebar>
+
+  <div class="content-area">
+    <div class="sports-admin">
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Title Section -->
+        <section class="page-header">
+          <div class="page-title-group">
+            <div class="section-label">
+              <span>Consola de Gestión</span>
+              <div class="section-line"></div>
+            </div>
+            <h1 class="page-title">Directorio de Deportes</h1>
+            <p class="page-desc">Administra el catálogo de disciplinas adaptadas e inclusivas disponibles en el ecosistema. (Ref: HU13, HU14)</p>
+          </div>
+          <button class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            NUEVO DEPORTE
+          </button>
+        </section>
+
+        <!-- Metrics -->
+        <section class="metrics-grid">
+          <article class="metric-card metric-card--featured">
+            <div class="metric-accent"></div>
+            <span class="metric-label">Disciplinas Activas</span>
+            <div class="metric-value-row">
+              <span class="metric-value">24</span>
+              <span class="metric-trend">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                  <polyline points="17 6 23 6 23 12"/>
+                </svg>
+                +12%
+              </span>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <span class="metric-label">Alta Intensidad</span>
+            <div class="metric-value-row">
+              <span class="metric-value">08</span>
+              <span class="metric-suffix">Disciplinas</span>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <span class="metric-label">Revisión Pendiente</span>
+            <div class="metric-value-row">
+              <span class="metric-value">03</span>
+              <div class="metric-dots">
+                <span></span><span></span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Table -->
+        <section class="table-wrapper">
+          <div class="table-header">
+            <div class="th">ID</div>
+            <div class="th">Nombre del Deporte</div>
+            <div class="th">Descripción</div>
+            <div class="th th--right">Nivel de Intensidad</div>
+          </div>
+
+          <div class="table-body">
+            <div class="table-row">
+              <div class="td td--id">#SP-001</div>
+              <div class="td td--name">
+                <div class="sport-icon sport-icon--blue">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M2 12h20M2 12c0-5.523 4.477-10 10-10s10 4.477 10 10M2 12c0 5.523 4.477 10 10 10s10-4.477 10-10"/>
+                    <path d="M12 2v20"/>
+                  </svg>
+                </div>
+                <div class="sport-info">
+                  <span class="sport-title">Para Natación</span>
+                  <span class="sport-meta">Categoría Acuática</span>
+                </div>
+              </div>
+              <div class="td td--desc">Técnicas de natación adaptadas para para-atletas con distintas clasificaciones.</div>
+              <div class="td td--right">
+                <span class="badge badge--high">Alta</span>
+              </div>
+            </div>
+
+            <div class="table-row">
+              <div class="td td--id">#SP-002</div>
+              <div class="td td--name">
+                <div class="sport-icon sport-icon--sky">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    <path d="M2 12h20"/>
+                  </svg>
+                </div>
+                <div class="sport-info">
+                  <span class="sport-title">Goalball</span>
+                  <span class="sport-meta">Discapacidad Visual</span>
+                </div>
+              </div>
+              <div class="td td--desc">Deporte de equipo diseñado para atletas con discapacidad visual usando un balón con cascabeles.</div>
+              <div class="td td--right">
+                <span class="badge badge--moderate">Moderada</span>
+              </div>
+            </div>
+
+            <div class="table-row">
+              <div class="td td--id">#SP-003</div>
+              <div class="td td--name">
+                <div class="sport-icon sport-icon--rose">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                  </svg>
+                </div>
+                <div class="sport-info">
+                  <span class="sport-title">Rugby en Silla de Ruedas</span>
+                  <span class="sport-meta">Deporte de Contacto</span>
+                </div>
+              </div>
+              <div class="td td--desc">Deporte de contacto de alto impacto practicado por atletas con discapacidad en silla de ruedas.</div>
+              <div class="td td--right">
+                <span class="badge badge--very-high">Muy Alta</span>
+              </div>
+            </div>
+
+            <div class="table-row">
+              <div class="td td--id">#SP-004</div>
+              <div class="td td--name">
+                <div class="sport-icon sport-icon--gray">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    <path d="M2 12h20"/>
+                  </svg>
+                </div>
+                <div class="sport-info">
+                  <span class="sport-title">Tenis en Silla de Ruedas</span>
+                  <span class="sport-meta">Deporte de Raqueta</span>
+                </div>
+              </div>
+              <div class="td td--desc">Se juega en canchas de tenis estándar con reglas adaptadas para usuarios de silla de ruedas.</div>
+              <div class="td td--right">
+                <span class="badge badge--moderate">Moderada</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-footer">
+            <span class="showing-text">MOSTRANDO 1-4 DE 24 DISCIPLINAS</span>
+            <div class="pagination">
+              <button class="page-btn" aria-label="Anterior">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="page-btn page-btn--active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn" aria-label="Siguiente">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Updates Timeline -->
+        <section class="updates-section">
+          <div class="section-heading">
+            <div class="heading-accent"></div>
+            <h2>Lógica de Actualización de Disciplinas</h2>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot timeline-dot--rose"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-tag timeline-tag--rose">Registro de Cambios HU13</span>
+                  <span class="timeline-date">Hoy, 09:42 AM</span>
+                </div>
+                <h3>Revisión de Accesibilidad Completada</h3>
+                <p>Parámetros de intensidad de Rugby en Silla de Ruedas actualizados según las directrices del Comité Paralímpico Internacional.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot timeline-dot--blue"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-tag timeline-tag--blue">Sincronización del Sistema HU14</span>
+                  <span class="timeline-date">Ayer, 04:15 PM</span>
+                </div>
+                <h3>Importación de Deportes por Lote</h3>
+                <p>Se validaron 12 nuevas disciplinas adaptadas para la base de datos de competencia regional.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Metric Insights -->
+        <section class="insights-card">
+          <div class="insights-bg"></div>
+          <div class="insights-content">
+            <h2>Análisis de Métricas</h2>
+            <p>El monitoreo del sistema indica un incremento del 15% en la participación en Para Natación desde la actualización del trimestre anterior.</p>
+            <button class="btn-outline">EXPORTAR REPORTE DE ANÁLISIS</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+</div>

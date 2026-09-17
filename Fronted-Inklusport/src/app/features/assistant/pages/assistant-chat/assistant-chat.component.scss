@@ -1,0 +1,114 @@
+.assistant-main {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+}
+
+.assistant-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chat-column {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1;
+  min-height: 320px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+
+  p { margin: 0; }
+
+  .time {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+
+  &.from-user {
+    align-self: flex-end;
+    background: #c8102e;
+    color: #fff;
+  }
+
+  &.from-assistant {
+    align-self: flex-start;
+    background: #f1f1f3;
+  }
+
+  &.typing {
+    opacity: 0.7;
+    font-style: italic;
+  }
+}
+
+.composer {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #e5e5e5;
+
+  input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #c8102e;
+    color: #fff;
+    cursor: pointer;
+
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+}
+
+.recos {
+  h2 { font-size: 16px; margin-top: 0; }
+
+  article {
+    padding: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #fff;
+
+    h3 { margin: 0 0 4px; font-size: 14px; }
+    p { margin: 0; font-size: 13px; color: #555; }
+  }
+}

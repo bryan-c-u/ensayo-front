@@ -1,0 +1,66 @@
+<!-- Botón flotante para volver a mostrar el menú cuando está escondido -->
+<button
+  type="button"
+  class="sidebar-show-btn"
+  (click)="toggle()"
+  aria-label="Mostrar menú">
+  ☰
+</button>
+
+<!-- Fondo oscuro (solo en pantallas pequeñas cuando el menú está abierto) -->
+<div class="sidebar-backdrop" (click)="toggle()"></div>
+
+<!-- MENÚ LATERAL -->
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <div class="brand-section">
+      <div class="brand-title">INKLUSPORT</div>
+      <button
+        type="button"
+        class="sidebar-hide-btn"
+        (click)="toggle()"
+        aria-label="Esconder menú">
+        «
+      </button>
+    </div>
+
+    <div class="trainer-profile-card">
+      <div class="trainer-avatar">
+        <img
+          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=100&auto=format&fit=crop&q=80"
+          alt="Entrenador"
+        />
+      </div>
+      <div>
+        <div class="trainer-name">Trainer Pro</div>
+        <div class="trainer-role">Lead Performance</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button
+        *ngFor="let item of navItems"
+        type="button"
+        class="sidebar-nav-item"
+        [class.active]="item.id === activeItem"
+        (click)="navigate(item)">
+        <span class="nav-icon">{{ item.icon }}</span> {{ item.label }}
+      </button>
+
+      <div class="sidebar-divider"></div>
+
+      <button
+        *ngFor="let item of secondaryItems"
+        type="button"
+        class="sidebar-nav-item"
+        [class.active]="item.id === activeItem"
+        (click)="navigate(item)">
+        <span class="nav-icon">{{ item.icon }}</span> {{ item.label }}
+      </button>
+    </nav>
+  </div>
+
+  <button type="button" class="logout-btn" (click)="logout()">
+    <span class="nav-icon">↪</span> Cerrar Sesión
+  </button>
+</aside>

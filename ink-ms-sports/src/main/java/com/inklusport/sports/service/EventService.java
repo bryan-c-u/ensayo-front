@@ -60,6 +60,17 @@ public class EventService {
     }
 
     /**
+     * Obtiene el detalle de un evento por id
+     * @param id Id del evento
+     * @return Evento encontrado
+     */
+    public EventResponse getEventById(String id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evento no encontrado con ID: " + id));
+        return convertToResponse(event);
+    }
+
+    /**
      * Crea un evento
      * @param request Request con los datos del evento
      * @return Evento creado
@@ -246,6 +257,7 @@ public class EventService {
                 .maxCapacity(event.getMaxCapacity())
                 .availableCapacity(event.getAvailableCapacity())
                 .status(event.getStatus().name())
+                .createdBy(event.getCreatedBy())
                 .createdAt(event.getCreatedAt())
                 .build();
     }

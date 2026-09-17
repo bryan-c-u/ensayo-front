@@ -1,0 +1,30 @@
+<div class="donut-wrap">
+  <div class="donut-graphic">
+    <svg viewBox="0 0 100 100" width="160" height="160">
+      <circle cx="50" cy="50" [attr.r]="radius" fill="none" stroke="#e5e5e5" stroke-width="12" />
+      <circle
+        *ngFor="let seg of rendered"
+        cx="50" cy="50" [attr.r]="radius"
+        fill="none"
+        [attr.stroke]="seg.color"
+        stroke-width="12"
+        [attr.stroke-dasharray]="seg.dashArray"
+        [attr.stroke-dashoffset]="seg.dashOffset"
+        transform="rotate(-90 50 50)">
+        <title>{{ seg.label }}: {{ seg.percent }}%</title>
+      </circle>
+    </svg>
+    <div class="donut-center" *ngIf="centerValue">
+      <div class="donut-value">{{ centerValue }}</div>
+      <div class="donut-label">{{ centerLabel }}</div>
+    </div>
+  </div>
+
+  <ul class="donut-legend">
+    <li *ngFor="let seg of rendered">
+      <span class="legend-dot" [style.background]="seg.color"></span>
+      <span class="legend-label">{{ seg.label }}</span>
+      <span class="legend-pct">{{ seg.percent }}%</span>
+    </li>
+  </ul>
+</div>

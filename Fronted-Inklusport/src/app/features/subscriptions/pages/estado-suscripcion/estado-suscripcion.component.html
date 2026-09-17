@@ -1,0 +1,56 @@
+<!-- M09 · Estado de la suscripción (organizador) — menú: organizer-sidebar lateral -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="subscription"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+
+      <div class="page-header">
+        <div class="welcome">
+          <h1>Mi suscripción</h1>
+          <p>Estado de tu plan, uso de eventos y renovación.</p>
+        </div>
+        <a class="btn-link" routerLink="/subscriptions/planes">Ver planes</a>
+      </div>
+
+      <p *ngIf="cargando" class="state-msg">Cargando…</p>
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+
+      <div class="empty-state" *ngIf="!cargando && sinSuscripcion">
+        <p>Todavía no tienes una suscripción.</p>
+        <button type="button" class="btn-primary" (click)="irAPlanes()">Elegir un plan</button>
+      </div>
+
+      <div class="card" *ngIf="!cargando && suscripcion as s">
+        <div class="card__row">
+          <span class="card__label">Plan</span>
+          <span class="card__value">{{ s.planNombre }}</span>
+        </div>
+        <div class="card__row">
+          <span class="card__label">Estado</span>
+          <span class="status-badge" [attr.data-estado]="s.estado">{{ s.estado }}</span>
+        </div>
+        <div class="card__row">
+          <span class="card__label">Vigencia</span>
+          <span class="card__value">{{ s.fechaInicio }} → {{ s.fechaFin }}</span>
+        </div>
+        <div class="card__row">
+          <span class="card__label">Eventos este mes</span>
+          <span class="card__value">
+            {{ s.eventosCreadosMes }}<ng-container *ngIf="s.limiteEventosMes != null"> / {{ s.limiteEventosMes }}</ng-container>
+          </span>
+        </div>
+        <div class="card__row">
+          <span class="card__label">Renovación automática</span>
+          <span class="card__value">{{ s.renovacionAutomatica ? 'Sí' : 'No' }}</span>
+        </div>
+
+        <button type="button" class="btn-primary" [disabled]="renovando" (click)="renovar()">
+          {{ renovando ? 'Redirigiendo…' : (s.estado === 'ACTIVA' ? 'Renovar ahora' : 'Reactivar / pagar') }}
+        </button>
+      </div>
+
+    </main>
+  </div>
+</div>

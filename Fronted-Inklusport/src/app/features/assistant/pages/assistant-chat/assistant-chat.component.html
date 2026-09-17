@@ -1,0 +1,44 @@
+<div class="assistant-page">
+  <app-sidebar-nav></app-sidebar-nav>
+
+  <main class="assistant-main">
+    <header class="assistant-header">
+      <div class="page-label">Asistente Virtual Inteligente</div>
+      <h1>Chat del Asistente</h1>
+    </header>
+
+    <div class="assistant-body">
+      <section class="chat-column">
+        <div class="messages">
+          <div
+            *ngFor="let m of messages"
+            class="bubble"
+            [class.from-user]="m.author === 'user'"
+            [class.from-assistant]="m.author === 'assistant'">
+            <p>{{ m.text }}</p>
+            <span class="time">{{ m.at | date: 'shortTime' }}</span>
+          </div>
+          <div class="bubble from-assistant typing" *ngIf="sending">Escribiendo…</div>
+        </div>
+
+        <form class="composer" (ngSubmit)="send()">
+          <input
+            type="text"
+            name="draft"
+            [(ngModel)]="draft"
+            placeholder="Escribe tu consulta..."
+            autocomplete="off" />
+          <button type="submit" [disabled]="sending || !draft.trim()">Enviar</button>
+        </form>
+      </section>
+
+      <aside class="recos" *ngIf="recommendations.length">
+        <h2>Recomendaciones para ti</h2>
+        <article *ngFor="let r of recommendations">
+          <h3>{{ r.sport }}</h3>
+          <p>{{ r.reason }}</p>
+        </article>
+      </aside>
+    </div>
+  </main>
+</div>

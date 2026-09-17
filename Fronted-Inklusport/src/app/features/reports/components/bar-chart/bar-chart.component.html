@@ -1,0 +1,22 @@
+<svg [attr.viewBox]="viewBox" width="100%" [attr.height]="height" style="overflow: visible;">
+  <g *ngFor="let d of data; let i = index">
+    <rect
+      [attr.x]="barX(i)"
+      [attr.y]="barY(d.value)"
+      [attr.width]="barWidth"
+      [attr.height]="barHeight(d.value)"
+      rx="4"
+      [attr.fill]="fill(d)">
+      <title>{{ d.label }}: {{ d.value }}</title>
+    </rect>
+    <text
+      [attr.x]="barX(i) + barWidth / 2"
+      [attr.y]="baseline + 15"
+      text-anchor="middle"
+      font-size="10"
+      fill="#999"
+      font-weight="500">
+      {{ d.label }}
+    </text>
+  </g>
+</svg>

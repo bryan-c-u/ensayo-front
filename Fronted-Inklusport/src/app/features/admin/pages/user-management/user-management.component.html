@@ -1,49 +1,8 @@
 <div class="page-container">
 
-  <app-admin-sidebar
-    [(isOpen)]="sidebarOpen"
-    activeItem="users">
-  </app-admin-sidebar>
+  <app-admin-sidebar activeItem="users"></app-admin-sidebar>
 
   <div class="content-area">
-    <!-- Top Header -->
-    <header class="top-header">
-      <div class="top-header-left">
-        <button
-          class="menu-toggle-btn"
-          (click)="toggleSidebar()"
-          aria-label="Abrir menú">
-          ☰
-        </button>
-        <div class="brand">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-          <span>Inklusport Admin</span>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="global-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" placeholder="Búsqueda global...">
-        </div>
-        <div class="admin-profile">
-          <span>Admin Central</span>
-          <div class="admin-avatar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </header>
-
     <!-- Main Content -->
     <main class="main-content">
       <!-- Page Header -->
@@ -54,7 +13,7 @@
           <p class="page-desc">Gestiona perfiles de accesibilidad, roles de atletas y permisos del sistema para el ecosistema deportivo inclusivo.</p>
         </div>
         <div class="page-actions">
-          <button class="btn btn-secondary">
+          <button class="btn btn-secondary" (click)="exportCsv()" [disabled]="loading || !filteredUsers.length">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
@@ -86,13 +45,12 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" placeholder="Buscar por nombre, correo o ID...">
+          <input type="text" placeholder="Buscar por nombre, correo o ID..." [(ngModel)]="search">
         </div>
-        <button class="btn-search">Buscar</button>
+        <button class="btn-search" type="button">Buscar</button>
         <div class="filter-pills">
-          <button class="pill active">Todos</button>
-          <button class="pill">Activos</button>
-          <button class="pill">Por rol</button>
+          <button class="pill" type="button" [class.active]="filter === 'todos'" (click)="setFilter('todos')">Todos</button>
+          <button class="pill" type="button" [class.active]="filter === 'activos'" (click)="setFilter('activos')">Activos</button>
         </div>
         <button class="advanced-filters">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -110,6 +68,9 @@
         </button>
       </section>
 
+      <!-- Estados de carga / error -->
+      <div *ngIf="error" class="data-banner data-banner-error">{{ error }}</div>
+
       <!-- Table -->
       <div class="table-wrap">
         <table>
@@ -126,60 +87,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="user-id">#INK-8821</span></td>
-              <td>
-                <div class="user-cell">
-                  <div class="user-avatar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <span class="user-name">Elena Rodriguez</span>
-                </div>
-              </td>
-              <td><span class="email">elena.rod&#64;example.com</span></td>
-              <td><span class="phone">+34<br>612 345 678</span></td>
-              <td><span class="role-badge role-athlete">Atleta</span></td>
-              <td><span class="disability">Discapacidad Visual</span></td>
-              <td><span class="status status-active"><span class="status-dot"></span> Activo</span></td>
-              <td class="actions">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="1"></circle>
-                  <circle cx="19" cy="12" r="1"></circle>
-                  <circle cx="5" cy="12" r="1"></circle>
-                </svg>
-              </td>
+            <tr *ngIf="loading">
+              <td colspan="8" class="table-empty">Cargando usuarios…</td>
             </tr>
-            <tr>
-              <td><span class="user-id">#INK-7742</span></td>
-              <td>
-                <div class="user-cell">
-                  <div class="user-avatar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <span class="user-name">Marco Jensen</span>
-                </div>
-              </td>
-              <td><span class="email">m.jensen&#64;sportlink.org</span></td>
-              <td><span class="phone">+45<br>88 12 34 56</span></td>
-              <td><span class="role-badge role-coach">Entrenador</span></td>
-              <td><span class="disability">Ninguna</span></td>
-              <td><span class="status status-active"><span class="status-dot"></span> Activo</span></td>
-              <td class="actions">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="1"></circle>
-                  <circle cx="19" cy="12" r="1"></circle>
-                  <circle cx="5" cy="12" r="1"></circle>
-                </svg>
-              </td>
+            <tr *ngIf="!loading && !filteredUsers.length">
+              <td colspan="8" class="table-empty">No hay usuarios que coincidan con el filtro.</td>
             </tr>
-            <tr>
-              <td><span class="user-id">#INK-5529</span></td>
+            <tr *ngFor="let user of filteredUsers">
+              <td><span class="user-id">{{ user.id }}</span></td>
               <td>
                 <div class="user-cell">
                   <div class="user-avatar">
@@ -188,20 +103,26 @@
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <span class="user-name">Sarah Chen</span>
+                  <span class="user-name">{{ user.fullName }}</span>
                 </div>
               </td>
-              <td><span class="email">chen.s&#64;inklu.com</span></td>
-              <td><span class="phone">+1<br>555 0123 456</span></td>
-              <td><span class="role-badge role-admin">Administrador</span></td>
-              <td><span class="disability">Movilidad (Silla de ruedas)</span></td>
-              <td><span class="status status-blocked"><span class="status-dot"></span> Bloqueado</span></td>
+              <td><span class="email">{{ user.email }}</span></td>
+              <td><span class="phone">{{ user.phone || '—' }}</span></td>
+              <td><span class="role-badge" [ngClass]="roleClass(user.roles)">{{ roleLabel(user.roles) }}</span></td>
+              <td><span class="disability">{{ user.disability || 'Ninguna' }}</span></td>
+              <td>
+                <span class="status" [ngClass]="user.isActive ? 'status-active' : 'status-blocked'">
+                  <span class="status-dot"></span> {{ user.isActive ? 'Activo' : 'Bloqueado' }}
+                </span>
+              </td>
               <td class="actions">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="1"></circle>
-                  <circle cx="19" cy="12" r="1"></circle>
-                  <circle cx="5" cy="12" r="1"></circle>
-                </svg>
+                <button
+                  type="button"
+                  class="btn-search"
+                  [disabled]="busyEmail === user.email"
+                  (click)="toggleActive(user)">
+                  {{ busyEmail === user.email ? '…' : (user.isActive ? 'Desactivar' : 'Activar') }}
+                </button>
               </td>
             </tr>
           </tbody>
@@ -210,24 +131,7 @@
 
       <!-- Pagination -->
       <div class="pagination-bar">
-        <span>Mostrando 1 - 10 de 2.480 usuarios</span>
-        <div class="pagination-controls">
-          <button class="page-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button class="page-btn active">1</button>
-          <button class="page-btn">2</button>
-          <button class="page-btn">3</button>
-          <button class="page-btn" style="cursor: default;">...</button>
-          <button class="page-btn">248</button>
-          <button class="page-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
+        <span>Mostrando {{ filteredUsers.length }} de {{ users.length }} usuarios</span>
       </div>
 
       <!-- Bottom Section -->

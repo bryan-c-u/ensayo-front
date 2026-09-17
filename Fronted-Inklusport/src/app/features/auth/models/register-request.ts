@@ -1,4 +1,4 @@
-import { DisabilityType } from './disability-type';
+import { DisabilityType } from '../../sports-and-events/models/disability-type';
 
 export type RequestedRole = 'USUARIO' | 'ENTRENADOR' | 'ORGANIZADOR';
 

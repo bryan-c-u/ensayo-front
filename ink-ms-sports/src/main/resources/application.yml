@@ -23,7 +23,7 @@ spring:
     baseline-version: 1
 
 server:
-  port: 3003
+  port: 3008
 
 jwt:
   secret: inklusport2024superSecretKeyForJWTtokenGenerationWith512bitsAlgorithmHS512

@@ -1,0 +1,83 @@
+<app-panel-shell>
+  <h1 class="page-title">{{ 'TRAINER.TITLE' | translate }}</h1>
+  <p class="page-subtitle">{{ 'TRAINER.SUBTITLE' | translate }}</p>
+  <p *ngIf="loading" class="empty-text">{{ 'COMMON.LOADING' | translate }}</p>
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+  <p *ngIf="!loading && !quizPassed" class="error-text">
+    {{ 'TRAINER.QUIZ_BLOCK' | translate }}
+    <button class="btn-primary" type="button" (click)="goQuiz()" style="margin-left: 8px;">{{ 'TRAINER.GO_QUIZ' | translate }}</button>
+  </p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">{{ 'TRAINER.SESSIONS' | translate }}</div>
+      <div class="kpi-value">{{ routines.length }}</div>
+      <div class="kpi-sub">{{ 'TRAINER.ROUTINES' | translate }}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">{{ 'TRAINER.PUBLISHED' | translate }}</div>
+      <div class="kpi-value">{{ publishedCount }}</div>
+      <div class="kpi-sub">{{ 'TRAINER.READY' | translate }}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">{{ 'TRAINER.ATHLETES' | translate }}</div>
+      <div class="kpi-value">{{ athleteCount }}</div>
+      <div class="kpi-sub">{{ 'TRAINER.ENROLLED' | translate }}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">{{ 'TRAINER.DISABILITIES' | translate }}</div>
+      <div class="kpi-value">{{ disabilities.length }}</div>
+      <div class="kpi-sub">{{ 'TRAINER.CATALOG_ACTIVE' | translate }}</div>
+    </div>
+  </div>
+
+  <div class="actions-row">
+    <button class="btn-primary" type="button" (click)="goQuiz()" *ngIf="!quizPassed">{{ 'TRAINER.DO_QUIZ' | translate }}</button>
+    <button class="btn-primary" type="button" (click)="goSessions()" [disabled]="!quizPassed">{{ 'TRAINER.MANAGE_SESSIONS' | translate }}</button>
+    <button class="btn-secondary" type="button" (click)="goSports()" [disabled]="!quizPassed">{{ 'TRAINER.SPORTS' | translate }}</button>
+    <button class="btn-secondary" type="button" (click)="goDisabilities()" [disabled]="!quizPassed">{{ 'TRAINER.DISABILITIES' | translate }}</button>
+    <button class="btn-secondary" type="button" (click)="goAssociations()" [disabled]="!quizPassed">{{ 'TRAINER.ASSOCIATIONS' | translate }}</button>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="section-title">Gestión de actividades</h3>
+      <div class="table-wrap" *ngIf="routines.length; else emptyRoutines">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>{{ 'TRAINER.SESSIONS' | translate }}</th>
+            <th>{{ 'SESSIONS_PAGE.FOCUS' | translate }}</th>
+            <th>{{ 'CATALOG.STATUS' | translate }}</th>
+            <th>{{ 'SESSIONS_PAGE.DURATION' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let routine of routines">
+            <td>{{ routine.name }}</td>
+            <td>{{ routine.disabilityFocus || '—' }}</td>
+            <td>
+              <span class="status-pill" [class.status-pill--ok]="routine.status === 'published'" [class.status-pill--warn]="routine.status !== 'published'">
+                {{ routine.status || 'draft' }}
+              </span>
+            </td>
+            <td>{{ routine.durationMinutes || '—' }} min</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <ng-template #emptyRoutines><p class="empty-text">Aún no tienes rutinas. Crea una en Sesiones.</p></ng-template>
+    </div>
+
+    <div class="card">
+      <h3 class="section-title">Enfoque por discapacidad</h3>
+      <div class="list-item" *ngFor="let item of disabilities">
+        <div>
+          <strong>{{ item.name }}</strong>
+          <div class="kpi-sub">{{ item.category || 'Sin categoría' }}</div>
+        </div>
+      </div>
+      <p *ngIf="!disabilities.length" class="empty-text">Sin discapacidades activas.</p>
+    </div>
+  </div>
+</app-panel-shell>

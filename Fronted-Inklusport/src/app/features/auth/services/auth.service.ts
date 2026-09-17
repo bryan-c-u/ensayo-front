@@ -12,12 +12,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrlAuth = 'http://localhost:8080/api/auth';
-  private apiUrlUsers = 'http://localhost:8080/api/users';
+  private apiUrlAuth = `${environment.apiUrl}/api/auth`;
+  private apiUrlUsers = `${environment.apiUrl}/api/users`;
 
   constructor(private http: HttpClient) { }
 

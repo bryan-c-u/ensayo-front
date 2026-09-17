@@ -1,0 +1,81 @@
+<!-- M03 · Mis eventos (organizador) — datos reales de ink-ms-sports -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="events"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+      <div class="page-header">
+        <div class="welcome">
+          <h1>Mis eventos</h1>
+          <p>Eventos que has creado en InkluSport.</p>
+        </div>
+      </div>
+
+      <p *ngIf="cargando" class="state-msg">Cargando eventos…</p>
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+
+      <ng-container *ngIf="!cargando && !error">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div><div class="kpi-label">Total de eventos</div><div class="kpi-value">{{ total }}</div></div>
+          </div>
+          <div class="kpi-card blue-accent">
+            <div><div class="kpi-label">Próximos</div><div class="kpi-value">{{ proximos }}</div></div>
+          </div>
+          <div class="kpi-card red-accent">
+            <div><div class="kpi-label">Completos</div><div class="kpi-value">{{ completos }}</div></div>
+          </div>
+          <div class="kpi-card">
+            <div><div class="kpi-label">Activos</div><div class="kpi-value">{{ activos }}</div></div>
+          </div>
+        </div>
+
+        <div class="events-card" *ngIf="eventos.length; else vacio">
+          <table class="events-table">
+            <thead>
+              <tr>
+                <th>Evento</th>
+                <th>Fecha y ubicación</th>
+                <th>Ocupación</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of eventos">
+                <td>
+                  <div class="event-cell">
+                    <div class="event-info">
+                      <h4>{{ e.name }}</h4>
+                      <p>{{ e.sportName }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="date-location">
+                  <div>{{ e.eventDate }} · {{ e.eventTime }}</div>
+                  <div>{{ e.location || 'Sin ubicación' }}</div>
+                </td>
+                <td>
+                  <div class="occupancy-cell">
+                    <div class="occupancy-header">
+                      <span>{{ inscritos(e) }} / {{ e.maxCapacity }} reg.</span>
+                      <span class="percent">{{ ocupacion(e) }}%</span>
+                    </div>
+                    <div class="occupancy-bar-bg">
+                      <div class="occupancy-bar-fill" [style.width.%]="ocupacion(e)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="status-badge">{{ estadoLabel(e.status) }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ng-template #vacio>
+          <p class="state-msg">Todavía no has creado ningún evento.</p>
+        </ng-template>
+      </ng-container>
+    </main>
+  </div>
+</div>

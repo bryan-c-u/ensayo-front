@@ -4,15 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
-import { EventsCalendarComponent } from './pages/events-calendar/events-calendar.component';
-import { EventRegistrationComponent } from './pages/event-registration/event-registration.component';
 import { ProfileManagementComponent } from './pages/profile-management/profile-management.component';
+import { OrganizedAthletesComponent } from './pages/organized-athletes/organized-athletes.component';
+import { OrganizerDashboardComponent } from './pages/organizer-dashboard/organizer-dashboard.component';
+import { TrainerDashboardComponent } from './pages/trainer-dashboard/trainer-dashboard.component';
 
 @NgModule({
   declarations: [
-    EventsCalendarComponent,
-    EventRegistrationComponent,
-    ProfileManagementComponent
+    ProfileManagementComponent,
+    OrganizedAthletesComponent,
+    OrganizerDashboardComponent,
+    TrainerDashboardComponent
   ],
   imports: [
     CommonModule,

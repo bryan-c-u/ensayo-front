@@ -1,0 +1,12 @@
+<div class="export-buttons">
+  <button
+    *ngFor="let f of formats"
+    type="button"
+    class="btn"
+    [class.btn-primary]="f === 'pdf'"
+    [class.btn-secondary]="f === 'csv'"
+    [disabled]="disabled"
+    (click)="export.emit(f)">
+    Exportar {{ f | uppercase }}
+  </button>
+</div>

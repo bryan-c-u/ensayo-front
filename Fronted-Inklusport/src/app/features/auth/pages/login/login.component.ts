@@ -67,7 +67,7 @@ export class LoginComponent {
         this.isSubmitting = false;
         this.loginSuccess = true;
         this.authState.setToken(response.token);
-        this.router.navigate([this.authState.hasRole('ADMIN') ? '/admin' : '/home']);
+        this.router.navigate([this.landingRoute()]);
       },
       error: (error) => {
         this.isSubmitting = false;
@@ -80,6 +80,14 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+  /** Pantalla de inicio según el rol de mayor privilegio del usuario. */
+  private landingRoute(): string {
+    if (this.authState.hasRole('ADMIN')) return '/admin';
+    if (this.authState.hasRole('ORGANIZADOR')) return '/users/organizer';
+    if (this.authState.hasRole('ENTRENADOR')) return '/users/trainer';
+    return '/home';
   }
 
   retry(): void {

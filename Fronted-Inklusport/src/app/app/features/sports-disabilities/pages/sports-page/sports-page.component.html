@@ -1,0 +1,74 @@
+<app-panel-shell>
+  <h1 class="page-title">{{ 'SPORTS_PAGE.TITLE' | translate }}</h1>
+  <p class="page-subtitle">{{ 'SPORTS_PAGE.SUBTITLE' | translate }}</p>
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div class="card" style="margin-bottom: 16px;">
+    <h3 class="section-title">{{ 'SPORTS_PAGE.NEW' | translate }}</h3>
+    <form class="form-grid" [formGroup]="form" (ngSubmit)="create()">
+      <label>{{ 'CATALOG.NAME' | translate }} <input formControlName="name" /></label>
+      <label>{{ 'SPORTS_PAGE.DIFFICULTY' | translate }}
+        <select formControlName="difficulty">
+          <option value="bajo">{{ 'SPORTS_PAGE.LOW' | translate }}</option>
+          <option value="medio">{{ 'SPORTS_PAGE.MEDIUM' | translate }}</option>
+          <option value="alto">{{ 'SPORTS_PAGE.HIGH' | translate }}</option>
+        </select>
+      </label>
+      <label>{{ 'SPORTS_PAGE.MATERIALS' | translate }} <input formControlName="requiredMaterials" /></label>
+      <label>{{ 'COMMON.DESCRIPTION' | translate }} <input formControlName="description" /></label>
+      <div><button class="btn-primary" type="submit">{{ 'CATALOG.CREATE' | translate }}</button></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">{{ 'SPORTS_PAGE.LIST' | translate }}</h3>
+    <div class="search-bar">
+      <input
+        type="search"
+        name="sportQuery"
+        [(ngModel)]="searchQuery"
+        [placeholder]="'SPORTS_PAGE.SEARCH_PH' | translate"
+      />
+      <select name="sportDifficulty" [(ngModel)]="difficultyFilter">
+        <option value="">{{ 'COMMON.ALL' | translate }}</option>
+        <option value="bajo">{{ 'SPORTS_PAGE.LOW' | translate }}</option>
+        <option value="medio">{{ 'SPORTS_PAGE.MEDIUM' | translate }}</option>
+        <option value="alto">{{ 'SPORTS_PAGE.HIGH' | translate }}</option>
+      </select>
+      <button class="btn-secondary" type="button" *ngIf="searchQuery.trim() || difficultyFilter" (click)="clearSearch()">
+        {{ 'COMMON.CLEAR' | translate }}
+      </button>
+    </div>
+    <p class="search-count" *ngIf="searchQuery.trim() || difficultyFilter">
+      {{ 'COMMON.RESULTS' | translate:{ count: filteredSports.length } }}
+    </p>
+    <div *ngFor="let sport of filteredSports">
+      <div class="list-item">
+        <div>
+          <strong>{{ sport.name }}</strong>
+          <div class="kpi-sub">{{ sport.description || ('CATALOG.NO_DESCRIPTION' | translate) }} · {{ sport.difficulty || ('COMMON.NONE' | translate) }}</div>
+        </div>
+        <div class="item-actions">
+          <button class="btn-secondary" type="button" (click)="toggleAdaptations(sport)">
+            {{ (expandedSportId === sport.id ? 'SPORTS_PAGE.HIDE_ADAPT' : 'SPORTS_PAGE.SHOW_ADAPT') | translate }}
+          </button>
+          <button class="btn-danger" type="button" (click)="remove(sport)">{{ 'CATALOG.DELETE' | translate }}</button>
+        </div>
+      </div>
+      <div *ngIf="expandedSportId === sport.id" style="padding: 0 8px 12px;">
+        <div class="list-item" *ngFor="let item of adaptationsOf(sport)">
+          <div>
+            <strong>{{ item.name }}</strong>
+            <div class="kpi-sub">{{ item.category || ('SPORTS_PAGE.ASSOCIATED' | translate) }}</div>
+          </div>
+        </div>
+        <p *ngIf="!adaptationsOf(sport).length" class="empty-text">
+          {{ 'HOME.NO_ADAPTATIONS' | translate }}
+        </p>
+      </div>
+    </div>
+    <p *ngIf="!filteredSports.length" class="empty-text">
+      {{ (searchQuery.trim() ? 'SPORTS_PAGE.EMPTY_SEARCH' : 'SPORTS_PAGE.EMPTY') | translate }}
+    </p>
+  </div>
+</app-panel-shell>

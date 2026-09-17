@@ -1,0 +1,61 @@
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f8;
+}
+
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.main-content { padding: 24px; }
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  .page-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+  }
+
+  .page-title { margin: 4px 0 0; font-size: 24px; }
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi-card {
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+
+  .kpi-value { font-size: 22px; font-weight: 700; }
+  .kpi-label { font-size: 12px; color: #999; }
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.chart-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+
+  .chart-title { margin: 0 0 16px; font-size: 16px; }
+}

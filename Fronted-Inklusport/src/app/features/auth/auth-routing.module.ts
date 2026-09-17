@@ -7,6 +7,7 @@ import { StartInterfaceComponent } from './pages/start-interface/start-interface
 import { UserInterfaceComponent } from './pages/user-interface/user-interface.component';
 import { GuestHomeComponent } from './pages/guest-home/guest-home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { DevLoginComponent } from './pages/dev-login/dev-login.component';
 
 const routes: Routes = [
   { path: '', component: StartInterfaceComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'home', component: UserInterfaceComponent },
   { path: 'guest', component: GuestHomeComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'dev-login', component: DevLoginComponent },
   { path: '**', redirectTo: '' },
 ];
 

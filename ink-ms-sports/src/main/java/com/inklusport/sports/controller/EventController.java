@@ -34,6 +34,15 @@ public class EventController {
     }
 
     /**
+     * Obtiene el detalle de un evento por id.
+     */
+    @GetMapping("/{id}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<EventResponse> getEventById(@PathVariable String id) {
+        return ResponseEntity.ok(eventService.getEventById(id));
+    }
+
+    /**
      * Crea un evento nuevo.
      */
     @PostMapping

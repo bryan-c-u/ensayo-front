@@ -1,0 +1,126 @@
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f8;
+}
+
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+
+  .menu-toggle-btn {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .brand-label {
+    font-weight: 700;
+  }
+}
+
+.main-content {
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  .page-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+  }
+
+  .page-title {
+    margin: 4px 0 0;
+    font-size: 24px;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 8px;
+  }
+
+  .count-badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &--ok {
+      background: #e6f4f1;
+      color: #0d9488;
+    }
+  }
+}
+
+.table-wrap {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      white-space: nowrap;
+    }
+
+    th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #999;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.status {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+
+  &.status-confirmada { background: #e6f4f1; color: #0d9488; }
+  &.status-pendiente { background: #fef3c7; color: #b45309; }
+  &.status-espera { background: #f3f4f6; color: #6b7280; }
+}
+
+/* --- estados añadidos al conectar datos reales --- */
+.state-msg { color: #6b7280; padding: 1.5rem 0; }
+.alert-banner {
+  background: #fee2e2; border: 1px solid #fca5a5; color: #b91c1c;
+  padding: 0.875rem 1rem; border-radius: 12px; margin: 1rem 0;
+}
+.count-badge--ok { background: #e6f4f1; color: #0d9488; }

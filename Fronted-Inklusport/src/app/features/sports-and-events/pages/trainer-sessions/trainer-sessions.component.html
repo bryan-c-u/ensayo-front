@@ -1,0 +1,147 @@
+<!-- M03 · Crear nueva sesión (portado del prototipo) · menú: trainer-sidebar lateral -->
+<div class="page-container">
+
+  <app-trainer-sidebar activeItem="sessions"></app-trainer-sidebar>
+
+  <div class="content-area">
+    <main class="main-container">
+  <div class="page-header">
+    <h1 class="page-title">Crear Nueva Sesión</h1>
+    <p class="page-subtitle">Configure los detalles de la nueva actividad deportiva adaptada. Asegúrese de especificar correctamente los requisitos de accesibilidad.</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Left Column: Form -->
+    <div class="form-column">
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre de la Sesión</label>
+            <input type="text" class="form-input" placeholder="Ej. Entrenamiento de Natación">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deporte</label>
+            <div class="input-icon-wrap">
+              <select class="form-select">
+                <option value="" selected>Seleccionar deporte</option>
+                <option value="natacion">Natación</option>
+                <option value="atletismo">Atletismo</option>
+                <option value="basquetbol">Basquetbol</option>
+                <option value="tenis">Tenis</option>
+              </select>
+              <i class="fas fa-chevron-down input-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row three-col">
+          <div class="form-group">
+            <label class="form-label">Fecha</label>
+            <div class="input-icon-wrap">
+              <input type="date" class="form-input">
+              <i class="far fa-calendar input-icon"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hora de Inicio</label>
+            <div class="input-icon-wrap">
+              <input type="time" class="form-input">
+              <i class="far fa-clock input-icon"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ubicación</label>
+            <input type="text" class="form-input" placeholder="Ej. Alberca Olímpica">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Capacidad Máxima</label>
+            <div class="capacity-row">
+              <input type="number" class="form-input capacity-input" value="10" min="1">
+              <span class="capacity-hint">Participantes<br>recomendados</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nivel de Dificultad</label>
+            <div class="difficulty-group">
+              <button class="difficulty-pill active">Principiante</button>
+              <button class="difficulty-pill">Intermedio</button>
+              <button class="difficulty-pill">Avanzado</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 0.5rem;">
+          <label class="form-label">Dirigido a (Discapacidad)</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox">
+              <span class="checkbox-label">Visual</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox">
+              <span class="checkbox-label">Auditiva</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox">
+              <span class="checkbox-label">Motora</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox">
+              <span class="checkbox-label">Cognitiva</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-label">Entrenador Asignado</div>
+        <div class="trainer-select-wrap">
+          <select class="trainer-select">
+            <option>Dra. Elena Rodríguez</option>
+            <option>Dr. Carlos Martínez</option>
+            <option>Lic. Ana Torres</option>
+          </select>
+          <i class="fas fa-chevron-down trainer-select-arrow"></i>
+        </div>
+        <div class="trainer-card">
+          <img src="https://i.pravatar.cc/150?img=5" alt="Dra. Elena Rodríguez" class="trainer-avatar">
+          <div class="trainer-info">
+            <h4>Dra. Elena Rodríguez</h4>
+            <p>Especialista en Alto Rendimiento</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card summary-card">
+        <h3 class="summary-title">Resumen de la Sesión</h3>
+        <div class="summary-list">
+          <div class="summary-item">
+            <span class="summary-check"><i class="fas fa-check"></i></span>
+            Accesibilidad priorizada
+          </div>
+          <div class="summary-item">
+            <span class="summary-check"><i class="fas fa-check"></i></span>
+            Validación de entrenador activa
+          </div>
+          <div class="summary-item">
+            <span class="summary-check"><i class="fas fa-check"></i></span>
+            Notificación a atletas inscritos
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-save">Guardar Sesión</button>
+      <button class="btn-cancel">Cancelar</button>
+    </aside>
+      </div>
+    </main>
+  </div>
+</div>

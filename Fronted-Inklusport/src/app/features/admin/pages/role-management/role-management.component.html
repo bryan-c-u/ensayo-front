@@ -1,53 +1,19 @@
 <div class="page-container">
 
-  <app-admin-sidebar
-    [(isOpen)]="sidebarOpen"
-    activeItem="roles">
-  </app-admin-sidebar>
+  <app-admin-sidebar activeItem="roles"></app-admin-sidebar>
 
   <div class="content-area">
     <div class="role-admin">
-      <!-- Top Header -->
-      <header class="top-header">
-        <div class="header-left">
-          <button
-            class="menu-toggle-btn"
-            (click)="toggleSidebar()"
-            aria-label="Abrir menú">
-            ☰
-          </button>
-          <span class="brand-label">Gestión Inklusport</span>
-          <div class="admin-mini">
-            <div class="admin-mini-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="admin-mini-text">
-              <span class="admin-mini-name">Admin Central</span>
-              <span class="admin-mini-role">Gestión Inklusport</span>
-            </div>
-          </div>
-        </div>
-        <div class="header-center">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          <span>Inklusport Admin</span>
-        </div>
-        <div class="header-right">
-          <div class="global-search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <span>Búsqueda global...</span>
-          </div>
-          <div class="ap-avatar">AP</div>
-        </div>
-      </header>
-
       <!-- Main Content -->
       <main class="main-content">
         <!-- Page Header -->
         <section class="page-header">
           <div class="page-label">Seguridad y Gobernanza</div>
           <h1 class="page-title">Gestión de Roles y Permisos</h1>
-          <p class="page-desc">Configura los niveles de acceso organizacional y delega responsabilidades operativas para el nodo HU26. Se han definido 4 roles base en total.</p>
+          <p class="page-desc">Configura los niveles de acceso organizacional y delega responsabilidades operativas para el nodo HU26. Se han definido {{ roles.length }} roles base en total.</p>
         </section>
+
+        <div *ngIf="error" class="data-banner data-banner-error">{{ error }}</div>
 
         <!-- Quick Assign -->
         <div class="quick-assign">
@@ -56,22 +22,23 @@
             Asignación Rápida
           </div>
           <div class="field-group">
-            <label class="field-label">Seleccionar Usuario</label>
+            <label class="field-label">Correo del Usuario</label>
             <div class="search-wrap">
-              <input type="text" class="field-input" placeholder="Buscar por nombre o correo">
+              <input type="email" class="field-input" placeholder="usuario@correo.com" [(ngModel)]="targetEmail">
               <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
           </div>
           <div class="field-group">
             <label class="field-label">Asignar Rol</label>
-            <select class="field-input">
-              <option>Administrador</option>
-              <option>Entrenador</option>
-              <option>Organizador</option>
-              <option>Usuario</option>
+            <select class="field-input" [(ngModel)]="selectedRoleId">
+              <option *ngFor="let role of roles" [ngValue]="role.id">{{ roleLabel(role.name) }}</option>
             </select>
           </div>
-          <button class="btn-update">Actualizar Rol del Usuario</button>
+          <button class="btn-update" type="button" (click)="assign()" [disabled]="assigning || loading">
+            {{ assigning ? 'Asignando…' : 'Actualizar Rol del Usuario' }}
+          </button>
+          <div *ngIf="assignMessage" class="data-banner data-banner-success">{{ assignMessage }}</div>
+          <div *ngIf="assignError" class="data-banner data-banner-error">{{ assignError }}</div>
           <div class="alert-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             Los cambios de rol se registran de inmediato en el Flujo de Auditoría HU26 para cumplimiento.
@@ -95,60 +62,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="role-cell">
-                      <div class="role-avatar avatar-red">AD</div>
-                      <div>
-                        <div class="role-name">Administrador</div>
-                        <div class="role-desc">Control total del sistema</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="status-badge">Activo</span></td>
-                  <td><span class="user-count">12</span></td>
-                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                <tr *ngIf="loading">
+                  <td colspan="4" class="table-empty">Cargando roles…</td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="role-cell">
-                      <div class="role-avatar avatar-blue">EN</div>
-                      <div>
-                        <div class="role-name">Entrenador</div>
-                        <div class="role-desc">Gestión de atletas</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="status-badge">Activo</span></td>
-                  <td><span class="user-count">48</span></td>
-                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
+                <tr *ngIf="!loading && !roles.length">
+                  <td colspan="4" class="table-empty">No hay roles definidos.</td>
                 </tr>
-                <tr>
+                <tr *ngFor="let role of roles; let i = index">
                   <td>
                     <div class="role-cell">
-                      <div class="role-avatar avatar-teal">OR</div>
+                      <div class="role-avatar" [ngClass]="avatarClass(i)">{{ roleInitials(role.name) }}</div>
                       <div>
-                        <div class="role-name">Organizador</div>
-                        <div class="role-desc">Coordinación de eventos</div>
+                        <div class="role-name">{{ roleLabel(role.name) }}</div>
+                        <div class="role-desc">{{ role.description }}</div>
                       </div>
                     </div>
                   </td>
                   <td><span class="status-badge">Activo</span></td>
-                  <td><span class="user-count">24</span></td>
-                  <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="role-cell">
-                      <div class="role-avatar avatar-gray">US</div>
-                      <div>
-                        <div class="role-name">Usuario</div>
-                        <div class="role-desc">Acceso estándar de atleta</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="status-badge">Activo</span></td>
-                  <td><span class="user-count">1.204</span></td>
+                  <td><span class="user-count">{{ userCount(role) }}</span></td>
                   <td style="text-align: right;"><span class="edit-link">EDITAR<br>PERMISOS</span></td>
                 </tr>
               </tbody>

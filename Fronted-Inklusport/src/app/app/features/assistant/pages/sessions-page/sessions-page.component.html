@@ -1,0 +1,66 @@
+<app-panel-shell>
+  <h1 class="page-title">{{ 'SESSIONS_PAGE.TITLE' | translate }}</h1>
+  <p class="page-subtitle">{{ 'SESSIONS_PAGE.SUBTITLE' | translate }}</p>
+  <p *ngIf="successMessage" class="empty-text">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div class="card" style="margin-bottom: 16px;">
+    <h3 class="section-title">Nueva sesión</h3>
+    <form class="form-grid" [formGroup]="form" (ngSubmit)="create()">
+      <label>Nombre <input formControlName="name" /></label>
+      <label>Deporte
+        <select formControlName="sportId">
+          <option *ngFor="let sport of sports" [ngValue]="sport.id">{{ sport.name }}</option>
+        </select>
+      </label>
+      <label>Enfoque discapacidad <input formControlName="disabilityFocus" /></label>
+      <label>Nivel
+        <select formControlName="level">
+          <option value="principiante">Principiante</option>
+          <option value="intermedio">Intermedio</option>
+          <option value="avanzado">Avanzado</option>
+        </select>
+      </label>
+      <label>Duración (min) <input type="number" formControlName="durationMinutes" /></label>
+      <label>Cupo <input type="number" formControlName="maxCapacity" /></label>
+      <label style="grid-column: 1 / -1;">Descripción <textarea rows="2" formControlName="description"></textarea></label>
+      <div><button class="btn-primary" type="submit">Crear</button></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="search-bar">
+      <input
+        type="search"
+        name="sessionQuery"
+        [(ngModel)]="searchQuery"
+        [placeholder]="'SESSIONS_PAGE.SEARCH_PH' | translate"
+      />
+      <button class="btn-secondary" type="button" *ngIf="searchQuery.trim()" (click)="clearSearch()">
+        {{ 'COMMON.CLEAR' | translate }}
+      </button>
+    </div>
+    <p class="search-count" *ngIf="searchQuery.trim()">
+      {{ 'COMMON.RESULTS' | translate:{ count: filteredRoutines.length } }}
+    </p>
+    <div class="list-item" *ngFor="let routine of filteredRoutines">
+      <div>
+        <strong>{{ routine.name }}</strong>
+        <div class="kpi-sub">{{ routine.status }} · {{ routine.disabilityFocus || 'General' }} · {{ routine.durationMinutes || '—' }} min</div>
+      </div>
+      <button
+        class="btn-secondary"
+        type="button"
+        *ngIf="routine.status !== 'published'"
+        (click)="publish(routine)"
+      >
+        Publicar
+      </button>
+      <span *ngIf="routine.status === 'published'" class="status-pill status-pill--ok">Publicada</span>
+    </div>
+    <p *ngIf="!routines.length" class="empty-text">Sin sesiones todavía.</p>
+    <p *ngIf="routines.length && !filteredRoutines.length" class="empty-text">
+      {{ 'SESSIONS_PAGE.EMPTY_SEARCH' | translate }}
+    </p>
+  </div>
+</app-panel-shell>

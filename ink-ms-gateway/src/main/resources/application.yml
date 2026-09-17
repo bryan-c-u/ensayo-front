@@ -33,7 +33,13 @@ spring:
         - id: users-ms
           uri: http://localhost:3003
           predicates:
-             - Path=/api/users/**, /api/admin/**
+             - Path=/api/users/**
+
+        # 2.0 Admin MS (Modulo de Administracion, M08) - remapeado a 3009 por choque con suscripciones
+        - id: admin-ms
+          uri: http://localhost:3009
+          predicates:
+            - Path=/api/admin/**
 
         # 2.1 Suscripciones MS (Modulo de Suscripciones y Monetizacion, M09)
         - id: suscripciones-ms
@@ -47,23 +53,23 @@ spring:
           predicates:
             - Path=/api/search/**
 
-        # # 3. Sports MS
-        # - id: sports-ms
-        #   uri: http://localhost:3003
-        #   predicates:
-        #     - Path=/api/sports/**, /api/events/**, /api/disabilities/**, /api/sport-disabilities/**, /api/registrations/**, /api/calendar/**, /api/scheduler/**, /api/attendance/**
+        # 3. Sports MS (remapeado a 3008 por choque con users)
+        - id: sports-ms
+          uri: http://localhost:3008
+          predicates:
+            - Path=/api/sports/**, /api/events/**, /api/disabilities/**, /api/sport-disabilities/**, /api/registrations/**, /api/waitlist/**, /api/calendar/**, /api/scheduler/**, /api/attendance/**
 
-        # # 4. Accessibility MS
+        # # 4. Accessibility MS (deshabilitado: requiere MongoDB, no instalado)
         # - id: accessibility-ms
         #   uri: http://localhost:3004
         #   predicates:
         #     - Path=/api/preferences/**, /api/notifications/**
 
-        # # 5. Reports MS
-        # - id: reports-ms
-        #   uri: http://localhost:3006
-        #   predicates:
-        #     - Path=/api/analytics/**, /api/dashboard/**, /api/reports/**
+        # 5. Reports MS
+        - id: reports-ms
+          uri: http://localhost:3006
+          predicates:
+            - Path=/api/analytics/**, /api/dashboard/**, /api/reports/**
 
 server:
   port: 8080

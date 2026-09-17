@@ -1,5 +1,6 @@
 package com.inklusport.sports.controller;
 
+import com.inklusport.sports.dto.InternalRegistrationResponse;
 import com.inklusport.sports.dto.RegistrationRequest;
 import com.inklusport.sports.dto.RegistrationResponse;
 import com.inklusport.sports.service.RegistrationService;
@@ -71,5 +72,14 @@ public class RegistrationController {
     @GetMapping("{eventId}/waitlist")
     public ResponseEntity<List<RegistrationResponse>> getWaitlist(@PathVariable String eventId) {
         return ResponseEntity.ok(registrationService.getWaitlistForEvent(eventId));
+    }
+
+    /**
+     * Lista las inscripciones de un evento (vista minima sin qrCode).
+     * La usa el frontend del organizador para "Atletas inscritos".
+     */
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<List<InternalRegistrationResponse>> getByEvent(@PathVariable String eventId) {
+        return ResponseEntity.ok(registrationService.getRegistrationsForEvent(eventId));
     }
 }

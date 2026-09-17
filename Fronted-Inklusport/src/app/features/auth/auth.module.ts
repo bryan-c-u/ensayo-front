@@ -10,6 +10,7 @@ import { StartInterfaceComponent } from './pages/start-interface/start-interface
 import { UserInterfaceComponent } from './pages/user-interface/user-interface.component';
 import { GuestHomeComponent } from './pages/guest-home/guest-home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { DevLoginComponent } from './pages/dev-login/dev-login.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     StartInterfaceComponent,
     UserInterfaceComponent,
     GuestHomeComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    DevLoginComponent
   ],
   imports: [
     CommonModule,

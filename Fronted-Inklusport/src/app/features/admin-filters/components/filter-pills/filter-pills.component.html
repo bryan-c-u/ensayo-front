@@ -1,0 +1,10 @@
+<div class="filter-pills" role="group" aria-label="Filtros rápidos">
+  <button
+    *ngFor="let pill of pills"
+    type="button"
+    class="pill"
+    [class.active]="pill.id === activeId"
+    (click)="onSelect(pill.id)">
+    {{ pill.label }}
+  </button>
+</div>

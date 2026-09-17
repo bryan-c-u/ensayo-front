@@ -1,0 +1,185 @@
+<!-- trainer-dashboard.component · M02 · panel del entrenador (portado del prototipo) -->
+<div class="page-container">
+
+  <app-trainer-sidebar activeItem="dashboard"></app-trainer-sidebar>
+
+  <div class="content-area">
+    <main class="main-container">
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-content">
+        <div class="kpi-label">Eventos Hoy</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">08</span>
+          <span class="kpi-badge">+2 vs ayer</span>
+        </div>
+      </div>
+      <div class="kpi-icon-box red">
+        <i class="far fa-calendar"></i>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-content">
+        <div class="kpi-label">Atletas Activos</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">124</span>
+          <span class="kpi-sub">de 150 total</span>
+        </div>
+        <div class="kpi-progress">
+          <div class="kpi-progress-fill"></div>
+        </div>
+      </div>
+      <div class="kpi-icon-box blue">
+        <i class="fas fa-users"></i>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-content">
+        <div class="kpi-label">Alertas IA</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value red">03</span>
+        </div>
+        <span class="kpi-sub red">Críticas</span>
+      </div>
+      <div class="kpi-icon-box red">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Middle Section -->
+  <div class="middle-grid">
+    <!-- Performance Chart -->
+    <div class="card">
+      <div class="card-header-flex">
+        <div>
+          <h3 class="card-title">Rendimiento por Discapacidad</h3>
+          <p class="card-subtitle">Métricas comparativas por categoría técnica</p>
+        </div>
+        <div class="card-actions">
+          <button class="badge-selector">Mensual</button>
+          <button class="menu-dots"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-bar-group">
+          <div class="chart-bar-visual" style="height: 55px;"></div>
+          <span class="chart-label">Motora</span>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-visual active" style="height: 110px;"></div>
+          <span class="chart-label">Visual</span>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-visual" style="height: 85px;"></div>
+          <span class="chart-label">Intelectual</span>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-visual active" style="height: 130px;"></div>
+          <span class="chart-label">Auditiva</span>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-visual" style="height: 70px;"></div>
+          <span class="chart-label">Parálisis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="ai-card">
+      <div class="ai-header">
+        <div class="ai-icon"><i class="fas fa-robot"></i></div>
+        <span class="ai-title">Asistente IA</span>
+      </div>
+      <p class="ai-body">
+        "Detecto una disminución del 15% en la frecuencia cardíaca de <strong>Alex Rivera</strong> durante los últimos 10 minutos de la sesión de fuerza. Sugiero ajustar los intervalos de recuperación."
+      </p>
+      <button class="ai-btn">
+        Ver análisis detallado
+        <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="bottom-grid">
+    <!-- Activities -->
+    <div class="card">
+      <div class="table-header">
+        <h3 class="card-title" style="margin:0;">Gestión de Actividades</h3>
+        <a href="#" class="link-arrow">
+          Ver todas
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+      <table class="activities-table">
+        <thead>
+          <tr>
+            <th>Actividad</th>
+            <th>Atleta Principal</th>
+            <th>Estado</th>
+            <th>Hora</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="activity-cell">
+                <div class="activity-icon"><i class="fas fa-swimmer"></i></div>
+                <span class="activity-name">Sprint T12</span>
+              </div>
+            </td>
+            <td class="athlete-name">Carlos Ruiz</td>
+            <td>
+              <span class="status-pill active">
+                <span class="status-dot"></span>
+                En Curso
+              </span>
+            </td>
+            <td class="time-cell">10:30 AM</td>
+            <td><button class="edit-btn"><i class="fas fa-pencil-alt"></i></button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-cell">
+                <div class="activity-icon"><i class="fas fa-swimmer"></i></div>
+                <span class="activity-name">Natación S9</span>
+              </div>
+            </td>
+            <td class="athlete-name">Elena Torres</td>
+            <td>
+              <span class="status-pill scheduled">
+                <span class="status-dot"></span>
+                Programada
+              </span>
+            </td>
+            <td class="time-cell">12:00 PM</td>
+            <td><button class="edit-btn"><i class="fas fa-pencil-alt"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Featured Plan -->
+    <div class="featured-card">
+      <span class="featured-badge">Destacada</span>
+      <h3 class="featured-title">Preparación Paralímpica 2024</h3>
+      <div class="featured-meta">
+        <div class="featured-avatars">
+          <img src="https://i.pravatar.cc/150?img=11" alt="Atleta">
+          <img src="https://i.pravatar.cc/150?img=32" alt="Atleta">
+          <div class="more">+12</div>
+        </div>
+        <span class="featured-intensity">Intensidad: Alta</span>
+      </div>
+      <p class="featured-desc">Optimización de aerodinámica y resistencia para atletas en silla de...</p>
+      <button class="btn-explore">Explorar Plan</button>
+    </div>
+  </div>
+    </main>
+  </div>
+</div>

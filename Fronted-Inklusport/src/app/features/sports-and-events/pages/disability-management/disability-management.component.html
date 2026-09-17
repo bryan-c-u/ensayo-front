@@ -1,0 +1,185 @@
+<div class="page-container">
+
+  <app-admin-sidebar activeItem="disabilities"></app-admin-sidebar>
+
+  <div class="content-area">
+    <div class="disability-admin">
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+          <div>
+            <div class="page-label">Módulo de Gestión</div>
+            <h1 class="page-title">Registro de Discapacidades</h1>
+            <p class="page-desc">Administración integral de las categorías de accesibilidad (Ref: HU16.1-HU16.4)</p>
+          </div>
+          <button class="btn-new" routerLink="/admin/disabilities/create">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nueva Discapacidad
+          </button>
+        </section>
+
+        <!-- Stats Cards -->
+        <div class="stats-row">
+          <div class="stat-card stat-card-light">
+            <div>
+              <div class="stat-label" style="color: #666;">Categorías Totales</div>
+              <div class="stat-value">24</div>
+            </div>
+            <div class="stat-sub stat-sub-green">+3 agregadas este mes</div>
+          </div>
+          <div class="stat-card stat-card-blue">
+            <div>
+              <div class="stat-label" style="opacity: 0.9;">Deportes Vinculados</div>
+              <div class="stat-value">12</div>
+            </div>
+            <div class="stat-bar"></div>
+          </div>
+          <div class="stat-card stat-card-gray">
+            <div>
+              <div class="stat-label" style="color: #666;">Estado Activo</div>
+              <div class="stat-value">92%</div>
+            </div>
+            <div class="stat-sub stat-sub-red">2 pendientes de revisión</div>
+          </div>
+        </div>
+
+        <!-- Main Registry -->
+        <section class="registry-section">
+          <div class="registry-header">
+            <h2 class="registry-title">Registro Principal</h2>
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Filtrar discapacidades...">
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="dis-id">#DIS-101</span></td>
+                  <td><span class="dis-name">Discapacidad Visual</span></td>
+                  <td><span class="dis-desc">Usuarios con pérdida parcial o total de la vi...</span></td>
+                </tr>
+                <tr>
+                  <td><span class="dis-id">#DIS-102</span></td>
+                  <td><span class="dis-name">Movilidad - Miembro Inferior</span></td>
+                  <td><span class="dis-desc">Enfoque en deportes en silla de ruedas y ada...</span></td>
+                </tr>
+                <tr>
+                  <td><span class="dis-id">#DIS-103</span></td>
+                  <td><span class="dis-name">Discapacidad Auditiva</span></td>
+                  <td><span class="dis-desc">Atletas sordos y con dificultades auditivas re...</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Sport-Disability Associations -->
+        <section class="assoc-section">
+          <div class="assoc-header">
+            <h2 class="assoc-title">Asociaciones Deporte-Discapacidad</h2>
+            <span class="assoc-badge">HU16.1-HU16.4</span>
+          </div>
+          <p class="assoc-desc">Gestión de referencias cruzadas que vincula disciplinas deportivas específicas con las categorías de discapacidad elegibles y los requisitos de adaptación.</p>
+
+          <div class="assoc-layout">
+            <div class="flow-card">
+              <div class="flow-title">Flujo Rápido de Asociación</div>
+              <div class="flow-step">
+                <div class="flow-dot dot-red"></div>
+                <div class="flow-text">
+                  <div class="flow-step-title">Seleccionar Grupo de Discapacidad</div>
+                  <div class="flow-step-desc">Filtrado por impacto fisiológico</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot dot-blue"></div>
+                <div class="flow-text">
+                  <div class="flow-step-title">Mapear Modalidad Deportiva</div>
+                  <div class="flow-step-desc">Asignación al catálogo de Inklusport</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot dot-teal"></div>
+                <div class="flow-text">
+                  <div class="flow-step-title">Definir Equipamiento</div>
+                  <div class="flow-step-desc">Requisitos de herramientas adaptativas</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="featured-card">
+              <div class="featured-overlay">
+                <div class="featured-label">Mapeo Destacado</div>
+                <div class="featured-title">Protocolo de Integración de Baloncesto en Silla de Ruedas</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="compat-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Modalidad Deportiva</th>
+                  <th>Discapacidad Vinculada</th>
+                  <th>Nivel Req.</th>
+                  <th>Compatibilidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="sport-dot" style="background: #c8102e;"></span>
+                    <span class="sport-name">Para-Natación</span><br>
+                    <span class="sport-sub">(S11-S13)</span>
+                  </td>
+                  <td>Discapacidad Visual</td>
+                  <td><span class="req-badge req-high">Alto</span></td>
+                  <td><div class="compat-bar"><div class="compat-fill" style="width: 85%;"></div></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="sport-dot" style="background: #2563eb;"></span>
+                    <span class="sport-name">Tiro con Arco Adaptado</span>
+                  </td>
+                  <td>Movilidad de Miembro Inferior</td>
+                  <td><span class="req-badge req-medium">Medio</span></td>
+                  <td><div class="compat-bar"><div class="compat-fill" style="width: 60%;"></div></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="sport-dot" style="background: #c8102e;"></span>
+                    <span class="sport-name">Goalball</span>
+                  </td>
+                  <td>Ceguera Total</td>
+                  <td><span class="req-badge req-critical">Crítico</span></td>
+                  <td><div class="compat-bar"><div class="compat-fill" style="width: 95%;"></div></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="sport-dot" style="background: #0d9488;"></span>
+                    <span class="sport-name">Boccia</span>
+                  </td>
+                  <td>Discapacidades Motoras Severas</td>
+                  <td><span class="req-badge req-high">Alto</span></td>
+                  <td><div class="compat-bar"><div class="compat-fill" style="width: 80%;"></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="manage-link">Gestionar las 42 Asociaciones</div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+</div>

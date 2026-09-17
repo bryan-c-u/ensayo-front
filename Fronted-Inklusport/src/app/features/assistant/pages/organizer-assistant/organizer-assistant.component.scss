@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+/* Layout: el único menú es el organizer-sidebar (lateral) */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f8;
+}
+
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.main-content {
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+
+  .page-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+  }
+
+  .page-title {
+    margin: 4px 0 0;
+    font-size: 24px;
+  }
+}
+
+.placeholder-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  color: #6b7280;
+}

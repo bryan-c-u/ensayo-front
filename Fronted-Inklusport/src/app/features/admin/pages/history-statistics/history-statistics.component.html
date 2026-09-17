@@ -1,35 +1,9 @@
 <div class="page-container">
 
-  <app-admin-sidebar
-    [(isOpen)]="sidebarOpen"
-    activeItem="audit-logs">
-  </app-admin-sidebar>
+  <app-admin-sidebar activeItem="audit-log"></app-admin-sidebar>
 
   <div class="content-area">
     <div class="audit-admin">
-      <!-- Top Header -->
-      <header class="top-header">
-        <div class="top-header-left">
-          <button
-            class="menu-toggle-btn"
-            (click)="toggleSidebar()"
-            aria-label="Abrir menú">
-            ☰
-          </button>
-          <span class="brand-label">Inklusport</span>
-        </div>
-        <div class="header-center">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          <span>Inklusport Admin</span>
-        </div>
-        <div class="header-right">
-          <span class="version">Versión 1.2.4</span>
-          <div class="header-avatar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-        </div>
-      </header>
-
       <!-- Main Content -->
       <main class="main-content">
         <!-- Page Header -->
@@ -49,6 +23,8 @@
             </button>
           </div>
         </section>
+
+        <div *ngIf="error" class="data-banner data-banner-error">{{ error }}</div>
 
         <!-- Charts Row -->
         <div class="charts-row">
@@ -107,45 +83,28 @@
             <div style="position: relative; width: 160px; height: 160px; margin: 0 auto;">
               <svg viewBox="0 0 100 100" width="160" height="160">
                 <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e5e5" stroke-width="12"/>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#c8102e" stroke-width="12"
-                  stroke-dasharray="100.53 150.8" stroke-dashoffset="0"
-                  transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#2563eb" stroke-width="12"
-                  stroke-dasharray="62.83 188.5" stroke-dashoffset="-100.53"
-                  transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#0d9488" stroke-width="12"
-                  stroke-dasharray="37.7 213.63" stroke-dashoffset="-163.36"
-                  transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#d1d5db" stroke-width="12"
-                  stroke-dasharray="50.27 201.06" stroke-dashoffset="-201.06"
+                <circle *ngFor="let seg of donutSegments"
+                  cx="50" cy="50" r="40" fill="none" stroke-width="12"
+                  [attr.stroke]="seg.color"
+                  [attr.stroke-dasharray]="seg.dash"
+                  [attr.stroke-dashoffset]="seg.offset"
                   transform="rotate(-90 50 50)"/>
               </svg>
               <div class="donut-center">
-                <div class="donut-value">1.2k</div>
+                <div class="donut-value">{{ donutTotal }}</div>
                 <div class="donut-label">Usuarios Totales</div>
               </div>
             </div>
             <div class="donut-legend">
-              <div class="legend-item">
-                <div class="legend-left">
-                  <span class="legend-dot" style="background: #c8102e;"></span>
-                  <span>Discapacidad Física</span>
-                </div>
-                <span class="legend-pct">40%</span>
+              <div class="legend-item" *ngIf="!donutSegments.length">
+                <div class="legend-left"><span>{{ loading ? 'Cargando…' : 'Sin datos de discapacidad' }}</span></div>
               </div>
-              <div class="legend-item">
+              <div class="legend-item" *ngFor="let seg of donutSegments">
                 <div class="legend-left">
-                  <span class="legend-dot" style="background: #2563eb;"></span>
-                  <span>Discapacidad Visual</span>
+                  <span class="legend-dot" [style.background]="seg.color"></span>
+                  <span>{{ seg.label }}</span>
                 </div>
-                <span class="legend-pct">25%</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-left">
-                  <span class="legend-dot" style="background: #0d9488;"></span>
-                  <span>Intelectual</span>
-                </div>
-                <span class="legend-pct">15%</span>
+                <span class="legend-pct">{{ seg.pct }}%</span>
               </div>
             </div>
           </div>
@@ -180,77 +139,37 @@
                   <th>Tipo de Acción</th>
                   <th>Usuario</th>
                   <th>Dirección IP</th>
-                  <th style="text-align: right;">Detalles de Actividad</th>
+                  <th>Detalles de Actividad</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="log-date">24 oct 2023</div>
-                    <div class="log-time">14:32:05 PM</div>
-                  </td>
-                  <td><span class="action-badge action-update">Update_Profile</span></td>
-                  <td>
-                    <div class="user-cell">
-                      <div class="user-avatar">MK</div>
-                      <span class="user-name">m.karim_admin</span>
-                    </div>
-                  </td>
-                  <td><span class="ip-address">192.168.1.45</span></td>
-                  <td style="text-align: right;">
-                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  </td>
+                <tr *ngIf="loading">
+                  <td colspan="5" class="table-empty">Cargando registros…</td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="log-date">24 oct 2023</div>
-                    <div class="log-time">12:15:11 PM</div>
-                  </td>
-                  <td><span class="action-badge action-delete">Delete_Event</span></td>
-                  <td>
-                    <div class="user-cell">
-                      <div class="user-avatar">JS</div>
-                      <span class="user-name">j.smith_super</span>
-                    </div>
-                  </td>
-                  <td><span class="ip-address">45.22.102.1</span></td>
-                  <td style="text-align: right;">
-                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  </td>
+                <tr *ngIf="!loading && !activities.length">
+                  <td colspan="5" class="table-empty">No hay actividad registrada todavía.</td>
                 </tr>
-                <tr>
+                <tr *ngFor="let log of activities">
                   <td>
-                    <div class="log-date">23 oct 2023</div>
-                    <div class="log-time">09:44:22 AM</div>
+                    <div class="log-date">{{ datePart(log.createdAt) }}</div>
+                    <div class="log-time">{{ timePart(log.createdAt) }}</div>
                   </td>
-                  <td><span class="action-badge action-export">Export_Audit</span></td>
+                  <td><span class="action-badge" [ngClass]="actionClass(log.action)">{{ log.action }}</span></td>
                   <td>
                     <div class="user-cell">
-                      <div class="user-avatar">AL</div>
-                      <span class="user-name">a.lopez_analyst</span>
+                      <div class="user-avatar">{{ initials(currentEmail) }}</div>
+                      <span class="user-name">{{ currentEmail }}</span>
                     </div>
                   </td>
-                  <td><span class="ip-address">88.192.3.14</span></td>
-                  <td style="text-align: right;">
-                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  </td>
+                  <td><span class="ip-address">{{ log.ipAddress || '—' }}</span></td>
+                  <td>{{ log.details }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="pagination-bar">
-            <span>Mostrando 1-15 de 2.450 registros</span>
-            <div class="pagination-controls">
-              <button class="page-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="page-btn active">1</button>
-              <button class="page-btn">2</button>
-              <button class="page-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
+            <span>Mostrando {{ activities.length }} registros</span>
           </div>
         </section>
       </main>

@@ -1,0 +1,95 @@
+<!-- organizer-analysis · M06 · datos reales (ink-ms-sports + ink-ms-suscripciones) -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="analysis"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-container">
+
+      <div class="page-header">
+        <div class="page-title-block">
+          <h1>Análisis</h1>
+          <p>Participación y ocupación de tus eventos deportivos.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn-export" (click)="exportar()" [disabled]="!eventos.length">
+            Exportar CSV
+          </button>
+        </div>
+      </div>
+
+      <p *ngIf="cargando" class="state-msg">Cargando análisis…</p>
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+
+      <ng-container *ngIf="!cargando && !error">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Total de<br>eventos</span></div>
+            <div class="kpi-value">{{ totalEventos }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Total<br>inscritos</span></div>
+            <div class="kpi-value">{{ totalInscritos }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Asistencia<br>promedio</span></div>
+            <div class="kpi-value">{{ asistenciaPromedio }}%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Ocupación<br>promedio</span></div>
+            <div class="kpi-value">{{ ocupacionPromedio }}%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Ingresos<br>eventos</span></div>
+            <div class="kpi-value">{{ ingresosEventos | currency: 'COP':'symbol-narrow':'1.0-0' }}</div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">Participación por deporte</h3>
+          </div>
+          <div class="bar-list" *ngIf="porDeporte.length; else sinDatos">
+            <div class="bar-row" *ngFor="let d of porDeporte">
+              <span class="bar-row-label">{{ d.sport }}</span>
+              <div class="bar-row-track">
+                <div class="bar-row-fill" [style.width.%]="(d.inscritos / maxInscritosDeporte) * 100"></div>
+              </div>
+              <span class="bar-row-value">{{ d.inscritos }} inscritos · {{ d.eventos }} ev.</span>
+            </div>
+          </div>
+          <ng-template #sinDatos><p class="state-msg">Sin eventos para analizar.</p></ng-template>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3 class="table-title">Ocupación de eventos</h3>
+          </div>
+          <table class="events-table" *ngIf="eventos.length; else sinTabla">
+            <thead>
+              <tr><th>Evento</th><th>Deporte</th><th>Fecha</th><th>Cupos</th><th>Inscritos</th><th>Ocupación</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of eventos">
+                <td class="event-name">{{ e.name }}</td>
+                <td class="sport-tag">{{ e.sportName }}</td>
+                <td class="date-cell">{{ e.eventDate }}</td>
+                <td>{{ e.maxCapacity }}</td>
+                <td class="enrolled-cell">{{ inscritos(e) }} / {{ e.maxCapacity }}</td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" [style.width.%]="ocupacion(e)"></div>
+                    </div>
+                    <span class="progress-text">{{ ocupacion(e) }}%</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #sinTabla><p class="state-msg">Sin eventos.</p></ng-template>
+        </div>
+      </ng-container>
+    </main>
+  </div>
+</div>

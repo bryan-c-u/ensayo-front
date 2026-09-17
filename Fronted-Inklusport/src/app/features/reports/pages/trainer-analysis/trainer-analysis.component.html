@@ -1,0 +1,35 @@
+<div class="page-container">
+
+  <app-trainer-sidebar activeItem="analysis"></app-trainer-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+      <section class="page-header">
+        <div>
+          <div class="page-label">Reportes y Analítica · Entrenador</div>
+          <h1 class="page-title">Análisis</h1>
+        </div>
+        <app-export-buttons (export)="onExport($event)"></app-export-buttons>
+      </section>
+
+      <div class="kpi-row">
+        <div class="kpi-card" *ngFor="let k of kpis">
+          <div class="kpi-value">{{ k.value }}</div>
+          <div class="kpi-label">{{ k.label }}</div>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3 class="chart-title">Asistencia semanal</h3>
+          <app-bar-chart [data]="weeklyAttendance"></app-bar-chart>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">Atletas por disciplina</h3>
+          <app-donut-chart [segments]="disciplineSplit" centerValue="12" centerLabel="Atletas"></app-donut-chart>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>

@@ -1,0 +1,105 @@
+<app-panel-shell [fixedSidebar]="fixedSidebar">
+  <h1 class="page-title">{{ 'ACCESSIBILITY.TITLE' | translate }}</h1>
+  <p class="page-subtitle">{{ 'ACCESSIBILITY.SUBTITLE' | translate }}</p>
+  <p *ngIf="message" class="empty-text">{{ message }}</p>
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div class="card">
+    <form class="form-grid accessibility-form" [formGroup]="form" (ngSubmit)="save()">
+      <label>{{ 'ACCESSIBILITY.TEXT_LANGUAGE' | translate }}
+        <select formControlName="language">
+          <option value="es">{{ 'ACCESSIBILITY.LANG_ES' | translate }}</option>
+          <option value="en">{{ 'ACCESSIBILITY.LANG_EN' | translate }}</option>
+        </select>
+      </label>
+      <label>{{ 'ACCESSIBILITY.FONT_SIZE' | translate }}
+        <select formControlName="fontSize">
+          <option value="small">{{ 'ACCESSIBILITY.FONT_SMALL' | translate }}</option>
+          <option value="medium">{{ 'ACCESSIBILITY.FONT_MEDIUM' | translate }}</option>
+          <option value="large">{{ 'ACCESSIBILITY.FONT_LARGE' | translate }}</option>
+          <option value="xlarge">{{ 'ACCESSIBILITY.FONT_XLARGE' | translate }}</option>
+        </select>
+      </label>
+      <label>{{ 'ACCESSIBILITY.DISABILITY_TYPE' | translate }} <input formControlName="disabilityType" /></label>
+      <label>{{ 'ACCESSIBILITY.VOICE_LANGUAGE' | translate }}
+        <select formControlName="voiceLanguage">
+          <option value="es-ES">es-ES</option>
+          <option value="en-US">en-US</option>
+        </select>
+      </label>
+
+      <div class="checkbox-section" style="grid-column: 1 / -1;">
+        <h3 class="section-title">{{ 'ACCESSIBILITY.OPTIONS' | translate }}</h3>
+        <div class="checkbox-grid">
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="followSystemLanguage" />
+            <span>{{ 'ACCESSIBILITY.FOLLOW_SYSTEM' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="highContrast" />
+            <span>{{ 'ACCESSIBILITY.HIGH_CONTRAST' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="screenReader" />
+            <span>{{ 'ACCESSIBILITY.SCREEN_READER' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="reducedMotion" />
+            <span>{{ 'ACCESSIBILITY.REDUCED_MOTION' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="keyboardNavigation" />
+            <span>{{ 'ACCESSIBILITY.KEYBOARD_NAV' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="readerMode" />
+            <span>{{ 'ACCESSIBILITY.READER_MODE' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="notificationsEnabled" />
+            <span>{{ 'ACCESSIBILITY.NOTIFICATIONS' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="voiceCommandsEnabled" />
+            <span>{{ 'ACCESSIBILITY.VOICE_COMMANDS' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="ttsEnabled" />
+            <span>{{ 'ACCESSIBILITY.TTS' | translate }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="checkbox-section" style="grid-column: 1 / -1;">
+        <h3 class="section-title">{{ 'ACCESSIBILITY.ATTENDANCE_METHOD' | translate }}</h3>
+        <p class="page-subtitle" style="margin-bottom: 12px;">
+          {{ 'ACCESSIBILITY.ATTENDANCE_METHOD_HINT' | translate }}
+        </p>
+        <div class="checkbox-grid attendance-method-grid">
+          <label class="checkbox-row">
+            <input type="radio" formControlName="attendanceCheckInMethod" value="qr" />
+            <span>{{ 'ACCESSIBILITY.ATTENDANCE_QR' | translate }}</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="radio" formControlName="attendanceCheckInMethod" value="form" />
+            <span>{{ 'ACCESSIBILITY.ATTENDANCE_FORM' | translate }}</span>
+          </label>
+        </div>
+      </div>
+
+      <p class="page-subtitle" style="grid-column: 1 / -1;">
+        {{ 'ACCESSIBILITY.TTS_HINT' | translate }}
+      </p>
+      <p class="page-subtitle" style="grid-column: 1 / -1;">
+        {{ 'ACCESSIBILITY.LANG_HINT' | translate }}
+      </p>
+
+      <div class="actions-row" style="grid-column: 1 / -1;">
+        <button class="btn-primary" type="submit">{{ 'ACCESSIBILITY.SAVE' | translate }}</button>
+        <button class="btn-secondary" type="button" (click)="testVoice()">
+          {{ 'ACCESSIBILITY.TTS_TEST' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</app-panel-shell>

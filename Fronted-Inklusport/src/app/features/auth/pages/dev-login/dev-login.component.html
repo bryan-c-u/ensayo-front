@@ -1,0 +1,34 @@
+<div class="dev-login">
+  <div class="card">
+    <h1>Login de desarrollo</h1>
+
+    <p class="warn" *ngIf="!isDev">
+      Esta pantalla solo funciona en modo desarrollo (<code>ng serve</code>).
+    </p>
+
+    <ng-container *ngIf="isDev">
+      <p class="hint">
+        Inyecta un token de prueba con el rol elegido. No hay backend ni firma:
+        sirve para recorrer las vistas protegidas por <code>roleGuard</code>.
+      </p>
+
+      <p class="current">
+        Rol actual:
+        <strong>{{ currentRoles.length ? currentRoles.join(', ') : 'sin sesión' }}</strong>
+      </p>
+
+      <div class="grid">
+        <button
+          *ngFor="let opt of options"
+          type="button"
+          class="role-btn"
+          (click)="enterAs(opt)">
+          <span class="role-label">{{ opt.label }}</span>
+          <span class="role-landing">{{ opt.landing }}</span>
+        </button>
+      </div>
+
+      <button type="button" class="logout" (click)="logout()">Cerrar sesión</button>
+    </ng-container>
+  </div>
+</div>

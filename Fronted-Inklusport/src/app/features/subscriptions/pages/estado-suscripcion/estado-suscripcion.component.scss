@@ -1,0 +1,178 @@
+/* M09 · Estado de suscripción — paleta clara, acorde al resto de vistas de organizador. */
+:host {
+  display: block;
+
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --color-brand: #dc2626;
+  --color-brand-dark: #b91c1c;
+  --color-brand-light: #fee2e2;
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --border: #e5e7eb;
+  --radius: 16px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.main-content {
+  padding: 2rem 2.5rem 3rem;
+  max-width: 720px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.welcome h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.welcome p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.btn-link {
+  flex-shrink: 0;
+  color: var(--color-brand);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 0.25rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.state-msg {
+  color: var(--text-secondary);
+}
+
+.alert-banner {
+  background: var(--color-brand-light);
+  border: 1px solid #fca5a5;
+  color: var(--color-brand-dark);
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+}
+
+.empty-state {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+
+  p {
+    margin: 0 0 1rem;
+    color: var(--text-secondary);
+  }
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    color: var(--text-secondary);
+  }
+
+  &__value {
+    font-weight: 600;
+    text-align: right;
+  }
+}
+
+.status-badge {
+  padding: 0.2rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f3f4f6;
+  color: var(--text-secondary);
+
+  &[data-estado='ACTIVA'] {
+    background: var(--success-light);
+    color: #047857;
+  }
+
+  &[data-estado='SUSPENDIDA'],
+  &[data-estado='VENCIDA'] {
+    background: var(--warning-light);
+    color: #b45309;
+  }
+
+  &[data-estado='CANCELADA'] {
+    background: var(--color-brand-light);
+    color: var(--color-brand-dark);
+  }
+}
+
+.btn-primary {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--color-brand);
+  color: #fff;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-brand-dark);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

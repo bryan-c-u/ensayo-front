@@ -1,0 +1,97 @@
+:host {
+  display: block;
+}
+
+.dev-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0f172a;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.hint,
+.warn,
+.current {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.warn {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.current {
+  margin: 12px 0 16px;
+}
+
+code {
+  background: #f1f5f9;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.role-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.role-btn:hover {
+  border-color: #c8102e;
+  background: #fff;
+}
+
+.role-label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.role-landing {
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: ui-monospace, monospace;
+}
+
+.logout {
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}

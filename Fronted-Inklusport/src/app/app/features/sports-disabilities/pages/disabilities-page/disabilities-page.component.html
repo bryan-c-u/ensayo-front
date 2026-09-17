@@ -1,0 +1,103 @@
+<app-panel-shell>
+  <h1 class="page-title">{{ 'DISABILITIES_PAGE.TITLE' | translate }}</h1>
+  <p class="page-subtitle">{{ 'DISABILITIES_PAGE.SUBTITLE' | translate }}</p>
+  <p *ngIf="successMessage" class="empty-text">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div class="card" style="margin-bottom: 16px;">
+    <h3 class="section-title">{{ 'DISABILITIES_PAGE.REGISTER' | translate }}</h3>
+    <form class="form-grid" [formGroup]="form" (ngSubmit)="create()">
+      <label>{{ 'CATALOG.NAME' | translate }} <input formControlName="name" [placeholder]="'DISABILITIES_PAGE.NAME_PH' | translate" /></label>
+      <label>{{ 'DISABILITIES_PAGE.CATEGORY' | translate }}
+        <select formControlName="category">
+          <option value="fisica">{{ 'DISABILITIES_PAGE.PHYSICAL' | translate }}</option>
+          <option value="visual">{{ 'DISABILITIES_PAGE.VISUAL' | translate }}</option>
+          <option value="auditiva">{{ 'DISABILITIES_PAGE.HEARING' | translate }}</option>
+          <option value="intelectual">{{ 'DISABILITIES_PAGE.INTELLECTUAL' | translate }}</option>
+          <option value="multiple">{{ 'DISABILITIES_PAGE.MULTIPLE' | translate }}</option>
+        </select>
+      </label>
+      <label style="grid-column: 1 / -1;">{{ 'COMMON.DESCRIPTION' | translate }} <input formControlName="description" /></label>
+      <div><button class="btn-primary" type="submit">{{ 'CATALOG.CREATE' | translate }}</button></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">{{ 'DISABILITIES_PAGE.SEARCH' | translate }}</h3>
+    <p class="kpi-sub" style="margin-bottom: 12px;">
+      {{ 'DISABILITIES_PAGE.SEARCH_HINT' | translate }}
+    </p>
+    <div class="search-bar">
+      <input
+        type="search"
+        name="disabilityQuery"
+        [(ngModel)]="searchQuery"
+        [placeholder]="'DISABILITIES_PAGE.FILTER_PH' | translate"
+      />
+      <select name="disabilityStatus" [(ngModel)]="statusFilter">
+        <option value="all">{{ 'DISABILITIES_PAGE.STATUS_ALL' | translate }}</option>
+        <option value="active">{{ 'DISABILITIES_PAGE.STATUS_ACTIVE' | translate }}</option>
+        <option value="inactive">{{ 'DISABILITIES_PAGE.STATUS_INACTIVE' | translate }}</option>
+      </select>
+      <select name="disabilityCategory" [(ngModel)]="categoryFilter">
+        <option value="">{{ 'DISABILITIES_PAGE.CATEGORY_ALL' | translate }}</option>
+        <option value="fisica">{{ 'DISABILITIES_PAGE.PHYSICAL' | translate }}</option>
+        <option value="visual">{{ 'DISABILITIES_PAGE.VISUAL' | translate }}</option>
+        <option value="auditiva">{{ 'DISABILITIES_PAGE.HEARING' | translate }}</option>
+        <option value="intelectual">{{ 'DISABILITIES_PAGE.INTELLECTUAL' | translate }}</option>
+        <option value="multiple">{{ 'DISABILITIES_PAGE.MULTIPLE' | translate }}</option>
+      </select>
+      <button
+        class="btn-secondary"
+        type="button"
+        *ngIf="searchQuery.trim() || statusFilter !== 'all' || categoryFilter"
+        (click)="clearSearch()"
+      >
+        {{ 'COMMON.CLEAR' | translate }}
+      </button>
+    </div>
+    <p class="search-count" *ngIf="searchQuery.trim() || statusFilter !== 'all' || categoryFilter">
+      {{ 'COMMON.RESULTS' | translate:{ count: filteredItems.length } }}
+    </p>
+    <div *ngFor="let item of filteredItems">
+      <div class="list-item">
+        <div>
+          <strong>#{{ item.id }} · {{ item.name }}</strong>
+          <div class="kpi-sub">{{ item.category || '—' }} · {{ item.description || 'Sin descripción' }}</div>
+        </div>
+        <div class="item-actions">
+          <span class="status-pill" [class.status-pill--ok]="item.isActive" [class.status-pill--bad]="!item.isActive">
+            {{ item.isActive ? 'Activa' : 'Desactivada' }}
+          </span>
+          <button class="btn-secondary" type="button" (click)="startEdit(item)">Editar</button>
+          <button class="btn-secondary" type="button" *ngIf="item.isActive" (click)="deactivate(item)">Desactivar</button>
+          <button class="btn-primary" type="button" *ngIf="!item.isActive" (click)="activate(item)">Reactivar</button>
+          <button class="btn-danger" type="button" (click)="remove(item)">Eliminar</button>
+        </div>
+      </div>
+
+      <form *ngIf="editingId === item.id" class="form-grid" [formGroup]="editForm" (ngSubmit)="saveEdit(item)" style="margin-bottom: 12px;">
+        <label>Nombre <input formControlName="name" /></label>
+        <label>Categoría
+          <select formControlName="category">
+            <option value="fisica">Física</option>
+            <option value="visual">Visual</option>
+            <option value="auditiva">Auditiva</option>
+            <option value="intelectual">Intelectual</option>
+            <option value="multiple">Múltiple</option>
+          </select>
+        </label>
+        <label style="grid-column: 1 / -1;">Descripción <input formControlName="description" /></label>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-primary" type="submit">Guardar nombre</button>
+          <button class="btn-secondary" type="button" (click)="cancelEdit()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <p *ngIf="!filteredItems.length" class="empty-text">
+      {{ (searchQuery.trim() || statusFilter !== 'all' || categoryFilter)
+        ? ('DISABILITIES_PAGE.EMPTY_SEARCH' | translate)
+        : ('DISABILITIES_PAGE.EMPTY' | translate) }}
+    </p>
+  </div>
+</app-panel-shell>

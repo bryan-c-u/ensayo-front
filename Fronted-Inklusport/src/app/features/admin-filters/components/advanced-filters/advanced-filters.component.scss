@@ -1,0 +1,81 @@
+.advanced-filters {
+  position: relative;
+  display: inline-block;
+
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+
+    svg { width: 14px; height: 14px; }
+  }
+
+  .filters-panel {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 420px;
+    max-width: 90vw;
+    padding: 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .filters-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+
+      input,
+      select {
+        padding: 8px;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .filters-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+
+    button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-clear {
+      border: 1px solid #e5e5e5;
+      background: #fff;
+    }
+
+    .btn-apply {
+      border: none;
+      background: #c8102e;
+      color: #fff;
+    }
+  }
+}

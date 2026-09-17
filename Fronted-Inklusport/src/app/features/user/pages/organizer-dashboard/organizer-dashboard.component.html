@@ -1,0 +1,109 @@
+<!-- organizer-dashboard · M02 · datos reales (ink-ms-suscripciones + ink-ms-sports) -->
+<div class="page-container">
+
+  <app-organizer-sidebar activeItem="dashboard"></app-organizer-sidebar>
+
+  <div class="content-area">
+    <main class="main-container">
+
+      <div class="page-header">
+        <div class="welcome">
+          <h1>Panel del organizador</h1>
+          <p>Resumen de tu suscripción y tus eventos.</p>
+        </div>
+      </div>
+
+      <p *ngIf="cargando" class="state-msg">Cargando…</p>
+      <p *ngIf="error" class="alert-banner" role="alert">{{ error }}</p>
+
+      <ng-container *ngIf="!cargando && !error">
+        <!-- KPIs -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Mis<br>eventos</span></div>
+            <div class="kpi-value">{{ totalEventos }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Eventos<br>activos</span></div>
+            <div class="kpi-value">{{ eventosActivos }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Inscritos<br>totales</span></div>
+            <div class="kpi-value">{{ inscritosTotales }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header"><span class="kpi-label">Ocupación<br>promedio</span></div>
+            <div class="kpi-value">{{ ocupacionPromedio }}%</div>
+            <div class="kpi-progress"><div class="kpi-progress-fill" [style.width.%]="ocupacionPromedio"></div></div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="main-col">
+            <div class="card">
+              <div class="card-header-flex">
+                <h3 class="card-title">Próximos eventos</h3>
+                <a class="link-arrow" routerLink="/events/organizer/events">Ver todos</a>
+              </div>
+
+              <table class="events-table" *ngIf="proximos.length; else sinEventos">
+                <thead>
+                  <tr><th>Evento</th><th>Fecha</th><th>Ocupación</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of proximos">
+                    <td>
+                      <div class="event-cell-name">{{ e.name }}</div>
+                      <div class="event-cell-sub">{{ e.sportName }} · {{ e.location || 'Sin ubicación' }}</div>
+                    </td>
+                    <td class="date-cell">{{ e.eventDate }}</td>
+                    <td>
+                      <div class="occupancy-cell">
+                        <div class="occupancy-bar-bg">
+                          <div class="occupancy-bar-fill" [style.width.%]="ocupacion(e)"></div>
+                        </div>
+                        <span class="occupancy-text">{{ inscritos(e) }}/{{ e.maxCapacity }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #sinEventos>
+                <p class="state-msg">No tienes eventos próximos.</p>
+              </ng-template>
+            </div>
+          </div>
+
+          <aside class="side-col">
+            <div class="sub-card">
+              <div class="sub-header">
+                <span class="sub-title">Mi suscripción</span>
+                <span class="sub-badge" *ngIf="suscripcion">{{ suscripcion.estado }}</span>
+              </div>
+
+              <ng-container *ngIf="suscripcion; else sinSub">
+                <div class="sub-plan">Plan {{ suscripcion.planNombre }}</div>
+                <div class="sub-usage">
+                  <span>Uso de eventos</span>
+                  <strong>
+                    {{ suscripcion.eventosCreadosMes }}<ng-container *ngIf="suscripcion.limiteEventosMes != null"> / {{ suscripcion.limiteEventosMes }}</ng-container>
+                  </strong>
+                </div>
+                <div class="sub-bar" *ngIf="suscripcion.limiteEventosMes">
+                  <div class="sub-bar-fill"
+                       [style.width.%]="(suscripcion.eventosCreadosMes / suscripcion.limiteEventosMes) * 100"></div>
+                </div>
+                <div class="sub-renew">Vence: {{ suscripcion.fechaFin }}</div>
+                <a class="link-arrow" routerLink="/subscriptions/estado">Gestionar suscripción</a>
+              </ng-container>
+              <ng-template #sinSub>
+                <p class="state-msg">No tienes una suscripción activa.</p>
+                <a class="link-arrow" routerLink="/subscriptions/planes">Ver planes</a>
+              </ng-template>
+            </div>
+          </aside>
+        </div>
+      </ng-container>
+    </main>
+  </div>
+</div>

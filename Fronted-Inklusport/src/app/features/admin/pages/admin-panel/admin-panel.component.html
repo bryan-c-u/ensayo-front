@@ -1,35 +1,10 @@
 <div class="page-container">
 
-  <app-admin-sidebar
-    [(isOpen)]="sidebarOpen"
-    activeItem="dashboard">
-  </app-admin-sidebar>
+  <app-admin-sidebar activeItem="dashboard"></app-admin-sidebar>
 
   <!-- ÁREA DE CONTENIDO -->
   <div class="content-area">
-    <!-- NAVBAR SUPERIOR -->
-    <div class="top-navbar">
-      <div class="top-nav-left">
-        <button 
-          class="menu-toggle-btn" 
-          (click)="toggleSidebar()"
-          aria-label="Abrir menú">
-          ☰
-        </button>
-        <div class="top-nav-title">Panel administrativo de Inklusport</div>
-      </div>
-      <div class="top-nav-actions">
-        <button class="icon-button">🔍</button>
-        <button class="icon-button">🔔</button>
-        <button class="logout-button" (click)="handleLogout()">Cerrar sesión</button>
-        <div class="top-avatar">
-          <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
-            alt="Usuario" 
-          />
-        </div>
-      </div>
-    </div>
+    <div *ngIf="error" class="data-banner data-banner-error">{{ error }}</div>
 
     <!-- ENCABEZADO -->
     <header class="header-bar fade-in-up delay-1">

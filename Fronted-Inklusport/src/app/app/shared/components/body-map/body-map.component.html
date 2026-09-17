@@ -1,0 +1,22 @@
+<figure class="body-map" [class.body-map--compact]="compact" [attr.aria-label]="nota || ('BODY_MAP.NOTE' | translate)">
+  <div class="body-map-views">
+    <div class="body-map-view">
+      <span class="body-map-label">{{ 'BODY_MAP.FRONT' | translate }}</span>
+      <div #frenteChart class="body-map-chart"></div>
+    </div>
+    <div class="body-map-view">
+      <span class="body-map-label">{{ 'BODY_MAP.BACK' | translate }}</span>
+      <div #espaldaChart class="body-map-chart"></div>
+    </div>
+  </div>
+
+  <figcaption>
+    <p class="body-map-limit" *ngIf="limitacion">
+      <strong>{{ 'BODY_MAP.LIMITATION' | translate }}:</strong> {{ limitacion }}
+    </p>
+    <ul class="body-map-tags" *ngIf="etiquetas.length">
+      <li *ngFor="let etiqueta of etiquetas">{{ etiqueta }}</li>
+    </ul>
+    <p class="body-map-note">{{ nota || ('BODY_MAP.NOTE' | translate) }}</p>
+  </figcaption>
+</figure>

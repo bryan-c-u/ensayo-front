@@ -1,0 +1,27 @@
+.export-buttons {
+  display: inline-flex;
+  gap: 8px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-primary {
+    background: #c8102e;
+    border-color: #c8102e;
+    color: #fff;
+  }
+}

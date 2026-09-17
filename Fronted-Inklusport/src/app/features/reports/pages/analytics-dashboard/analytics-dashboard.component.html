@@ -1,0 +1,39 @@
+<div class="page-container">
+
+  <app-admin-sidebar activeItem="reports"></app-admin-sidebar>
+
+  <div class="content-area">
+    <main class="main-content">
+      <section class="page-header">
+        <div>
+          <div class="page-label">Reportes y Analítica</div>
+          <h1 class="page-title">Panel de Analítica</h1>
+        </div>
+        <app-export-buttons (export)="onExport($event)"></app-export-buttons>
+      </section>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">Asistencia Mensual</h3>
+            <p class="chart-subtitle">Métricas de participación en todos los eventos</p>
+          </div>
+          <app-bar-chart [data]="monthlyAttendance"></app-bar-chart>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">Distribución de Discapacidades</h3>
+            <p class="chart-subtitle">Segmentación demográfica de usuarios</p>
+          </div>
+          <app-donut-chart
+            [segments]="disabilityDistribution"
+            centerValue="1.2k"
+            centerLabel="Usuarios Totales">
+          </app-donut-chart>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>

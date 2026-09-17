@@ -1,0 +1,50 @@
+<section class="pago" [attr.data-resultado]="resultado">
+  <div class="pago__card">
+
+    <div class="pago__icon" aria-hidden="true">
+      <ng-container [ngSwitch]="resultado">
+        <span *ngSwitchCase="'exito'">✓</span>
+        <span *ngSwitchCase="'error'">✕</span>
+        <span *ngSwitchDefault>⏳</span>
+      </ng-container>
+    </div>
+
+    <ng-container [ngSwitch]="resultado">
+      <h1 *ngSwitchCase="'exito'">¡Pago confirmado!</h1>
+      <h1 *ngSwitchCase="'error'">El pago no se completó</h1>
+      <h1 *ngSwitchDefault>Estamos confirmando tu pago</h1>
+    </ng-container>
+
+    <p class="pago__msg" *ngIf="resultado === 'exito'">
+      Tu {{ tipo === 'EVENTO' ? 'inscripción' : 'suscripción' }} quedó activa. Te enviamos el comprobante por correo.
+    </p>
+    <p class="pago__msg" *ngIf="resultado === 'error'">
+      No se registró el cobro. No se realizó ningún cargo; puedes intentarlo de nuevo.
+    </p>
+    <p class="pago__msg" *ngIf="resultado === 'pendiente'">
+      <ng-container *ngIf="consultando">Verificando con Mercado Pago…</ng-container>
+      <ng-container *ngIf="!consultando && intentosAgotados">
+        El pago sigue en revisión (efectivo o PSE en proceso). Te avisaremos por correo en cuanto se acredite.
+      </ng-container>
+      <ng-container *ngIf="!consultando && !intentosAgotados && !referencia">
+        No encontramos datos del pago en el enlace de retorno.
+      </ng-container>
+    </p>
+
+    <p class="pago__ref" *ngIf="referencia">Referencia: <code>{{ referencia }}</code></p>
+
+    <div class="pago__actions">
+      <a class="pago__btn" [routerLink]="volverRuta">
+        {{ tipo === 'EVENTO' ? 'Volver a eventos' : 'Ver mi suscripción' }}
+      </a>
+      <button
+        type="button"
+        class="pago__btn pago__btn--ghost"
+        *ngIf="resultado === 'error'"
+        (click)="reintentar()"
+      >
+        Reintentar
+      </button>
+    </div>
+  </div>
+</section>

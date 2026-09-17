@@ -1,0 +1,252 @@
+/* ==========================================================================
+   MENÚ LATERAL — ORGANIZADOR
+   Autónomo: incluye su propio botón de esconder/mostrar y el de cerrar sesión.
+   No necesita ninguna barra superior.
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 260px;
+  flex-shrink: 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Menú escondido: el hueco se cierra y el contenido ocupa todo el ancho */
+:host(.collapsed) {
+  width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Panel del menú (fijo a la izquierda; el :host actúa como espaciador)
+   -------------------------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host(.collapsed) .sidebar {
+  transform: translateX(-100%);
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+
+  .brand-title {
+    font-size: 22px;
+    font-weight: 850;
+    letter-spacing: 0.4px;
+    color: #dc2626;
+  }
+}
+
+/* Botón para esconder el menú (dentro del panel) */
+.sidebar-hide-btn {
+  border: none;
+  background-color: #f3f4f6;
+  color: #374151;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+}
+
+/* Botón flotante para volver a mostrar el menú (visible solo si está escondido) */
+.sidebar-show-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 120;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: none;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+}
+
+:host(.collapsed) .sidebar-show-btn {
+  display: block;
+}
+
+/* Fondo oscuro: solo aparece en móvil cuando el menú está abierto */
+.sidebar-backdrop {
+  display: none;
+}
+
+.organizer-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid #f3f4f6;
+
+  .organizer-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    flex-shrink: 0;
+    border: 2px solid #dc2626;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .organizer-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .organizer-role {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+
+  .sidebar-nav-item {
+    border: none;
+    background: transparent;
+    color: #4b5563;
+    text-align: left;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+
+    .nav-icon {
+      margin-right: 16px;
+      font-size: 16px;
+    }
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+
+    &.active {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+    }
+  }
+
+  .sidebar-divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 12px 4px;
+  }
+}
+
+/* Botón de salir (cerrar sesión) */
+.logout-btn {
+  border: none;
+  background-color: #f3f4f6;
+  color: #374151;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  transition: all 0.2s ease;
+
+  .nav-icon {
+    margin-right: 16px;
+    font-size: 16px;
+  }
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Móvil: el menú se superpone al contenido con un fondo oscuro
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :host {
+    width: 0;
+  }
+
+  .sidebar {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  :host:not(.collapsed) .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 95;
+  }
+
+  /* En móvil el botón flotante aparece siempre que el menú esté escondido */
+  :host(.collapsed) .sidebar-show-btn {
+    display: block;
+  }
+}
